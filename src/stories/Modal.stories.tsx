@@ -4,6 +4,7 @@ import { Head } from "../components/Head";
 import { Footer } from "../components/Footer"
 import { Title, TitleWithParagraph } from "../components/Title"
 import { Paragraph } from "../components/Paragraph"
+import { Button } from "../components/Button"
 
 export default {
   name: "Modal",
@@ -31,6 +32,9 @@ export const Basic = () => (
             Click to learn more about the permaweb & wallets.
           </Paragraph>
         </TitleWithParagraph>
+        <Button>
+          MORE
+        </Button>
       </Footer>
     </Modal>
   </ArConnectKit>
