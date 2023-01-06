@@ -1,4 +1,5 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { CloseIcon } from "@iconicicons/react";
 import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
@@ -73,14 +74,79 @@ const Wrapper = styled(motion.div).attrs({
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 25vw;
+  width: 28vw;
   background-color: rgb(${props => props.theme.background});
   border-radius: 30px;
-  padding: 20px;
   z-index: 100000;
+  font-family: "Manrope", sans-serif;
+
+  @media screen and (max-width: 1080px) {
+    width: 50vw;
+  }
+
+  @media screen and (max-width: 720px) {
+    width: 90vw;
+  }
 `;
 
 interface Props {
   open: boolean;
+  onClose: () => void;
+}
+
+Modal.Head = ({ children, onClose }: PropsWithChildren<HeadProps>) => (
+  <HeadWrapper>
+    {children}
+    <CloseButton onClick={onClose}>
+      <CloseIcon />
+    </CloseButton>
+  </HeadWrapper>
+);
+
+const HeadWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  h1 {
+    font-family: "Manrope", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(${props => props.theme.primaryText});
+    margin: 0;
+  }
+`;
+
+const CloseButton = styled.div`
+  position: relative;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 100%;
+  background-color: rgb(${props => props.theme.light});
+  cursor: pointer;
+  transition: opacity .23s ease-in-out;
+
+  &:hover {
+    opacity: .8;
+  }
+
+  &:active {
+    transform: scale(.92);
+  }
+
+  svg {
+    font-size: 1.1rem;
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: rgb(${props => props.theme.secondaryText});
+    transform: translate(-50%, -50%);
+  }
+`;
+
+interface HeadProps {
   onClose: () => void;
 }

@@ -1,5 +1,5 @@
+import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal";
-import { ArConnectKit } from "../components/Provider"
 
 export default {
   name: "Modal",
@@ -9,7 +9,11 @@ export default {
 export const Basic = () => (
   <ArConnectKit>
     <Modal open={true} onClose={() => {}}>
-      <h1>Test</h1>
+      <Modal.Head onClose={() => {}}>
+        <h1>
+          Connect wallet
+        </h1>
+      </Modal.Head>
       <br />
       <br />
       <br />
