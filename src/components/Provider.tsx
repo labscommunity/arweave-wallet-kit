@@ -1,4 +1,5 @@
 import { ThemeProvider } from "styled-components";
+import { DisplayTheme } from "../vite-env";
 import { PropsWithChildren } from "react";
 
 const defaultTheme: ThemeConfig = {
@@ -34,6 +35,7 @@ export function ArConnectKit({
   return (
     <ThemeProvider theme={{
       ...(theme.displayTheme === "light" ? lightTheme : darkTheme),
+      displayTheme: theme.displayTheme || "light",
       theme: `${theme.colorTheme?.r}, ${theme.colorTheme?.g}, ${theme.colorTheme?.b}`
     }}>
       {children}
@@ -57,11 +59,4 @@ interface ThemeConfig {
 
 interface Config {
 
-}
-
-interface DisplayTheme {
-  background: string;
-  primaryText: string;
-  secondaryText: string;
-  light: string;
 }

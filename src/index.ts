@@ -1,1 +1,1 @@
-export { Button } from "./components/Test";
+export { ArConnectKit } from "./components/Provider";
