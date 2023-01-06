@@ -1,5 +1,9 @@
 import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal";
+import { Head } from "../components/Head";
+import { Footer } from "../components/Footer"
+import { Title, TitleWithParagraph } from "../components/Title"
+import { Paragraph } from "../components/Paragraph"
 
 export default {
   name: "Modal",
@@ -9,15 +13,25 @@ export default {
 export const Basic = () => (
   <ArConnectKit>
     <Modal open={true} onClose={() => {}}>
-      <Modal.Head onClose={() => {}}>
-        <h1>
+      <Head onClose={() => {}}>
+        <Title>
           Connect wallet
-        </h1>
-      </Modal.Head>
+        </Title>
+      </Head>
       <br />
       <br />
       <br />
       <br />
+      <Footer>
+        <TitleWithParagraph>
+          <Title small>
+            New to Arweave?
+          </Title>
+          <Paragraph small>
+            Click to learn more about the permaweb & wallets.
+          </Paragraph>
+        </TitleWithParagraph>
+      </Footer>
     </Modal>
   </ArConnectKit>
 );
