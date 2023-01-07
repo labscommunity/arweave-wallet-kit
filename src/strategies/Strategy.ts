@@ -9,6 +9,7 @@ export default abstract class Strategy {
   public abstract description: string;
   public abstract theme?: string;
   public abstract logo: string;
+  public abstract url: string;
 
   // connection
   public abstract connect(
@@ -43,4 +44,7 @@ export default abstract class Strategy {
   public abstract getActivePublicKey(): Promise<string>;
   public abstract addToken(id: string): Promise<void>;
   public abstract dispatch(transaction: Transaction): Promise<DispatchResult>;
+
+  /** Is this strategy available in the current context */
+  public abstract isAvailable(): Promise<boolean> | boolean;
 }

@@ -1,16 +1,17 @@
 import { AppIcon, Application, Logo } from "../components/Application";
 import { Title, TitleWithParagraph } from "../components/Title";
 import { useEffect, useMemo, useState } from "react";
+import { ChevronLeftIcon } from "@iconicicons/react";
 import { Paragraph } from "../components/Paragraph";
 import { Footer } from "../components/Modal/Footer";
 import { Modal } from "../components/Modal/Modal";
+import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import strategies from "../strategies";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
-import { ChevronLeftIcon } from "@iconicicons/react"
 
 export function ConnectModal() {
   // modal controlls and statuses
@@ -31,7 +32,38 @@ export function ConnectModal() {
   const [selectedStrategy, setSelectedStrategy] = useState<string>();
 
   // selected strategy data
-  const strategyData = useMemo(() => strategies.find((s) => s.id === selectedStrategy), [selectedStrategy, strategies]);
+  const strategyData = useMemo(
+    () => strategies.find((s) => s.id === selectedStrategy),
+    [selectedStrategy, strategies]
+  );
+
+  // loadings
+  const [connecting, setConnecting] = useState(false);
+  const [loadingAvailability, setLoadingAvailability] = useState(false);
+
+  // strategy available
+  const [strategyAvailable, setStrategyAvailable] = useState(false);
+
+  // go to connect screen for strategy
+  async function goToConnect(strategyID: string) {
+    const s = strategies.find((s) => s.id === strategyID);
+
+    if (!s) return;
+
+    setLoadingAvailability(true);
+    setSelectedStrategy(strategyID);
+    
+    try {
+      const available = await s.isAvailable();
+
+      setStrategyAvailable(available);
+      // TODO: connect here
+    } catch {
+      setStrategyAvailable(false);
+    }
+
+    setLoadingAvailability(false);
+  }
 
   return (
     <Modal {...modalController.bindings}>
@@ -55,7 +87,7 @@ export function ConnectModal() {
               description={strategy.description}
               logo={strategy.logo}
               theme={strategy.theme}
-              onClick={() => setSelectedStrategy(strategy.id)}
+              onClick={() => goToConnect(strategy.id)}
               key={i}
             />
           ))}
@@ -66,12 +98,29 @@ export function ConnectModal() {
             <AppIcon colorTheme={strategyData?.theme}>
               <Logo src={strategyData?.logo} />
             </AppIcon>
-            <Title small>
-              Connecting to {strategyData?.name || ""}...
-            </Title>
-            <Paragraph>
-              Confirm connection request in the wallet popup window
-            </Paragraph>
+            {(strategyAvailable && (
+              <>
+                <Title small>
+                  Connecting to {strategyData?.name || ""}...
+                </Title>
+                <Paragraph>
+                  Confirm connection request in the wallet popup window
+                </Paragraph>
+              </>
+            )) || (!loadingAvailability && (
+              <>
+                <Title small>
+                  {strategyData?.name || ""} is not available.
+                </Title>
+                <Paragraph>
+                  If you don't have it yet, you can try to download it
+                </Paragraph>
+                <Button onClick={() => window.open(strategyData?.url)}>
+                  Download
+                </Button>
+              </>
+            ))}
+            {connecting || loadingAvailability && <ConnectLoading />}
           </WalletData>
         </Connecting>
       )}
@@ -98,7 +147,7 @@ const Apps = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 1.2rem;
-  height: 280px;
+  max-height: 280px;
   overflow-y: auto;
 `;
 
@@ -128,6 +177,20 @@ const WalletData = styled.div`
   ${Paragraph} {
     text-align: center;
   }
+
+  ${Button} {
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+`;
+
+const ConnectLoading = styled(Loading)`
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  color: rgb(${props => props.theme.primaryText});
+  width: 1.25rem;
+  height: 1.25rem;
 `;
 
 const BackButton = styled(ChevronLeftIcon)`
