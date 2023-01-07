@@ -1,5 +1,5 @@
 import useGlobalState from "./global";
-import strategies from "../strategy";
+import strategies, { getStrategy } from "../strategy";
 import { useMemo } from "react";
 
 /**
@@ -21,7 +21,7 @@ export default function useActiveStrategy() {
       return undefined;
     }
 
-    return strategies.find((strat) => strat.id === activeStrategy);
+    return getStrategy(activeStrategy);
   }, [activeStrategy]);
 
   return strategy;

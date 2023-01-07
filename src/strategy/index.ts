@@ -35,12 +35,16 @@ export async function syncStrategies(requiredPermissions: PermissionType[], enfo
 /**
  * Save active strategy to localstorage
  */
-export async function saveStrategy(active: string) {
+export function saveStrategy(active: string) {
   if (!localStorage) {
     return;
   }
 
   localStorage.setItem(STRATEGY_STORE, active);
+}
+
+export function getStrategy(id: string) {
+  return strategies.find((s) => s.id === id);
 }
 
 export default strategies;

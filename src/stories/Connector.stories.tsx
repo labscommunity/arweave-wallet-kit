@@ -1,7 +1,7 @@
 import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default {
   name: "Modal",
@@ -29,18 +29,35 @@ const Button = () => {
 
   const [status, setStatus] = useState("Idle...");
 
+  useEffect(() => {
+    if (connection.connected) {
+      setStatus("connected")
+    }
+  }, [connection])
+
   async function connect() {
     try {
       await connection.connect();
-      setStatus("connected");
     } catch {
       setStatus("cancelled");
     }
   }
 
+  async function disconnect() {
+    try {
+      await connection.disconnect();
+    } catch {}
+  }
+
   return (
     <>
-      <button onClick={connect}>connect</button>
+      <button onClick={() => {
+        if (connection.connected) {
+          disconnect();
+        } else {
+          connect();
+        }
+      }}>{connection.connected ? "disconnect" : "connect"}</button>
       {status}
     </>
   );

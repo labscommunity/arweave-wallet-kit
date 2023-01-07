@@ -21,16 +21,16 @@ export default function useConnection() {
         return setConnected(false);
       }
 
-      if (ensurePermissions) {
-        try {
-          const permissions = await strategy.getPermissions();
+      try {
+        const permissions = await strategy.getPermissions();
 
-          return setConnected(comparePermissions(requiredPermissions, permissions));
-        } catch {
-          setConnected(false);
+        if (ensurePermissions) {
+          setConnected(comparePermissions(requiredPermissions, permissions));
+        } else {
+          setConnected(permissions.length > 0);
         }
-      } else {
-        return setConnected(true);
+      } catch {
+        setConnected(false);
       }
     })();
   }, [strategy, requiredPermissions, ensurePermissions]);
@@ -72,8 +72,12 @@ export default function useConnection() {
         });
 
         // handle result
-        if (e.data.res) resolve();
-        else reject("[ArConnect Kit] User cancelled the connection");
+        if (e.data.res) {
+          setConnected(true);
+          resolve();
+        } else {
+          reject("[ArConnect Kit] User cancelled the connection");
+        }
       }
     );
   });
@@ -88,6 +92,7 @@ export default function useConnection() {
 
     try {
       await strategy.disconnect();
+
       dispatch({ type: "DISCONNECT" });
     } catch (e: any) {
       throw new Error("[ArConnect Kit] Could not disconnect\n" + (e?.message || e));

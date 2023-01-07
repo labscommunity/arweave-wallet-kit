@@ -1,6 +1,6 @@
 import { AppIcon, Application, Logo } from "../components/Application";
+import strategies, { getStrategy, saveStrategy } from "../strategy";
 import { Title, TitleWithParagraph } from "../components/Title";
-import strategies, { saveStrategy } from "../strategy";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeftIcon } from "@iconicicons/react";
 import { Paragraph } from "../components/Paragraph";
@@ -34,7 +34,7 @@ export function ConnectModal() {
 
   // selected strategy data
   const strategyData = useMemo(
-    () => strategies.find((s) => s.id === selectedStrategy),
+    () => selectedStrategy ? getStrategy(selectedStrategy) : undefined,
     [selectedStrategy, strategies]
   );
 
