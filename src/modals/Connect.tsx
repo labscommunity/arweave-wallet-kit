@@ -100,9 +100,17 @@ export function ConnectModal() {
       dispatch({ type: "CLOSE_MODAL" });
 
       // save strategy
-      await saveStrategy(s.id);
+      saveStrategy(s.id);
+      dispatch({
+        type: "UPDATE_STRATEGY",
+        payload: s.id
+      });
     } catch {
       setRetry(true);
+      dispatch({
+        type: "UPDATE_STRATEGY",
+        payload: false
+      });
     }
     
     setConnecting(false);

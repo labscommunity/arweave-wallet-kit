@@ -1,4 +1,5 @@
 import { comparePermissions } from "../utils";
+import { STRATEGY_STORE } from "../strategy";
 import { useEffect, useState } from "react";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
@@ -93,6 +94,7 @@ export default function useConnection() {
     try {
       await strategy.disconnect();
 
+      localStorage.removeItem(STRATEGY_STORE);
       dispatch({ type: "DISCONNECT" });
     } catch (e: any) {
       throw new Error("[ArConnect Kit] Could not disconnect\n" + (e?.message || e));

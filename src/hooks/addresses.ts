@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getStrategy } from "../strategy"
+import useActiveStrategy from "./strategy";
+import { getStrategy } from "../strategy";
 import useAddress from "./active_address";
 import useGlobalState from "./global";
 
@@ -8,15 +9,10 @@ export default function useAddresses() {
 
   const activeAddress = useAddress();
   const { state } = useGlobalState();
+  const strategy = useActiveStrategy();
 
   useEffect(() => {
     (async () => {
-      if (!state?.activeStrategy) {
-        return setAddresses([]);
-      }
-
-      const strategy = getStrategy(state.activeStrategy);
-
       if (!strategy) {
         return setAddresses([]);
       }
@@ -37,7 +33,7 @@ export default function useAddresses() {
 
       return () => removeEventListener("focus", sync);
     })();
-  }, [activeAddress, state]);
+  }, [activeAddress, state, strategy]);
 
   return addresses;
 }
@@ -46,15 +42,10 @@ export function useWalletNames() {
   const [names, setNames] = useState<{ [addr: string]: string }>({});
   const addresses = useAddresses();
   const { state } = useGlobalState();
+  const strategy = useActiveStrategy();
 
   useEffect(() => {
     (async () => {
-      if (!state?.activeStrategy) {
-        return setNames({});
-      }
-
-      const strategy = getStrategy(state.activeStrategy);
-
       if (!strategy) {
         return setNames({});
       }

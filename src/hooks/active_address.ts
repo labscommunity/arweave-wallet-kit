@@ -1,7 +1,6 @@
-import { Actions } from "../context/faces";
-import { getStrategy } from "../strategy";
+import { useEffect, useState } from "react";
+import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
-import { useEffect } from "react";
 
 /**
  * Active address hook
@@ -14,18 +13,13 @@ export default function useAddress() {
 }
 
 // sync address in global state
-export async function useSyncAddress(activeStrategy: string | false, dispatch: (value: Actions) => void) {
+export async function useSyncAddress() {
+  const strategy = useActiveStrategy();
+  const { dispatch } = useGlobalState();
+
   useEffect(() => {
     (async () => {
-      if (!activeStrategy) {
-        return;
-      }
-
-      const strategy = getStrategy(activeStrategy);
-
-      if (!strategy) {
-        return;
-      }
+      if (!strategy) return;
 
       // get active address and sync the global state
       const sync = async () => {
@@ -56,5 +50,21 @@ export async function useSyncAddress(activeStrategy: string | false, dispatch: (
         removeEventListener("focus", sync);
       };
     })();
-  }, [activeStrategy]);
+  }, [strategy]);
+}
+
+export function usePublicKey() {
+  const [publicKey, setPublicKey] = useState<string>();
+  const strategy = useActiveStrategy();
+  const address = useAddress();
+
+  useEffect(() => {
+    (async () => {
+      if (!strategy) return;
+
+      setPublicKey(await strategy.getActivePublicKey());
+    })();
+  }, [address, strategy]);
+
+  return publicKey;
 }
