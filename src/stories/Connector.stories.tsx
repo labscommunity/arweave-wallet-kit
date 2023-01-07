@@ -4,6 +4,7 @@ import useConnection from "../hooks/connection";
 import { useEffect, useState } from "react";
 import useAddress from "../hooks/active_address"
 import useAddresses, { useWalletNames } from "../hooks/addresses"
+import useProfileModal from "../hooks/profile"
 
 export default {
   name: "Modal",
@@ -55,8 +56,15 @@ const Button = () => {
   const addresses = useAddresses();
   const walletNames = useWalletNames();
 
+  const profileModal = useProfileModal();
+
   return (
     <>
+      {connection.connected && (
+        <button onClick={() => profileModal.setOpen(true)}>
+          profile
+        </button>
+      )}
       <button onClick={() => {
         if (connection.connected) {
           disconnect();

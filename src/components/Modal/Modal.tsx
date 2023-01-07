@@ -5,7 +5,13 @@ import styled from "styled-components";
 export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
   return (
     <AnimatePresence>
-      {open && <BackgroundLayer key="bg" onClick={onClose} />}
+      {open && (
+        <BackgroundLayer key="bg" onClick={onClose}>
+          <KitName>
+            ArConnect Kit
+          </KitName>
+        </BackgroundLayer>
+      )}
       {open && (
         <Wrapper key="modal">
           {children}
@@ -87,6 +93,18 @@ const Wrapper = styled(motion.div).attrs({
   @media screen and (max-width: 720px) {
     width: 90vw;
   }
+`;
+
+const KitName = styled.p`
+  position: fixed;
+  font-family: "Manrope", sans-serif;
+  font-size: .8rem;
+  text-align: center;
+  margin: 0;
+  color: rgb(255, 255, 255, .5);
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
 `;
 
 interface Props {

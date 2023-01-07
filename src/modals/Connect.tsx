@@ -10,6 +10,7 @@ import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
+import useGatewayURL from "../hooks/gateway";
 import Strategy from "../strategy/Strategy";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
@@ -125,15 +126,8 @@ export function ConnectModal() {
     dispatch({ type: "CLOSE_MODAL" });
   }
 
-  const gateway = useMemo(() => {
-    const gatewayConfig = state?.config?.gatewayConfig;
-
-    if (!gatewayConfig) {
-      return "https://arweave.net";
-    }
-
-    return `${gatewayConfig.protocol}://${gatewayConfig.host}:${gatewayConfig.protocol}`;
-  }, [state?.config?.gatewayConfig])
+  // active gateway url
+  const gateway = useGatewayURL();
 
   return (
     <Modal
@@ -211,7 +205,7 @@ export function ConnectModal() {
             Click to learn more about the permaweb & wallets.
           </Paragraph>
         </TitleWithParagraph>
-        <Button>
+        <Button onClick={() => window.open("https://arwiki.wiki")}>
           MORE
         </Button>
       </Footer>

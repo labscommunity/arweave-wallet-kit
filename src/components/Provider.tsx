@@ -4,6 +4,7 @@ import { useSyncStrategy } from "../hooks/strategy";
 import Context, { defaultState } from "../context";
 import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";
+import { ProfileModal } from "../modals/Profile";
 import globalReducer from "../context/reducer";
 import { DisplayTheme } from "../vite-env";
 import { Config } from "../context/faces";
@@ -41,10 +42,11 @@ export function ArConnectKit({
             <Helmet>
               <link rel="preconnect" href="https://fonts.googleapis.com" />
               <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-              <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+              <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
             </Helmet>
-            <ConnectModal />
             {children}
+            <ConnectModal />
+            <ProfileModal />
           </>
         </ThemeProvider>
       </AddressSync>

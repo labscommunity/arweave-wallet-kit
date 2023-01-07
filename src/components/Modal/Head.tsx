@@ -27,10 +27,10 @@ const CloseButton = styled.div`
   border-radius: 100%;
   background-color: rgb(${props => props.theme.light});
   cursor: pointer;
-  transition: opacity .23s ease-in-out;
+  transition: opacity .23s ease-in-out, transform .125s ease;
 
   &:hover {
-    opacity: .8;
+    transform: scale(1.14);
   }
 
   &:active {
