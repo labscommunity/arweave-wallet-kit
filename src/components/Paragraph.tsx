@@ -5,4 +5,5 @@ export const Paragraph = styled.p<{ small?: boolean }>`
   color: rgb(${props => props.theme.secondaryText});
   margin: 0;
   font-weight: 600;
+  transition: color .23s ease-in-out;
 `;

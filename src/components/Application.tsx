@@ -40,7 +40,7 @@ const AppInfo = styled.div`
   gap: .8rem;
 `;
 
-const Logo = styled.img.attrs({
+export const Logo = styled.img.attrs({
   draggable: false
 })`
   width: 60%;
@@ -49,7 +49,7 @@ const Logo = styled.img.attrs({
   object-fit: contain;
 `;
 
-const AppIcon = styled.div<{ colorTheme?: string }>`
+export const AppIcon = styled.div<{ colorTheme?: string }>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
