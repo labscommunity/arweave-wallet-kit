@@ -21,23 +21,45 @@ export interface DisconnectAction extends Action {
   type: "DISCONNECT";
 }
 
+export interface UpdateStrategyAction extends Action {
+  type: "UPDATE_STRATEGY";
+  payload: string | false;
+}
+
+export interface UpdateConfig extends Action {
+  type: "UPDATE_CONFIG";
+  payload: Config;
+}
+
 /** Modal types */
 export type ModalType = "connect" | "profile";
 
 /** All possible actions for the global state reducer */
-export type Actions = OpenModalAction | CloseModalAction | DisconnectAction;
+export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig;
 
 /** Global state type */
 export interface GlobalState {
   activeModal: ModalType | false;
   activeStrategy: string | false;
-  connectionData: {
-    requiredPermissions: PermissionType[];
-    appInfo?: AppInfo;
-    gatewayConfig?: GatewayConfig;
-  };
+  config: Config;
   walletState: {
     activeAddress?: string;
     addresses?: string[];
   }
+}
+
+/** Global config for ArConnect kit */
+export interface Config {
+  /** The permissions your app requires */
+  permissions: PermissionType[];
+  /** 
+   * This will ensure that all required permissions are 
+   * given to your app. If not, ArConnect kit will not 
+   * consider the strategy "connected" 
+   */
+  ensurePermissions?: boolean;
+  /** Information about your application */
+  appInfo?: AppInfo;
+  /** Custom Arweave gateway configuration */
+  gatewayConfig?: GatewayConfig;
 }

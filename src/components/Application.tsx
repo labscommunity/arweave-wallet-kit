@@ -55,6 +55,7 @@ const AppIcon = styled.div<{ colorTheme?: string }>`
   height: 3.8rem;
   border-radius: 15px;
   background-color: rgb(${props => props.colorTheme || props.theme.primaryText});
+  flex-shrink: 0;
 
   ${Logo} {
     position: absolute;
@@ -65,7 +66,7 @@ const AppIcon = styled.div<{ colorTheme?: string }>`
 `;
 
 const AppNameAndDescription = styled.div`
-  max-width: 250px;
+  flex-shrink: 1;
 `;
 
 interface Props {

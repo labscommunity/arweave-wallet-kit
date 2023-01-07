@@ -2,17 +2,27 @@ import strategies from "../strategies";
 import useGlobalState from "./global";
 import { useMemo } from "react";
 
-export default function useActiveStrategy() {
+/**
+ * Get active strategy identifier
+ */
+export function useStrategy() {
   // global context
   const { state } = useGlobalState();
 
+  return state.activeStrategy;
+}
+
+export default function useActiveStrategy() {
+  // global context
+  const activeStrategy = useStrategy();
+
   const strategy = useMemo(() => {
-    if (!state.activeStrategy) {
+    if (!activeStrategy) {
       return undefined;
     }
 
-    return strategies.find((strat) => strat.id === state.activeStrategy);
-  }, [state.activeStrategy]);
+    return strategies.find((strat) => strat.id === activeStrategy);
+  }, [activeStrategy]);
 
   return strategy;
 }

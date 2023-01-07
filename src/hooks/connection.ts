@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 
-/**
- * @param ensurePermissions Return "connected" as true only if the app has the required permissions
- */
-export default function useConnection(ensurePermissions = false) {
+export default function useConnection() {
   // global context
-  const { state: { connectionData }, dispatch } = useGlobalState();
+  const { state, dispatch } = useGlobalState();
+  const { ensurePermissions, permissions: requiredPermissions } = state.config;
 
   // permissions
   const [connected, setConnected] = useState(false);
@@ -26,7 +24,7 @@ export default function useConnection(ensurePermissions = false) {
         try {
           const permissions = await strategy.getPermissions();
 
-          return setConnected(comparePermissions(connectionData.requiredPermissions, permissions));
+          return setConnected(comparePermissions(requiredPermissions, permissions));
         } catch {
           setConnected(false);
         }
@@ -34,7 +32,7 @@ export default function useConnection(ensurePermissions = false) {
         return setConnected(true);
       }
     })();
-  }, [strategy, connectionData.requiredPermissions, ensurePermissions]);
+  }, [strategy, requiredPermissions, ensurePermissions]);
 
   /**
    * Open connection modal

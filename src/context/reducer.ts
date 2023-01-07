@@ -25,6 +25,18 @@ export default function reducer(
         walletState: {}
       };
 
+    case "UPDATE_STRATEGY":
+      return {
+        ...state,
+        activeStrategy: action.payload
+      };
+
+    case "UPDATE_CONFIG":
+      return {
+        ...state,
+        config: action.payload
+      };
+
     default:
       break;
   }

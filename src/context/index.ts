@@ -4,8 +4,8 @@ import { Actions, GlobalState } from "./faces";
 export const defaultState: GlobalState = {
   activeModal: false,
   activeStrategy: false,
-  connectionData: {
-    requiredPermissions: []
+  config: {
+    permissions: []
   },
   walletState: {}
 };
