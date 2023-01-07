@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useReducer } from "react";
-import { STRATEGY_STORE, syncStrategies } from "../strategies";
+import { STRATEGY_STORE, syncStrategies } from "../strategy";
 import Context, { defaultState } from "../context";
 import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";

@@ -1,5 +1,6 @@
+import ArConnectStrategy from "./strategies/ArConnect";
+
 import { comparePermissions } from "../utils";
-import ArConnectStrategy from "./ArConnect";
 import { PermissionType } from "arconnect";
 import Strategy from "./Strategy";
 

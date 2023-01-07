@@ -8,11 +8,11 @@ import { Modal } from "../components/Modal/Modal";
 import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
-import Strategy from "../strategies/Strategy";
 import useGlobalState from "../hooks/global";
-import strategies from "../strategies";
+import Strategy from "../strategy/Strategy";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
+import strategies from "../strategy";
 
 export function ConnectModal() {
   // modal controlls and statuses

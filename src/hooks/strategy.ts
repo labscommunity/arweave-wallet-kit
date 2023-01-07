@@ -1,5 +1,5 @@
-import strategies from "../strategies";
 import useGlobalState from "./global";
+import strategies from "../strategy";
 import { useMemo } from "react";
 
 /**
