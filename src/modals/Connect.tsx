@@ -1,15 +1,15 @@
 import { Title, TitleWithParagraph } from "../components/Title";
 import { Application } from "../components/Application";
 import { Paragraph } from "../components/Paragraph";
-import { useModal } from "../components/Modal/hook";
 import { Footer } from "../components/Modal/Footer";
 import { Modal } from "../components/Modal/Modal";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
-import { useGlobalState } from "../hooks";
-import { useEffect } from "react";
+import useGlobalState from "../hooks/global";
 import strategies from "../strategies";
 import styled from "styled-components";
+import useModal from "../hooks/modal";
+import { useEffect } from "react";
 
 export function ConnectModal() {
   const modalController = useModal();

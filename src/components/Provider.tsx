@@ -1,7 +1,8 @@
-import Context, { defaultState, reducer as globalReducer } from "../context";
 import { PropsWithChildren, useReducer } from "react";
+import Context, { defaultState } from "../context";
 import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";
+import globalReducer from "../context/reducer";
 import { DisplayTheme } from "../vite-env";
 import { Helmet } from "react-helmet";
 

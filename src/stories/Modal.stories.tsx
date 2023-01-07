@@ -5,9 +5,9 @@ import { Footer } from "../components/Modal/Footer"
 import { Title, TitleWithParagraph } from "../components/Title"
 import { Paragraph } from "../components/Paragraph"
 import { Button } from "../components/Button"
-import { useModal } from "../components/Modal/hook"
 import styled from "styled-components"
 import { Application } from "../components/Application"
+import useModal from "../hooks/modal"
 
 export default {
   name: "Modal",

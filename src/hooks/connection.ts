@@ -1,35 +1,12 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import context, { defaultState } from "./context";
-import { comparePermissions } from "./utils";
-import strategies from "./strategies";
-
-export function useGlobalState() {
-  const ctx = useContext(context);
-
-  const state = useMemo(() => (ctx || { state: defaultState, dispatch: () => {} }), [ctx]);
-
-  return state;
-}
-
-export function useActiveStrategy() {
-  // global context
-  const { state } = useGlobalState();
-
-  const strategy = useMemo(() => {
-    if (!state.activeStrategy) {
-      return undefined;
-    }
-
-    return strategies.find((strat) => strat.id === state.activeStrategy);
-  }, [state.activeStrategy]);
-
-  return strategy;
-}
+import { comparePermissions } from "../utils";
+import { useEffect, useState } from "react";
+import useActiveStrategy from "./strategy";
+import useGlobalState from "./global";
 
 /**
  * @param ensurePermissions Return "connected" as true only if the app has the required permissions
  */
-export function useConnection(ensurePermissions = false) {
+export default function useConnection(ensurePermissions = false) {
   // global context
   const { state: { connectionData }, dispatch } = useGlobalState();
 

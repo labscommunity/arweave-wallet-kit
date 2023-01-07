@@ -1,6 +1,6 @@
 import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
-import { useConnection } from "../hooks"
+import useConnection from "../hooks/connection";
 
 export default {
   name: "Modal",
