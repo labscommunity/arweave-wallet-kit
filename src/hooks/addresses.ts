@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import useActiveStrategy from "./strategy";
-import { getStrategy } from "../strategy";
 import useAddress from "./active_address";
 import useGlobalState from "./global";
 
+/**
+ * Addresses added to the wallet
+ */
 export default function useAddresses() {
   const [addresses, setAddresses] = useState<string[]>([]);
 
@@ -38,6 +40,9 @@ export default function useAddresses() {
   return addresses;
 }
 
+/**
+ * Nicknames/ANS names for addresses
+ */
 export function useWalletNames() {
   const [names, setNames] = useState<{ [addr: string]: string }>({});
   const addresses = useAddresses();

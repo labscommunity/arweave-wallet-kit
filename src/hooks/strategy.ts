@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import useGlobalState from "./global";
 
 /**
- * Get active strategy identifier
+ * Active strategy (wallet) identifier
  */
 export function useStrategy() {
   // global context
@@ -13,6 +13,7 @@ export function useStrategy() {
   return state.activeStrategy;
 }
 
+// active strategy instance
 export default function useActiveStrategy() {
   // global context
   const activeStrategy = useStrategy();

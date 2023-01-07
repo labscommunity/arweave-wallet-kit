@@ -3,7 +3,7 @@ import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 
 /**
- * Active address hook
+ * Active address in the wallet
  */
 export default function useAddress() {
   // global context
@@ -53,6 +53,9 @@ export async function useSyncAddress() {
   }, [strategy]);
 }
 
+/**
+ * Public key of the active wallet
+ */
 export function usePublicKey() {
   const [publicKey, setPublicKey] = useState<string>();
   const strategy = useActiveStrategy();

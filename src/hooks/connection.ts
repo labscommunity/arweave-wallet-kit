@@ -5,12 +5,15 @@ import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 import { nanoid } from "nanoid";
 
+/**
+ * Base connection hook
+ */
 export default function useConnection() {
   // global context
   const { state, dispatch } = useGlobalState();
   const { ensurePermissions, permissions: requiredPermissions } = state.config;
 
-  // permissions
+  /** Is the app connected to a wallet */
   const [connected, setConnected] = useState(false);
 
   // active strategy

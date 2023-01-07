@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { MouseEventHandler } from "react";
 import { Paragraph } from "./Paragraph";
+import styled from "styled-components";
 import { Button } from "./Button";
 import { Title } from "./Title";
 
@@ -8,7 +8,7 @@ export function Application({ logo, name, description, onClick, theme }: Props) 
   return (
     <Wrapper>
       <AppInfo>
-        <AppIcon colorTheme={theme}>
+        <AppIcon colorTheme={theme} clickable onClick={onClick as any}>
           <Logo src={logo} />
         </AppIcon>
         <AppNameAndDescription>
@@ -49,19 +49,25 @@ export const Logo = styled.img.attrs({
   object-fit: contain;
 `;
 
-export const AppIcon = styled.div<{ colorTheme?: string }>`
+export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean; }>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 15px;
   background-color: rgb(${props => props.colorTheme || props.theme.primaryText});
   flex-shrink: 0;
+  cursor: ${props => props.clickable ? "pointer" : "default"};
+  transition: transform .125s ease;
 
   ${Logo} {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &:active {
+    transform: scale(${props => props.clickable ? ".95" : "1"});
   }
 `;
 
