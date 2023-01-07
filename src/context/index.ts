@@ -6,8 +6,7 @@ export const defaultState: GlobalState = {
   activeStrategy: false,
   config: {
     permissions: []
-  },
-  walletState: {},
+  }
 };
 
 const context = createContext<{

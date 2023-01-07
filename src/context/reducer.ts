@@ -22,7 +22,7 @@ export default function reducer(
       return {
         ...state,
         activeStrategy: false,
-        walletState: {}
+        activeAddress: undefined
       };
 
     case "UPDATE_STRATEGY":
@@ -46,10 +46,7 @@ export default function reducer(
     case "UPDATE_ADDRESS":
       return {
         ...state,
-        walletState: {
-          ...state.walletState,
-          activeAddress: action.payload
-        }
+        activeAddress: action.payload
       };
 
     default:

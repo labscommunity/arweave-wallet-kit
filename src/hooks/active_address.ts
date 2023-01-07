@@ -10,7 +10,7 @@ export default function useAddress() {
   // global context
   const { state } = useGlobalState();
 
-  return state?.walletState?.activeAddress;
+  return state?.activeAddress;
 }
 
 // sync address in global state

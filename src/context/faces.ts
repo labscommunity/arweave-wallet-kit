@@ -54,10 +54,7 @@ export interface GlobalState {
   config: Config;
   // unique id for the last connection call
   connectId?: string;
-  walletState: {
-    activeAddress?: string;
-    addresses?: string[];
-  }
+  activeAddress?: string;
 }
 
 /** Global config for ArConnect kit */

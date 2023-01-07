@@ -3,6 +3,7 @@ import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { useEffect, useState } from "react";
 import useAddress from "../hooks/active_address"
+import useAddresses, { useWalletNames } from "../hooks/addresses"
 
 export default {
   name: "Modal",
@@ -51,6 +52,9 @@ const Button = () => {
     } catch {}
   }
 
+  const addresses = useAddresses();
+  const walletNames = useWalletNames();
+
   return (
     <>
       <button onClick={() => {
@@ -63,6 +67,15 @@ const Button = () => {
       {status}
       <br />
       {address}
+      <br />
+      <h1>Addresses</h1>
+      {addresses.map((addr, i) => (
+        <p key={i}>{addr}</p>
+      ))}
+      <h1>Wallet names</h1>
+      {Object.keys(walletNames).map((addr, i) => (
+        <p key={i}>{addr}: {walletNames[addr]}</p>
+      ))}
     </>
   );
 }
