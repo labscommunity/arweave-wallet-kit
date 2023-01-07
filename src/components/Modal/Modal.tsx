@@ -56,7 +56,7 @@ const modalAnimation: Variants = {
   hidden: {
     opacity: 0.4,
     translateX: "-50%",
-    translateY: "100%",
+    translateY: "200%",
     transition: {
       type: "spring",
       duration: 0.4
