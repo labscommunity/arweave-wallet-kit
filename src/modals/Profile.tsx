@@ -54,9 +54,6 @@ export function ProfileModal() {
     })();
   }, [state?.activeAddress]);
 
-  // loading
-  const [loading, setLoading] = useState(false);
-
   // load ans profile
   const [ans, setAns] = useState<AnsProfile>();
 
@@ -70,7 +67,7 @@ export function ProfileModal() {
   const gateway = useGatewayURL();
 
   // disconnect
-  const { disconnect } = useConnection();
+  const { disconnect } = useConnection("fdsf");
 
   return (
     <Modal {...modalController.bindings} onClose={onClose}>

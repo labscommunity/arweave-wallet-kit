@@ -9,8 +9,9 @@ import useGlobalState from "./global";
 export function useStrategy() {
   // global context
   const { state } = useGlobalState();
+  const val = useMemo(() => state.activeStrategy, [state])
 
-  return state.activeStrategy;
+  return val;
 }
 
 // active strategy instance

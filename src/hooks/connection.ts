@@ -1,6 +1,7 @@
+import { useEffect, useMemo, useState } from "react";
 import { comparePermissions } from "../utils";
 import { STRATEGY_STORE } from "../strategy";
-import { useEffect, useState } from "react";
+import { PermissionType } from "arconnect";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 import { nanoid } from "nanoid";
@@ -8,36 +9,32 @@ import { nanoid } from "nanoid";
 /**
  * Base connection hook
  */
-export default function useConnection() {
+export default function useConnection(v?: string) {
   // global context
   const { state, dispatch } = useGlobalState();
-  const { ensurePermissions, permissions: requiredPermissions } = state.config;
-
-  /** Is the app connected to a wallet */
-  const [connected, setConnected] = useState(false);
 
   // active strategy
   const strategy = useActiveStrategy();
 
+  // permissions
+  const [givenPermissions, setGivenPerms] = useState<PermissionType[]>([]);
+
   useEffect(() => {
-    (async () => {
-      if (!strategy) {
-        return setConnected(false);
-      }
+    if (!strategy) return;
 
-      try {
-        const permissions = await strategy.getPermissions();
+    strategy.getPermissions()
+      .then((res) => setGivenPerms(res))
+      .catch();
+  }, [strategy]);
 
-        if (ensurePermissions) {
-          setConnected(comparePermissions(requiredPermissions, permissions));
-        } else {
-          setConnected(permissions.length > 0);
-        }
-      } catch {
-        setConnected(false);
-      }
-    })();
-  }, [strategy, requiredPermissions, ensurePermissions]);
+  /** Is the app connected to a wallet */
+  const connected = useMemo(() => {
+    if (state.config.ensurePermissions) {
+      return comparePermissions(state.config.permissions, givenPermissions);
+    }
+
+    return givenPermissions.length > 0;
+  }, [state, givenPermissions]);
 
   /**
    * Open connection modal
@@ -63,12 +60,7 @@ export default function useConnection() {
       // wait for confirmation
       addEventListener(
         "message",
-        (
-          e: MessageEvent<{
-            connectId?: string;
-            res: boolean;
-          }>
-        ) => {
+        async (e: MessageEvent<ConnectMsg>) => {
           // check if the connection id is the same
           if (e.data?.connectId !== connectId) return;
 
@@ -80,7 +72,10 @@ export default function useConnection() {
 
           // handle result
           if (e.data.res) {
-            setConnected(true);
+            if (strategy) {
+              setGivenPerms(await strategy.getPermissions());
+            }
+
             resolve();
           } else {
             reject("[ArConnect Kit] User cancelled the connection");
@@ -93,13 +88,14 @@ export default function useConnection() {
    * Disconnect from active wallet
    */
   async function disconnect() {
-    if (!connected || !strategy) {
+    if (!strategy) {
       throw new Error("[ArConnect Kit] Not yet connected");
     }
 
     try {
       await strategy.disconnect();
 
+      setGivenPerms([]);
       localStorage.removeItem(STRATEGY_STORE);
       dispatch({ type: "DISCONNECT" });
     } catch (e: any) {
@@ -114,4 +110,9 @@ export default function useConnection() {
     connect,
     disconnect
   };
+}
+
+interface ConnectMsg {
+  connectId?: string;
+  res: boolean;
 }

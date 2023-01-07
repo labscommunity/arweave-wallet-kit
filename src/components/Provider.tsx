@@ -32,33 +32,31 @@ export function ArConnectKit({
 
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <AddressSync>
-        <ThemeProvider
-          theme={{
-            ...(theme.displayTheme === "light" ? lightTheme : darkTheme),
-            displayTheme: theme.displayTheme || "light",
-            theme: `${theme.colorTheme?.r}, ${theme.colorTheme?.g}, ${theme.colorTheme?.b}`
-          }}
-        >
-          <>
-            <Helmet>
-              <link rel="preconnect" href="https://fonts.googleapis.com" />
-              <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
-                crossOrigin=""
-              />
-              <link
-                href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
-                rel="stylesheet"
-              />
-            </Helmet>
-            {children}
-            <ConnectModal />
-            <ProfileModal />
-          </>
-        </ThemeProvider>
-      </AddressSync>
+      <ThemeProvider
+        theme={{
+          ...(theme.displayTheme === "light" ? lightTheme : darkTheme),
+          displayTheme: theme.displayTheme || "light",
+          theme: `${theme.colorTheme?.r}, ${theme.colorTheme?.g}, ${theme.colorTheme?.b}`
+        }}
+      >
+        <AddressSync>
+          <Helmet>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link
+              rel="preconnect"
+              href="https://fonts.gstatic.com"
+              crossOrigin=""
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+              rel="stylesheet"
+            />
+          </Helmet>
+          {children}
+          <ConnectModal />
+          <ProfileModal />
+        </AddressSync>
+      </ThemeProvider>
     </Context.Provider>
   );
 }
