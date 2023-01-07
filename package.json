@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@iconicicons/react": "^1.5.1",
+    "arweave": "^1.12.2",
     "framer-motion": "^8.1.9",
     "react-helmet": "^6.1.0"
   },
@@ -44,6 +45,7 @@
     "@types/react-helmet": "^6.1.6",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.0.0",
+    "arconnect": "^0.4.2",
     "babel-loader": "^8.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
