@@ -125,6 +125,16 @@ export function ConnectModal() {
     dispatch({ type: "CLOSE_MODAL" });
   }
 
+  const gateway = useMemo(() => {
+    const gatewayConfig = state?.config?.gatewayConfig;
+
+    if (!gatewayConfig) {
+      return "https://arweave.net";
+    }
+
+    return `${gatewayConfig.protocol}://${gatewayConfig.host}:${gatewayConfig.protocol}`;
+  }, [state?.config?.gatewayConfig])
+
   return (
     <Modal
       {...modalController.bindings}
@@ -148,7 +158,7 @@ export function ConnectModal() {
             <Application
               name={strategy.name}
               description={strategy.description}
-              logo={strategy.logo}
+              logo={`${gateway}/${strategy.logo}`}
               theme={strategy.theme}
               onClick={() => goToConnect(strategy.id)}
               key={i}
