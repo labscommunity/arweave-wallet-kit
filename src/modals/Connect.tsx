@@ -169,7 +169,7 @@ export function ConnectModal() {
         <Connecting>
           <WalletData>
             <AppIcon colorTheme={strategyData?.theme}>
-              <Logo src={strategyData?.logo} />
+              <Logo src={`${gateway}/${strategyData?.logo}`} />
             </AppIcon>
             {(strategyAvailable && (
               <>
@@ -236,13 +236,16 @@ const Connecting = styled.div`
 
 const WalletData = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 45%;
   left: 50%;
   width: 70%;
   transform: translate(-50%, -50%);
 
   ${AppIcon} {
-    margin: 0 auto .65rem;
+    margin-bottom: .65rem;
   }
 
   ${Title} {
@@ -257,7 +260,6 @@ const WalletData = styled.div`
   }
 
   ${Button} {
-    margin: 0 auto;
     margin-top: 1rem;
   }
 `;

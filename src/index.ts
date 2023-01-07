@@ -2,4 +2,5 @@ export { default as useActiveAddress, usePublicKey } from "./hooks/active_addres
 export { default as useAddresses, useWalletNames } from "./hooks/addresses";
 export { default as useConnection } from "./hooks/connection";
 export { ArConnectKit } from "./components/Provider";
+export { default as useApi } from "./hooks/api";
 export { useStrategy } from "./hooks/strategy";
