@@ -2,6 +2,7 @@ import { PermissionType, AppInfo, GatewayConfig } from "arconnect";
 import Strategy from "./Strategy";
 
 export default class ArConnectStrategy implements Strategy {
+  public id = "arconnect";
   public name = "ArConnect";
   public description = "Secure wallet management for Arweave";
   public theme = "171, 154, 255";
@@ -19,5 +20,9 @@ export default class ArConnectStrategy implements Strategy {
 
   public async disconnect(): Promise<void> {
     return await window.arweaveWallet.disconnect();
+  }
+
+  public async getPermissions(): Promise<PermissionType[]> {
+    return await window.arweaveWallet.getPermissions();
   }
 }

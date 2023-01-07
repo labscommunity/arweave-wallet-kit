@@ -6,11 +6,23 @@ import { Footer } from "../components/Modal/Footer";
 import { Modal } from "../components/Modal/Modal";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
+import { useGlobalState } from "../hooks";
+import { useEffect } from "react";
 import strategies from "../strategies";
 import styled from "styled-components";
 
 export function ConnectModal() {
   const modalController = useModal();
+  const { state, dispatch } = useGlobalState();
+
+  useEffect(() => {
+    modalController.setOpen(state?.activeModal === "connect");
+  }, [state?.activeModal]);
+
+  useEffect(() => {
+    if (modalController.open) return;
+    dispatch({ type: "CLOSE_MODAL" });
+  }, [modalController.open])
 
   return (
     <Modal {...modalController.bindings}>
@@ -51,7 +63,7 @@ const Apps = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.2rem;
   max-height: 280px;
   overflow-y: auto;
 `;

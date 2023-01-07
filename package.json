@@ -41,7 +41,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
+    "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.0.0",
@@ -55,8 +55,8 @@
     "vite-plugin-dts": "^1.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x",
+    "react": "^16.8.0 || 17.x || 18.x",
+    "react-dom": "^16.8.0 || 17.x || 18.x",
     "styled-components": "^5.0.0"
   }
 }

@@ -2,6 +2,7 @@ import { PermissionType, AppInfo, GatewayConfig } from "arconnect";
 
 export default abstract class Strategy {
   // info
+  public abstract id: string;
   public abstract name: string;
   public abstract description: string;
   public abstract theme?: string;
@@ -18,6 +19,6 @@ export default abstract class Strategy {
   // other apis
   /*public abstract getActiveAddress(): Promise<string>;
   public abstract getAllAddresses(): Promise<string[]>;
-  public abstract sign(): Promise<void>;
-  public abstract getPermissions(): Promise<PermissionType[]>;*/
+  public abstract sign(): Promise<void>;*/
+  public abstract getPermissions(): Promise<PermissionType[]>;
 }
