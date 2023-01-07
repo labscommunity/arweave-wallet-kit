@@ -1,5 +1,6 @@
 import { AppIcon, Application, Logo } from "../components/Application";
 import { Title, TitleWithParagraph } from "../components/Title";
+import strategies, { saveStrategy } from "../strategy";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeftIcon } from "@iconicicons/react";
 import { Paragraph } from "../components/Paragraph";
@@ -12,7 +13,6 @@ import useGlobalState from "../hooks/global";
 import Strategy from "../strategy/Strategy";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
-import strategies from "../strategy";
 
 export function ConnectModal() {
   // modal controlls and statuses
@@ -83,17 +83,24 @@ export function ConnectModal() {
     setConnecting(true);
 
     try {
+      // connect
       await s.connect(
         state.config.permissions,
         state.config.appInfo,
         state.config.gatewayConfig
       );
 
+      // send success message
       postMessage({
         connectId: state.connectId,
         res: true
       });
+
+      // close modal
       dispatch({ type: "CLOSE_MODAL" });
+
+      // save strategy
+      await saveStrategy(s.id);
     } catch {
       setRetry(true);
     }
