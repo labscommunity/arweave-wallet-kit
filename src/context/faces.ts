@@ -36,11 +36,16 @@ export interface UpdateConnectId extends Action {
   payload: string | undefined;
 }
 
+export interface UpdateAddress extends Action {
+  type: "UPDATE_ADDRESS";
+  payload: string;
+}
+
 /** Modal types */
 export type ModalType = "connect" | "profile";
 
 /** All possible actions for the global state reducer */
-export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig | UpdateConnectId;
+export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig | UpdateConnectId | UpdateAddress;
 
 /** Global state type */
 export interface GlobalState {

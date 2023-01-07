@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useReducer } from "react";
-import { STRATEGY_STORE, syncStrategies } from "../strategy";
+import { useSyncAddress } from "../hooks/active_address";
+import { useSyncStrategy } from "../hooks/strategy";
 import Context, { defaultState } from "../context";
 import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";
@@ -15,10 +16,7 @@ export function ArConnectKit({
 }: PropsWithChildren<Props>) {
   const [state, dispatch] = useReducer(
     globalReducer,
-    {
-      ...defaultState,
-      config: config
-    }
+    { ...defaultState, config }
   );
 
   // update config if it changes
@@ -29,24 +27,8 @@ export function ArConnectKit({
     });
   }, [config]);
 
-  // try to get an active strategy on mount
-  useEffect(() => {
-    (async () => {
-      let activeStrategy: string | false = localStorage?.getItem(STRATEGY_STORE) || false;
-
-      if (!activeStrategy) {
-        activeStrategy = await syncStrategies(
-          config.permissions,
-          !!config.ensurePermissions
-        );
-      }
-
-      return dispatch({
-        type: "UPDATE_STRATEGY",
-        payload: activeStrategy
-      });
-    })();
-  }, []);
+  useSyncStrategy(state?.config, dispatch);
+  useSyncAddress(state?.activeStrategy, dispatch);  
 
   return (
     <Context.Provider value={{ state, dispatch }}>

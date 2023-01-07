@@ -110,6 +110,17 @@ export default class ArConnectStrategy implements Strategy {
     return await this.#callWindowApi("dispatch", [transaction]);
   }
 
+  public addAddressEvent(listener: (address: string) => void) {
+    const listenerFunction = (e: CustomEvent<{ address: string }>) => listener(e.detail.address);
+    addEventListener("walletSwitch", listenerFunction);
+
+    return listenerFunction;
+  }
+
+  public removeAddressEvent(listener: (e: CustomEvent<{ address: string }>) => void) {
+    removeEventListener("walletSwitch", listener);
+  }
+
   /**
    * Call the window.arweaveWallet API and wait for it to be injected,
    * if it has not yet been injected.

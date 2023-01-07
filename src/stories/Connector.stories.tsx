@@ -2,6 +2,7 @@ import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { useEffect, useState } from "react";
+import useAddress from "../hooks/active_address"
 
 export default {
   name: "Modal",
@@ -26,6 +27,7 @@ export const Basic = () => {
 
 const Button = () => {
   const connection = useConnection();
+  const address = useAddress();
 
   const [status, setStatus] = useState("Idle...");
 
@@ -59,6 +61,8 @@ const Button = () => {
         }
       }}>{connection.connected ? "disconnect" : "connect"}</button>
       {status}
+      <br />
+      {address}
     </>
   );
 }

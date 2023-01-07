@@ -47,4 +47,8 @@ export default abstract class Strategy {
 
   /** Is this strategy available in the current context */
   public abstract isAvailable(): Promise<boolean> | boolean;
+
+  /** Events */
+  public abstract addAddressEvent(listener: (address: string) => void): (e: CustomEvent<{ address: string }>) => void;
+  public abstract removeAddressEvent(listener: (e: CustomEvent<{ address: string }>) => void): void;
 }

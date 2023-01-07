@@ -41,7 +41,16 @@ export default function reducer(
       return {
         ...state,
         connectId: action.payload
-      }
+      };
+
+    case "UPDATE_ADDRESS":
+      return {
+        ...state,
+        walletState: {
+          ...state.walletState,
+          activeAddress: action.payload
+        }
+      };
 
     default:
       break;
