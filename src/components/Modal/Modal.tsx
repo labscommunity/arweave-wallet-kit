@@ -7,16 +7,10 @@ export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
     <AnimatePresence>
       {open && (
         <BackgroundLayer key="bg" onClick={onClose}>
-          <KitName>
-            ArConnect Kit
-          </KitName>
+          <KitName>ArConnect Kit</KitName>
         </BackgroundLayer>
       )}
-      {open && (
-        <Wrapper key="modal">
-          {children}
-        </Wrapper>
-      )}
+      {open && <Wrapper key="modal">{children}</Wrapper>}
     </AnimatePresence>
   );
 }
@@ -44,7 +38,7 @@ const BackgroundLayer = styled(motion.div).attrs({
   width: 100vw;
   height: 100vw;
   z-index: 90000;
-  background-color: rgba(0, 0, 0, .4);
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const modalAnimation: Variants = {
@@ -80,7 +74,7 @@ const Wrapper = styled(motion.div).attrs({
   left: 50%;
   top: 50%;
   width: 28vw;
-  background-color: rgb(${props => props.theme.background});
+  background-color: rgb(${(props) => props.theme.background});
   border-radius: 30px;
   z-index: 100000;
   font-family: "Manrope", sans-serif;
@@ -98,10 +92,10 @@ const Wrapper = styled(motion.div).attrs({
 const KitName = styled.p`
   position: fixed;
   font-family: "Manrope", sans-serif;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   margin: 0;
-  color: rgb(255, 255, 255, .5);
+  color: rgb(255, 255, 255, 0.5);
   left: 50%;
   bottom: 10px;
   transform: translateX(-50%);

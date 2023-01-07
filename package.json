@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "fmt": "prettier . --write"
   },
   "files": [
     "dist"
@@ -48,6 +49,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "arconnect": "^0.4.2",
     "babel-loader": "^8.3.0",
+    "prettier": "^2.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",

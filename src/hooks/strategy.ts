@@ -30,11 +30,15 @@ export default function useActiveStrategy() {
 }
 
 // sync active strategy in global state
-export function useSyncStrategy(config: Config, dispatch: (value: Actions) => void) {
+export function useSyncStrategy(
+  config: Config,
+  dispatch: (value: Actions) => void
+) {
   // try to get an active strategy on mount
   useEffect(() => {
     (async () => {
-      let activeStrategy: string | false = localStorage?.getItem(STRATEGY_STORE) || false;
+      let activeStrategy: string | false =
+        localStorage?.getItem(STRATEGY_STORE) || false;
 
       if (!activeStrategy) {
         activeStrategy = await syncStrategies(

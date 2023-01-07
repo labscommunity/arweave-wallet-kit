@@ -25,22 +25,26 @@ export async function useSyncAddress() {
       const sync = async () => {
         try {
           const address = await strategy.getActiveAddress();
-  
+
           dispatch({
             type: "UPDATE_ADDRESS",
             payload: address
           });
         } catch (e: any) {
-          console.error(`[ArConnect Kit] Failed to sync address\n${e?.message || e}`);
+          console.error(
+            `[ArConnect Kit] Failed to sync address\n${e?.message || e}`
+          );
         }
       };
 
       await sync();
 
-      const listener = strategy.addAddressEvent((addr) => dispatch({
-        type: "UPDATE_ADDRESS",
-        payload: addr
-      }));
+      const listener = strategy.addAddressEvent((addr) =>
+        dispatch({
+          type: "UPDATE_ADDRESS",
+          payload: addr
+        })
+      );
 
       // check address change on focus
       addEventListener("focus", sync);

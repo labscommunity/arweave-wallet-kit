@@ -4,10 +4,7 @@ import dts from "vite-plugin-dts";
 import path from "node:path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({ insertTypesEntry: true })
-  ],
+  plugins: [react(), dts({ insertTypesEntry: true })],
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
@@ -17,13 +14,13 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["react", "react-dom", "styled-components"],
-        output: {
-          globals: {
-            react: "React",
-            "react-dom": "ReactDOM",
-            "styled-components": "styled"
-          }
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "styled-components": "styled"
         }
       }
     }
+  }
 });

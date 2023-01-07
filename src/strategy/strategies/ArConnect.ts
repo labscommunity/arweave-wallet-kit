@@ -1,4 +1,9 @@
-import { PermissionType, AppInfo, GatewayConfig, DispatchResult } from "arconnect";
+import {
+  PermissionType,
+  AppInfo,
+  GatewayConfig,
+  DispatchResult
+} from "arconnect";
 import { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
 import Transaction from "arweave/node/lib/transaction";
 import Strategy from "../Strategy";
@@ -15,7 +20,9 @@ export default class ArConnectStrategy implements Strategy {
 
   public async isAvailable() {
     if (typeof window === "undefined" || !window) {
-      console.error(`[ArConnect Kit] "${this.id}" strategy is unavailable. Window is undefined`);
+      console.error(
+        `[ArConnect Kit] "${this.id}" strategy is unavailable. Window is undefined`
+      );
       return false;
     }
 
@@ -33,7 +40,9 @@ export default class ArConnectStrategy implements Strategy {
         window.removeEventListener("arweaveWalletLoaded", listener);
 
         if (!window.arweaveWallet) {
-          console.error(`[ArConnect Kit] "${this.id}" strategy is unavailable. window.arweaveWallet is undefined`);
+          console.error(
+            `[ArConnect Kit] "${this.id}" strategy is unavailable. window.arweaveWallet is undefined`
+          );
         }
 
         resolve(!!window.arweaveWallet);
@@ -46,7 +55,11 @@ export default class ArConnectStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ): Promise<void> {
-    return await this.#callWindowApi("connect", [permissions, appInfo, gateway]);
+    return await this.#callWindowApi("connect", [
+      permissions,
+      appInfo,
+      gateway
+    ]);
   }
 
   public async disconnect(): Promise<void> {
@@ -69,7 +82,10 @@ export default class ArConnectStrategy implements Strategy {
     return await this.#callWindowApi("getWalletNames");
   }
 
-  public async sign(transaction: Transaction, options?: SignatureOptions): Promise<Transaction> {
+  public async sign(
+    transaction: Transaction,
+    options?: SignatureOptions
+  ): Promise<Transaction> {
     return await this.#callWindowApi("sign", [transaction, options]);
   }
 
@@ -111,20 +127,23 @@ export default class ArConnectStrategy implements Strategy {
   }
 
   public addAddressEvent(listener: (address: string) => void) {
-    const listenerFunction = (e: CustomEvent<{ address: string }>) => listener(e.detail.address);
+    const listenerFunction = (e: CustomEvent<{ address: string }>) =>
+      listener(e.detail.address);
     addEventListener("walletSwitch", listenerFunction);
 
     return listenerFunction;
   }
 
-  public removeAddressEvent(listener: (e: CustomEvent<{ address: string }>) => void) {
+  public removeAddressEvent(
+    listener: (e: CustomEvent<{ address: string }>) => void
+  ) {
     removeEventListener("walletSwitch", listener);
   }
 
   /**
    * Call the window.arweaveWallet API and wait for it to be injected,
    * if it has not yet been injected.
-   * 
+   *
    * @param fn Function name
    * @param params Params
    * @returns API result
@@ -137,13 +156,15 @@ export default class ArConnectStrategy implements Strategy {
     }
 
     // if it has not yet been injected
-    return new Promise((resolve, reject) => window.addEventListener("arweaveWalletLoaded", async () => {
-      try {
-        // @ts-expect-error
-        resolve(await window.arweaveWallet[fn as any](...params));
-      } catch (e) {
-        reject(e);
-      }
-    }));
+    return new Promise((resolve, reject) =>
+      window.addEventListener("arweaveWalletLoaded", async () => {
+        try {
+          // @ts-expect-error
+          resolve(await window.arweaveWallet[fn as any](...params));
+        } catch (e) {
+          reject(e);
+        }
+      })
+    );
   }
 }

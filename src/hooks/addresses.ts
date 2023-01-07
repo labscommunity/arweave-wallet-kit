@@ -24,7 +24,9 @@ export default function useAddresses() {
         try {
           setAddresses(await strategy.getAllAddresses());
         } catch (e: any) {
-          console.error(`[ArConnect Kit] Failed to sync addresses\n${e?.message || e}`);
+          console.error(
+            `[ArConnect Kit] Failed to sync addresses\n${e?.message || e}`
+          );
         }
       };
 
@@ -60,7 +62,9 @@ export function useWalletNames() {
 
         setNames(names);
       } catch (e: any) {
-        console.error(`[ArConnect Kit] Failed to sync wallet names\n${e?.message || e}`);
+        console.error(
+          `[ArConnect Kit] Failed to sync wallet names\n${e?.message || e}`
+        );
       }
     })();
   }, [addresses, state?.activeStrategy]);

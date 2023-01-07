@@ -1,4 +1,9 @@
-import { PermissionType, AppInfo, GatewayConfig, DispatchResult } from "arconnect";
+import {
+  PermissionType,
+  AppInfo,
+  GatewayConfig,
+  DispatchResult
+} from "arconnect";
 import { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
 import Transaction from "arweave/node/lib/transaction";
 
@@ -49,6 +54,10 @@ export default abstract class Strategy {
   public abstract isAvailable(): Promise<boolean> | boolean;
 
   /** Events */
-  public abstract addAddressEvent(listener: (address: string) => void): (e: CustomEvent<{ address: string }>) => void;
-  public abstract removeAddressEvent(listener: (e: CustomEvent<{ address: string }>) => void): void;
+  public abstract addAddressEvent(
+    listener: (address: string) => void
+  ): (e: CustomEvent<{ address: string }>) => void;
+  public abstract removeAddressEvent(
+    listener: (e: CustomEvent<{ address: string }>) => void
+  ): void;
 }

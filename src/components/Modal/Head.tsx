@@ -25,16 +25,16 @@ const CloseButton = styled.div`
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 100%;
-  background-color: rgb(${props => props.theme.light});
+  background-color: rgb(${(props) => props.theme.light});
   cursor: pointer;
-  transition: opacity .23s ease-in-out, transform .125s ease;
+  transition: opacity 0.23s ease-in-out, transform 0.125s ease;
 
   &:hover {
     transform: scale(1.14);
   }
 
   &:active {
-    transform: scale(.92);
+    transform: scale(0.92);
   }
 
   svg {
@@ -44,7 +44,7 @@ const CloseButton = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    color: rgb(${props => props.theme.secondaryText});
+    color: rgb(${(props) => props.theme.secondaryText});
     transform: translate(-50%, -50%);
   }
 `;

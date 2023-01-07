@@ -45,7 +45,14 @@ export interface UpdateAddress extends Action {
 export type ModalType = "connect" | "profile";
 
 /** All possible actions for the global state reducer */
-export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig | UpdateConnectId | UpdateAddress;
+export type Actions =
+  | OpenModalAction
+  | CloseModalAction
+  | DisconnectAction
+  | UpdateStrategyAction
+  | UpdateConfig
+  | UpdateConnectId
+  | UpdateAddress;
 
 /** Global state type */
 export interface GlobalState {
@@ -61,10 +68,10 @@ export interface GlobalState {
 export interface Config {
   /** The permissions your app requires */
   permissions: PermissionType[];
-  /** 
-   * This will ensure that all required permissions are 
-   * given to your app. If not, ArConnect kit will not 
-   * consider the strategy "connected" 
+  /**
+   * This will ensure that all required permissions are
+   * given to your app. If not, ArConnect kit will not
+   * consider the strategy "connected"
    */
   ensurePermissions?: boolean;
   /** Information about your application */

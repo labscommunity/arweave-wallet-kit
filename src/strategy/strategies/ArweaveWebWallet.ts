@@ -1,3 +1,1 @@
-export default class ArweaveWebWallet {
-
-}
+export default class ArweaveWebWallet {}

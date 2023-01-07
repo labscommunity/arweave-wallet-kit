@@ -38,11 +38,13 @@ export function ProfileModal() {
     (async () => {
       if (!state.activeAddress) return;
 
-      const arweave = new Arweave(state?.config?.gatewayConfig || {
-        host: "arweave.net",
-        port: 443,
-        protocol: "https"
-      });
+      const arweave = new Arweave(
+        state?.config?.gatewayConfig || {
+          host: "arweave.net",
+          port: 443,
+          protocol: "https"
+        }
+      );
 
       const bal = arweave.ar.winstonToAr(
         await arweave.wallets.getBalance(state.activeAddress)
@@ -71,24 +73,25 @@ export function ProfileModal() {
   const { disconnect } = useConnection();
 
   return (
-    <Modal
-      {...modalController.bindings}
-      onClose={onClose}
-    >
+    <Modal {...modalController.bindings} onClose={onClose}>
       <Head onClose={onClose}>
-        <Title>
-          Profile
-        </Title>
+        <Title>Profile</Title>
       </Head>
       <ProfileData>
-        <ProfilePicture profilePicture={ans?.avatar ? `${gateway}/${ans.avatar}` : undefined}>
-          {!ans?.avatar && (
-            <ProfileIcon />
-          )}
+        <ProfilePicture
+          profilePicture={ans?.avatar ? `${gateway}/${ans.avatar}` : undefined}
+        >
+          {!ans?.avatar && <ProfileIcon />}
         </ProfilePicture>
         <Title>
-          {ans?.currentLabel ? `${ans.currentLabel}.ar` : formatAddress(state?.activeAddress || "", 8)}
-          <CopyIcon onClick={() => navigator.clipboard.writeText(state.activeAddress || "")} />
+          {ans?.currentLabel
+            ? `${ans.currentLabel}.ar`
+            : formatAddress(state?.activeAddress || "", 8)}
+          <CopyIcon
+            onClick={() =>
+              navigator.clipboard.writeText(state.activeAddress || "")
+            }
+          />
         </Title>
         <Paragraph>
           {balance.toLocaleString(undefined, { maximumFractionDigits: 4 })}
@@ -113,18 +116,18 @@ const ProfileData = styled.div`
     text-align: center;
 
     svg {
-      font-size: .85em;
+      font-size: 0.85em;
       width: 1em;
       height: 1em;
       cursor: pointer;
-      transition: all .125s ease-in-out;
+      transition: all 0.125s ease-in-out;
 
       &:hover {
-        opacity: .85;
+        opacity: 0.85;
       }
 
       &:active {
-        transform: scale(.9);
+        transform: scale(0.9);
       }
     }
   }
@@ -132,7 +135,7 @@ const ProfileData = styled.div`
   ${Button} {
     margin-top: 1.5rem;
     width: 100%;
-    padding: .9rem 0;
+    padding: 0.9rem 0;
     border-radius: 18px;
     text-transform: none;
   }
@@ -143,10 +146,13 @@ const ProfilePicture = styled.div<{ profilePicture?: string }>`
   width: 80px;
   height: 80px;
   border-radius: 100%;
-  margin-bottom: .475rem;
-  background-color: rgb(${props => props.theme.theme});
+  margin-bottom: 0.475rem;
+  background-color: rgb(${(props) => props.theme.theme});
   background-size: cover;
-  ${props => props.profilePicture ? `background-image: url(${props.profilePicture});` : ""}
+  ${(props) =>
+    props.profilePicture
+      ? `background-image: url(${props.profilePicture});`
+      : ""}
 `;
 
 const ProfileIcon = styled(UserIcon)`

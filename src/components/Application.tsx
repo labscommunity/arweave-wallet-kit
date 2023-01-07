@@ -4,7 +4,13 @@ import styled from "styled-components";
 import { Button } from "./Button";
 import { Title } from "./Title";
 
-export function Application({ logo, name, description, onClick, theme }: Props) {
+export function Application({
+  logo,
+  name,
+  description,
+  onClick,
+  theme
+}: Props) {
   return (
     <Wrapper>
       <AppInfo>
@@ -12,17 +18,11 @@ export function Application({ logo, name, description, onClick, theme }: Props) 
           <Logo src={logo} />
         </AppIcon>
         <AppNameAndDescription>
-          <Title small>
-            {name}
-          </Title>
-          <Paragraph small>
-            {description}
-          </Paragraph>
+          <Title small>{name}</Title>
+          <Paragraph small>{description}</Paragraph>
         </AppNameAndDescription>
       </AppInfo>
-      <Button onClick={onClick}>
-        Go
-      </Button>
+      <Button onClick={onClick}>Go</Button>
     </Wrapper>
   );
 }
@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 const AppInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: .8rem;
+  gap: 0.8rem;
 `;
 
 export const Logo = styled.img.attrs({
@@ -49,15 +49,17 @@ export const Logo = styled.img.attrs({
   object-fit: contain;
 `;
 
-export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean; }>`
+export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 15px;
-  background-color: rgb(${props => props.colorTheme || props.theme.primaryText});
+  background-color: rgb(
+    ${(props) => props.colorTheme || props.theme.primaryText}
+  );
   flex-shrink: 0;
-  cursor: ${props => props.clickable ? "pointer" : "default"};
-  transition: transform .125s ease;
+  cursor: ${(props) => (props.clickable ? "pointer" : "default")};
+  transition: transform 0.125s ease;
 
   ${Logo} {
     position: absolute;
@@ -67,7 +69,7 @@ export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean; }>
   }
 
   &:active {
-    transform: scale(${props => props.clickable ? ".95" : "1"});
+    transform: scale(${(props) => (props.clickable ? ".95" : "1")});
   }
 `;
 

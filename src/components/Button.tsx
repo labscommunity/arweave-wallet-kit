@@ -1,14 +1,20 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const Button = styled.button`
   display: flex;
   font-family: "Manrope", sans-serif;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: rgb(${props => props.theme.displayTheme === "dark" ? "0, 0, 0" : "255, 255, 255"});
-  background-color: rgb(${props => props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"});
+  color: rgb(
+    ${(props) =>
+      props.theme.displayTheme === "dark" ? "0, 0, 0" : "255, 255, 255"}
+  );
+  background-color: rgb(
+    ${(props) =>
+      props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}
+  );
   border-radius: 30px;
-  padding: .3rem .8rem;
+  padding: 0.3rem 0.8rem;
   text-align: center;
   border: none;
   outline: none;
@@ -16,17 +22,28 @@ export const Button = styled.button`
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  gap: .4rem;
+  gap: 0.4rem;
   white-space: nowrap;
-  transition: all .18s ease-in-out;
+  transition: all 0.18s ease-in-out;
 
   &:hover:not(:active):not(:disabled) {
     transform: translate3d(0px, -1.4px, 0px);
-    box-shadow: 0px 0px 2px rgba(${props => props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, 0.15), 0px 4px 7px rgba(${props => props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, 0.1);
+    box-shadow: 0px 0px 2px
+        rgba(
+          ${(props) =>
+            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"},
+          0.15
+        ),
+      0px 4px 7px
+        rgba(
+          ${(props) =>
+            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"},
+          0.1
+        );
   }
 
   &:disabled {
-    opacity: .7;
+    opacity: 0.7;
     cursor: not-allowed;
   }
 

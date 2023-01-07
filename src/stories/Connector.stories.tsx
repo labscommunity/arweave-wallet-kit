@@ -2,9 +2,9 @@ import { ArConnectKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { useEffect, useState } from "react";
-import useAddress from "../hooks/active_address"
-import useAddresses, { useWalletNames } from "../hooks/addresses"
-import useProfileModal from "../hooks/profile"
+import useAddress from "../hooks/active_address";
+import useAddresses, { useWalletNames } from "../hooks/addresses";
+import useProfileModal from "../hooks/profile";
 
 export default {
   name: "Modal",
@@ -15,7 +15,11 @@ export const Basic = () => {
   return (
     <ArConnectKit
       config={{
-        permissions: ["ACCESS_ADDRESS", "ACCESS_ALL_ADDRESSES", "SIGN_TRANSACTION"],
+        permissions: [
+          "ACCESS_ADDRESS",
+          "ACCESS_ALL_ADDRESSES",
+          "SIGN_TRANSACTION"
+        ],
         ensurePermissions: true,
         appInfo: {
           name: "ArConnect Kit"
@@ -35,9 +39,9 @@ const Button = () => {
 
   useEffect(() => {
     if (connection.connected) {
-      setStatus("connected")
+      setStatus("connected");
     }
-  }, [connection])
+  }, [connection]);
 
   async function connect() {
     try {
@@ -61,17 +65,19 @@ const Button = () => {
   return (
     <>
       {connection.connected && (
-        <button onClick={() => profileModal.setOpen(true)}>
-          profile
-        </button>
+        <button onClick={() => profileModal.setOpen(true)}>profile</button>
       )}
-      <button onClick={() => {
-        if (connection.connected) {
-          disconnect();
-        } else {
-          connect();
-        }
-      }}>{connection.connected ? "disconnect" : "connect"}</button>
+      <button
+        onClick={() => {
+          if (connection.connected) {
+            disconnect();
+          } else {
+            connect();
+          }
+        }}
+      >
+        {connection.connected ? "disconnect" : "connect"}
+      </button>
       {status}
       <br />
       {address}
@@ -82,8 +88,10 @@ const Button = () => {
       ))}
       <h1>Wallet names</h1>
       {Object.keys(walletNames).map((addr, i) => (
-        <p key={i}>{addr}: {walletNames[addr]}</p>
+        <p key={i}>
+          {addr}: {walletNames[addr]}
+        </p>
       ))}
     </>
   );
-}
+};

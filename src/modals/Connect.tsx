@@ -35,7 +35,7 @@ export function ConnectModal() {
 
   // selected strategy data
   const strategyData = useMemo(
-    () => selectedStrategy ? getStrategy(selectedStrategy) : undefined,
+    () => (selectedStrategy ? getStrategy(selectedStrategy) : undefined),
     [selectedStrategy, strategies]
   );
 
@@ -61,7 +61,7 @@ export function ConnectModal() {
     setSelectedStrategy(strategyID);
 
     let available = false;
-    
+
     try {
       available = await s.isAvailable();
     } catch {
@@ -113,7 +113,7 @@ export function ConnectModal() {
         payload: false
       });
     }
-    
+
     setConnecting(false);
   }
 
@@ -130,10 +130,7 @@ export function ConnectModal() {
   const gateway = useGatewayURL();
 
   return (
-    <Modal
-      {...modalController.bindings}
-      onClose={onClose}
-    >
+    <Modal {...modalController.bindings} onClose={onClose}>
       <Head onClose={onClose}>
         <Title
           themed={!!selectedStrategy}
@@ -167,9 +164,7 @@ export function ConnectModal() {
             </AppIcon>
             {(strategyAvailable && (
               <>
-                <Title small>
-                  Connecting to {strategyData?.name || ""}...
-                </Title>
+                <Title small>Connecting to {strategyData?.name || ""}...</Title>
                 <Paragraph>
                   Confirm connection request in the wallet popup window
                 </Paragraph>
@@ -179,35 +174,32 @@ export function ConnectModal() {
                   </Button>
                 )}
               </>
-            )) || (!loadingAvailability && (
-              <>
-                <Title small>
-                  {strategyData?.name || ""} is not available.
-                </Title>
-                <Paragraph>
-                  If you don't have it yet, you can try to download it
-                </Paragraph>
-                <Button onClick={() => window.open(strategyData?.url)}>
-                  Download
-                </Button>
-              </>
-            ))}
-            {connecting || loadingAvailability && <ConnectLoading />}
+            )) ||
+              (!loadingAvailability && (
+                <>
+                  <Title small>
+                    {strategyData?.name || ""} is not available.
+                  </Title>
+                  <Paragraph>
+                    If you don't have it yet, you can try to download it
+                  </Paragraph>
+                  <Button onClick={() => window.open(strategyData?.url)}>
+                    Download
+                  </Button>
+                </>
+              ))}
+            {connecting || (loadingAvailability && <ConnectLoading />)}
           </WalletData>
         </Connecting>
       )}
       <Footer>
         <TitleWithParagraph>
-          <Title small>
-            New to Arweave?
-          </Title>
+          <Title small>New to Arweave?</Title>
           <Paragraph small>
             Click to learn more about the permaweb & wallets.
           </Paragraph>
         </TitleWithParagraph>
-        <Button onClick={() => window.open("https://arwiki.wiki")}>
-          MORE
-        </Button>
+        <Button onClick={() => window.open("https://arwiki.wiki")}>MORE</Button>
       </Footer>
     </Modal>
   );
@@ -239,13 +231,13 @@ const WalletData = styled.div`
   transform: translate(-50%, -50%);
 
   ${AppIcon} {
-    margin-bottom: .65rem;
+    margin-bottom: 0.65rem;
   }
 
   ${Title} {
     text-align: center;
     font-weight: 700;
-    margin-bottom: .1rem;
+    margin-bottom: 0.1rem;
     justify-content: center;
   }
 
@@ -262,7 +254,7 @@ const ConnectLoading = styled(Loading)`
   display: block;
   margin: 0 auto;
   margin-top: 1rem;
-  color: rgb(${props => props.theme.primaryText});
+  color: rgb(${(props) => props.theme.primaryText});
   width: 1.25rem;
   height: 1.25rem;
 `;
@@ -274,7 +266,7 @@ const BackButton = styled(ChevronLeftIcon)`
   cursor: pointer;
   color: rgb(0, 122, 255);
   transform: scale(1.75);
-  transition: transform .125s ease;
+  transition: transform 0.125s ease;
 
   &:active {
     transform: scale(1.5);
