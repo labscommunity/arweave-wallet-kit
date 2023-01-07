@@ -8,6 +8,7 @@ import { Modal } from "../components/Modal/Modal";
 import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
+import Strategy from "../strategies/Strategy";
 import useGlobalState from "../hooks/global";
 import strategies from "../strategies";
 import styled from "styled-components";
@@ -44,25 +45,54 @@ export function ConnectModal() {
   // strategy available
   const [strategyAvailable, setStrategyAvailable] = useState(false);
 
+  // show retry button
+  const [retry, setRetry] = useState(false);
+
   // go to connect screen for strategy
   async function goToConnect(strategyID: string) {
+    // get strategy
     const s = strategies.find((s) => s.id === strategyID);
 
     if (!s) return;
 
+    // check if available
     setLoadingAvailability(true);
     setSelectedStrategy(strategyID);
+
+    let available = false;
     
     try {
-      const available = await s.isAvailable();
-
-      setStrategyAvailable(available);
-      // TODO: connect here
+      available = await s.isAvailable();
     } catch {
-      setStrategyAvailable(false);
+      available = false;
     }
 
+    setStrategyAvailable(available);
     setLoadingAvailability(false);
+
+    if (!available) {
+      return;
+    }
+
+    await tryConnecting(s);
+  }
+
+  // try to connect
+  async function tryConnecting(s: Strategy) {
+    setRetry(false);
+    setConnecting(true);
+
+    try {
+      await s.connect(
+        state.config.permissions,
+        state.config.appInfo,
+        state.config.gatewayConfig
+      );
+    } catch {
+      setRetry(true);
+    }
+    
+    setConnecting(false);
   }
 
   return (
@@ -106,6 +136,11 @@ export function ConnectModal() {
                 <Paragraph>
                   Confirm connection request in the wallet popup window
                 </Paragraph>
+                {retry && strategyData && (
+                  <Button onClick={() => tryConnecting(strategyData)}>
+                    Retry
+                  </Button>
+                )}
               </>
             )) || (!loadingAvailability && (
               <>

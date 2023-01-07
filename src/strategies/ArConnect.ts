@@ -15,6 +15,7 @@ export default class ArConnectStrategy implements Strategy {
 
   public async isAvailable() {
     if (typeof window === "undefined" || !window) {
+      console.error(`[ArConnect Kit] "${this.id}" strategy is unavailable. Window is undefined`);
       return false;
     }
 
@@ -30,6 +31,11 @@ export default class ArConnectStrategy implements Strategy {
       // after 7 seconds, we stop listening
       setTimeout(() => {
         window.removeEventListener("arweaveWalletLoaded", listener);
+
+        if (!window.arweaveWallet) {
+          console.error(`[ArConnect Kit] "${this.id}" strategy is unavailable. window.arweaveWallet is undefined`);
+        }
+
         resolve(!!window.arweaveWallet);
       }, 7000);
     });
