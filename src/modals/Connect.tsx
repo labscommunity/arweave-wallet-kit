@@ -88,6 +88,12 @@ export function ConnectModal() {
         state.config.appInfo,
         state.config.gatewayConfig
       );
+
+      postMessage({
+        connectId: state.connectId,
+        res: true
+      });
+      dispatch({ type: "CLOSE_MODAL" });
     } catch {
       setRetry(true);
     }
@@ -95,9 +101,21 @@ export function ConnectModal() {
     setConnecting(false);
   }
 
+  // on connect modal close
+  function onClose() {
+    postMessage({
+      connectId: state.connectId,
+      res: false
+    });
+    dispatch({ type: "CLOSE_MODAL" });
+  }
+
   return (
-    <Modal {...modalController.bindings}>
-      <Head onClose={modalController.bindings.onClose}>
+    <Modal
+      {...modalController.bindings}
+      onClose={onClose}
+    >
+      <Head onClose={onClose}>
         <Title
           themed={!!selectedStrategy}
           onClick={() => {

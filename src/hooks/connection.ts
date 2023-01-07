@@ -2,6 +2,7 @@ import { comparePermissions } from "../utils";
 import { useEffect, useState } from "react";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
+import { nanoid } from "nanoid";
 
 export default function useConnection() {
   // global context
@@ -37,16 +38,45 @@ export default function useConnection() {
   /**
    * Open connection modal
    */
-  async function connect() {
+  const connect = () => new Promise<void>((resolve, reject) => {
     if (connected) {
-      throw new Error("[ArConnect Kit] Already connected")
+      return reject("[ArConnect Kit] Already connected")
     }
 
+    const connectId = nanoid();
+
+    // update global state
+    dispatch({
+      type: "SET_CONNECT_ID",
+      payload: connectId
+    })
     dispatch({
       type: "OPEN_MODAL",
       payload: "connect"
     });
-  }
+
+    // wait for confirmation
+    addEventListener(
+      "message",
+      (e: MessageEvent<{
+        connectId?: string;
+        res: boolean;
+      }>) => {
+        // check if the connection id is the same
+        if (e.data?.connectId !== connectId) return;
+
+        // remove connection id
+        dispatch({
+          type: "SET_CONNECT_ID",
+          payload: undefined
+        });
+
+        // handle result
+        if (e.data.res) resolve();
+        else reject("[ArConnect Kit] User cancelled the connection");
+      }
+    );
+  });
 
   /**
    * Disconnect from active wallet

@@ -28,6 +28,7 @@
     "@iconicicons/react": "^1.5.1",
     "arweave": "^1.12.2",
     "framer-motion": "^8.1.9",
+    "nanoid": "^4.0.0",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {

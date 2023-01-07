@@ -31,17 +31,24 @@ export interface UpdateConfig extends Action {
   payload: Config;
 }
 
+export interface UpdateConnectId extends Action {
+  type: "SET_CONNECT_ID";
+  payload: string | undefined;
+}
+
 /** Modal types */
 export type ModalType = "connect" | "profile";
 
 /** All possible actions for the global state reducer */
-export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig;
+export type Actions = OpenModalAction | CloseModalAction | DisconnectAction | UpdateStrategyAction | UpdateConfig | UpdateConnectId;
 
 /** Global state type */
 export interface GlobalState {
   activeModal: ModalType | false;
   activeStrategy: string | false;
   config: Config;
+  // unique id for the last connection call
+  connectId?: string;
   walletState: {
     activeAddress?: string;
     addresses?: string[];

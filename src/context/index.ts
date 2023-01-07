@@ -7,7 +7,7 @@ export const defaultState: GlobalState = {
   config: {
     permissions: []
   },
-  walletState: {}
+  walletState: {},
 };
 
 const context = createContext<{

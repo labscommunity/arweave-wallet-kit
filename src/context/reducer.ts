@@ -37,6 +37,12 @@ export default function reducer(
         config: action.payload
       };
 
+    case "SET_CONNECT_ID":
+      return {
+        ...state,
+        connectId: action.payload
+      }
+
     default:
       break;
   }
