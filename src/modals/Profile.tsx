@@ -13,6 +13,7 @@ import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
+import useAns from "../hooks/useAns";
 
 export function ProfileModal() {
   // modal controlls and statuses
@@ -36,13 +37,7 @@ export function ProfileModal() {
   const balance = useBalance();
 
   // load ans profile
-  const [ans, setAns] = useState<AnsProfile>();
-
-  useEffect(() => {
-    fetch(`https://ans-testnet.herokuapp.com/profile/${state.activeAddress}`)
-      .then(async (res) => setAns(await res.json()))
-      .catch();
-  }, [state?.activeAddress]);
+  const ans = useAns();
 
   // configured gateway
   const gateway = useGatewayURL();
@@ -57,14 +52,12 @@ export function ProfileModal() {
       </Head>
       <ProfileData>
         <ProfilePicture
-          profilePicture={ans?.avatar ? `${gateway}/${ans.avatar}` : undefined}
+          profilePicture={ans?.avatar}
         >
           {!ans?.avatar && <ProfileIcon />}
         </ProfilePicture>
         <Title>
-          {ans?.currentLabel
-            ? `${ans.currentLabel}.ar`
-            : formatAddress(state?.activeAddress || "", 8)}
+          {ans?.currentLabel || formatAddress(state?.activeAddress || "", 8)}
           <CopyIcon
             onClick={() =>
               navigator.clipboard.writeText(state.activeAddress || "")
@@ -156,24 +149,3 @@ const ProfileIcon = styled(UserIcon)`
   color: #fff;
   transform: translate(-50%, -50%);
 `;
-
-interface AnsProfile {
-  user: string;
-  currentLabel: string;
-  ownedLabels?: {
-    label: string;
-    scarcity: string;
-    acquisationBlock: number;
-    mintedFor: number;
-  }[];
-  nickname?: string;
-  address_color: string;
-  bio?: string;
-  avatar?: string;
-  links?: {
-    [key: string]: string;
-  };
-  subdomains?: any;
-  freeSubdomains: number;
-  timestamp: number;
-}

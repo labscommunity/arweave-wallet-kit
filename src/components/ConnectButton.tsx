@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "@iconicicons/react";
+import { ChevronDownIcon, UserIcon } from "@iconicicons/react";
 import useAddress from "../hooks/active_address";
 import useConnection from "../hooks/connection";
 import useBalance from "../hooks/balance";
@@ -6,6 +6,7 @@ import { formatAddress } from "../utils";
 import type { Radius } from "./Provider";
 import type { HTMLProps } from "react";
 import styled from "styled-components";
+import useAns from "../hooks/useAns";
 import { Button } from "./Button";
 
 export default function ConnectButton({ accent, onClick, ...props }: HTMLProps<HTMLButtonElement> & Props) {
@@ -21,6 +22,9 @@ export default function ConnectButton({ accent, onClick, ...props }: HTMLProps<H
 
   // balance
   const balance = useBalance();
+
+  // ans profile
+  const ans = useAns();
 
   return (
     <Wrapper
@@ -39,8 +43,8 @@ export default function ConnectButton({ accent, onClick, ...props }: HTMLProps<H
             {balance.toLocaleString(undefined, { maximumFractionDigits: 2 }) + " AR"}
           </Balance>
           <ProfileSection>
-            <Avatar src="https://arweave.net/mzv2LMPSpoYcCPNtfq-IvB5pgnfk2k4_5XCCBefkZ_A" />
-            {formatAddress(address || "", 5)}
+            {(ans?.avatar && <Avatar src={ans?.avatar} />) || <AvatarPlaceholder><AvatarIcon /></AvatarPlaceholder>}
+            {ans?.currentLabel || formatAddress(address || "", 5)}
             <ExpandIcon />
           </ProfileSection>
         </>
@@ -104,6 +108,29 @@ const Avatar = styled.img.attrs({
   width: 1.7rem;
   height: 1.7rem;
   margin-right: .4rem;
+  background: linear-gradient(to right, #4776e6, #8e54e9);
+`;
+
+const AvatarIcon = styled(UserIcon)`
+  font-size: 1rem !important;
+  color: #fff;
+`;
+
+const AvatarPlaceholder = styled.span`
+  position: relative;
+  border-radius: ${props => avatarRadius[props.theme.themeConfig.radius]};
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: .4rem;
+  background: linear-gradient(to right, #4776e6, #8e54e9);
+  background-size: cover;
+
+  ${AvatarIcon} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 interface Props {
