@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import useActiveStrategy from "./strategy";
+import { useMemo } from "react";
 
 export default function useApi() {
   const strategy = useActiveStrategy();

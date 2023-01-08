@@ -1,4 +1,4 @@
-import { PermissionType, AppInfo, GatewayConfig } from "arconnect";
+import type { PermissionType, AppInfo, GatewayConfig } from "arconnect";
 
 /** Basic action */
 export interface Action {

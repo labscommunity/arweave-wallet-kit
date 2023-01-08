@@ -1,12 +1,12 @@
-import {
+import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
+import type Transaction from "arweave/node/lib/transaction";
+import type Strategy from "../Strategy";
+import type {
   PermissionType,
   AppInfo,
   GatewayConfig,
   DispatchResult
 } from "arconnect";
-import { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
-import Transaction from "arweave/node/lib/transaction";
-import Strategy from "../Strategy";
 
 export default class ArConnectStrategy implements Strategy {
   public id = "arconnect";

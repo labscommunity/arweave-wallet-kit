@@ -1,5 +1,5 @@
+import type { PropsWithChildren } from "react";
 import { CloseIcon } from "@iconicicons/react";
-import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 export function Head({ children, onClose }: PropsWithChildren<Props>) {

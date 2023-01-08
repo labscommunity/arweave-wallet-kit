@@ -1,4 +1,4 @@
-import { PermissionType } from "arconnect";
+import type { PermissionType } from "arconnect";
 
 /**
  * Compare two permission arrays

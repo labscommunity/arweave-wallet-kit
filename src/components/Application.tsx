@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import type { MouseEventHandler } from "react";
 import { Paragraph } from "./Paragraph";
 import styled from "styled-components";
 import { Button } from "./Button";

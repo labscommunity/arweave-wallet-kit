@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {

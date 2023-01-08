@@ -1,5 +1,5 @@
 import { getStrategy, STRATEGY_STORE, syncStrategies } from "../strategy";
-import { Actions, Config } from "../context/faces";
+import type { Actions, Config } from "../context/faces";
 import { useEffect, useMemo } from "react";
 import useGlobalState from "./global";
 

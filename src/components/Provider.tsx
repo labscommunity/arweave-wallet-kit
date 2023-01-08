@@ -5,9 +5,9 @@ import Context, { defaultState } from "../context";
 import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";
 import { ProfileModal } from "../modals/Profile";
+import type { DisplayTheme } from "../vite-env";
+import type { Config } from "../context/faces";
 import globalReducer from "../context/reducer";
-import { DisplayTheme } from "../vite-env";
-import { Config } from "../context/faces";
 import { Helmet } from "react-helmet";
 
 export function ArConnectKit({

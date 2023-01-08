@@ -1,8 +1,8 @@
 import ArConnectStrategy from "./strategies/ArConnect";
 
+import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
-import { PermissionType } from "arconnect";
-import Strategy from "./Strategy";
+import type Strategy from "./Strategy";
 
 const strategies: Strategy[] = [new ArConnectStrategy()];
 

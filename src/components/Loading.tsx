@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { HTMLProps } from "react";
+import type { HTMLProps } from "react";
 
 export const Loading = (props: HTMLProps<SVGElement>) => (
   <SvgWrapper

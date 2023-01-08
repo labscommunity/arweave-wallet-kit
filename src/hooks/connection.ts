@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
 import { STRATEGY_STORE } from "../strategy";
-import { PermissionType } from "arconnect";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 import { nanoid } from "nanoid";

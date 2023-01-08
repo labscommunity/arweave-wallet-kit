@@ -6,12 +6,12 @@ import { ChevronLeftIcon } from "@iconicicons/react";
 import { Paragraph } from "../components/Paragraph";
 import { Footer } from "../components/Modal/Footer";
 import { Modal } from "../components/Modal/Modal";
+import type Strategy from "../strategy/Strategy";
 import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
-import Strategy from "../strategy/Strategy";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
 
