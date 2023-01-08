@@ -1,8 +1,11 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import type { PropsWithChildren } from "react";
+import useMobile from "../../hooks/mobile";
 import styled from "styled-components";
 
 export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
+  const mobile = useMobile();
+
   return (
     <AnimatePresence>
       {open && (
@@ -10,7 +13,7 @@ export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
           <KitName>ArConnect Kit</KitName>
         </BackgroundLayer>
       )}
-      {open && <Wrapper key="modal">{children}</Wrapper>}
+      {open && <Wrapper key="modal" mobile={mobile}>{children}</Wrapper>}
     </AnimatePresence>
   );
 }
@@ -41,11 +44,11 @@ const BackgroundLayer = styled(motion.div).attrs({
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const modalAnimation: Variants = {
+const modalAnimation = (mobile = false): Variants => ({
   shown: {
     opacity: 1,
     translateX: "-50%",
-    translateY: "-50%",
+    translateY: mobile ? "0" : "-50%",
     transition: {
       type: "spring",
       duration: 0.4,
@@ -62,14 +65,14 @@ const modalAnimation: Variants = {
       duration: 0.4
     }
   }
-};
+});
 
-const Wrapper = styled(motion.div).attrs({
-  variants: modalAnimation,
+const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
+  variants: modalAnimation(props.mobile),
   initial: "hidden",
   animate: "shown",
   exit: "hidden"
-})`
+}))<{ mobile: boolean }>`
   position: fixed;
   left: 50%;
   top: 50%;
@@ -85,7 +88,11 @@ const Wrapper = styled(motion.div).attrs({
   }
 
   @media screen and (max-width: 720px) {
-    width: 90vw;
+    width: 100vw;
+    top: unset;
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 `;
 
