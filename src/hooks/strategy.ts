@@ -30,6 +30,53 @@ export default function useActiveStrategy() {
   return strategy;
 }
 
+/**
+ * Strategy API
+ */
+export function useApi() {
+  const strategy = useActiveStrategy();
+  const api = useMemo(() => {
+    if (!strategy) return undefined;
+
+    // only return api functions that would
+    // not break ArConnect Kit
+    // e.g.: we don't return connect(),
+    // as it needs it's implementation
+    // from "useConnection"
+    const {
+      getActiveAddress,
+      getAllAddresses,
+      sign,
+      getPermissions,
+      getWalletNames,
+      encrypt,
+      decrypt,
+      getArweaveConfig,
+      signature,
+      getActivePublicKey,
+      addToken,
+      dispatch
+    } = strategy;
+
+    return {
+      getActiveAddress,
+      getAllAddresses,
+      sign,
+      getPermissions,
+      getWalletNames,
+      encrypt,
+      decrypt,
+      getArweaveConfig,
+      signature,
+      getActivePublicKey,
+      addToken,
+      dispatch
+    };
+  }, [strategy]);
+
+  return api;
+}
+
 // sync active strategy in global state
 export function useSyncStrategy(
   config: Config,

@@ -214,4 +214,4 @@ await api.sign(transaction);
 await api.encrypt(...)
 ```
 
-Read more about the available APIs [here](https://github.com/arconnectio/ArConnect/#other-supported-functions);
+Read more about the available APIs [here](https://github.com/arconnectio/ArConnect/#other-supported-functions).
