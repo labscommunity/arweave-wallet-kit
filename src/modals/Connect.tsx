@@ -107,6 +107,7 @@ export function ConnectModal() {
         payload: s.id
       });
     } catch {
+      fixupArConnectModal();
       setRetry(true);
       dispatch({
         type: "UPDATE_STRATEGY",
@@ -128,6 +129,10 @@ export function ConnectModal() {
 
   // active gateway url
   const gateway = useGatewayURL();
+
+  function fixupArConnectModal() {
+    document.querySelectorAll(".arconnect_connect_overlay_extension_temporary").forEach(el => el.remove())
+  }
 
   return (
     <Modal {...modalController.bindings} onClose={onClose}>
@@ -188,7 +193,7 @@ export function ConnectModal() {
                   </Button>
                 </>
               ))}
-            {connecting || (loadingAvailability && <ConnectLoading />)}
+            {(connecting || loadingAvailability) && <ConnectLoading />}
           </WalletData>
         </Connecting>
       )}

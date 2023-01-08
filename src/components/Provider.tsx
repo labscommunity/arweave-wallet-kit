@@ -36,7 +36,7 @@ export function ArConnectKit({
         theme={{
           ...(theme.displayTheme === "light" ? lightTheme : darkTheme),
           displayTheme: theme.displayTheme || "light",
-          theme: `${theme.colorTheme?.r}, ${theme.colorTheme?.g}, ${theme.colorTheme?.b}`
+          theme: `${theme.accent?.r}, ${theme.accent?.g}, ${theme.accent?.b}`
         }}
       >
         <AddressSync>
@@ -69,7 +69,7 @@ const AddressSync = ({ children }: PropsWithChildren<{}>) => {
 
 const defaultTheme: ThemeConfig = {
   displayTheme: "light",
-  colorTheme: {
+  accent: {
     r: 0,
     g: 0,
     b: 0
@@ -102,7 +102,7 @@ interface Props {
 
 interface ThemeConfig {
   displayTheme: "dark" | "light";
-  colorTheme: {
+  accent: {
     r: number;
     g: number;
     b: number;
