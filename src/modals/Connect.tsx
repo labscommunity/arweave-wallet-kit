@@ -271,6 +271,7 @@ const BackButton = styled(ChevronLeftIcon)`
   cursor: pointer;
   color: rgb(0, 122, 255);
   transform: scale(1.75);
+  -webkit-tap-highlight-color: transparent;
   transition: transform 0.125s ease;
 
   &:hover {

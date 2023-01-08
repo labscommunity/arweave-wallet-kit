@@ -24,6 +24,7 @@ export const Button = styled.button`
   justify-content: center;
   gap: 0.4rem;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
   transition: all 0.18s ease-in-out;
 
   &:hover:not(:active):not(:disabled) {

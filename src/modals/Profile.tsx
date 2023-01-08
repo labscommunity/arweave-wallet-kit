@@ -117,6 +117,7 @@ const ProfileData = styled.div`
       width: 1em;
       height: 1em;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
       transition: all 0.125s ease-in-out;
 
       &:hover {

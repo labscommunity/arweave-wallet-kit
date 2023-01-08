@@ -58,6 +58,7 @@ export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
     ${(props) => props.colorTheme || props.theme.primaryText}
   );
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
   cursor: ${(props) => (props.clickable ? "pointer" : "default")};
   transition: transform 0.125s ease;
 

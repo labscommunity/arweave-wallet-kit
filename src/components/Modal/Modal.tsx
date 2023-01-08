@@ -36,7 +36,7 @@ const BackgroundLayer = styled(motion.div).attrs({
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   z-index: 90000;
   background-color: rgba(0, 0, 0, 0.4);
 `;
@@ -102,6 +102,11 @@ const KitName = styled.p`
   left: 50%;
   bottom: 10px;
   transform: translateX(-50%);
+
+  @media screen and (max-width: 720px) {
+    bottom: unset;
+    top: 10px;
+  }
 `;
 
 interface Props {
