@@ -1,4 +1,5 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { version } from "../../../package.json";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
 import type { Radius } from "../Provider";
@@ -11,7 +12,7 @@ export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
     <AnimatePresence>
       {open && (
         <BackgroundLayer key="bg" onClick={onClose}>
-          <KitName>ArConnect Kit</KitName>
+          <KitName>ArConnect Kit v{version}</KitName>
         </BackgroundLayer>
       )}
       {open && <Wrapper key="modal" mobile={mobile}>{children}</Wrapper>}
