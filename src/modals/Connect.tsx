@@ -131,7 +131,9 @@ export function ConnectModal() {
   const gateway = useGatewayURL();
 
   function fixupArConnectModal() {
-    document.querySelectorAll(".arconnect_connect_overlay_extension_temporary").forEach(el => el.remove())
+    try {
+      document.querySelectorAll(".arconnect_connect_overlay_extension_temporary").forEach(el => el.remove());
+    } catch {}
   }
 
   return (

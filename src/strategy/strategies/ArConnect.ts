@@ -22,4 +22,8 @@ export default class ArConnectStrategy extends BrowserWalletStrategy implements 
 
     return window.arweaveWallet.walletName === "ArConnect";
   }
+
+  public async addToken(id: string): Promise<void> {
+    return await super.callWindowApi("addToken", [id]);
+  }
 }

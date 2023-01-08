@@ -58,7 +58,7 @@ export default class BrowserWalletStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ): Promise<void> {
-    return await this.#callWindowApi("connect", [
+    return await this.callWindowApi("connect", [
       permissions,
       appInfo,
       gateway
@@ -66,30 +66,30 @@ export default class BrowserWalletStrategy implements Strategy {
   }
 
   public async disconnect(): Promise<void> {
-    return await this.#callWindowApi("disconnect");
+    return await this.callWindowApi("disconnect");
   }
 
   public async getActiveAddress(): Promise<string> {
-    return await this.#callWindowApi("getActiveAddress");
+    return await this.callWindowApi("getActiveAddress");
   }
 
   public async getAllAddresses(): Promise<string[]> {
-    return await this.#callWindowApi("getAllAddresses");
+    return await this.callWindowApi("getAllAddresses");
   }
 
   public async getPermissions(): Promise<PermissionType[]> {
-    return await this.#callWindowApi("getPermissions");
+    return await this.callWindowApi("getPermissions");
   }
 
   public async getWalletNames(): Promise<{ [addr: string]: string }> {
-    return await this.#callWindowApi("getWalletNames");
+    return await this.callWindowApi("getWalletNames");
   }
 
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions
   ): Promise<void> {
-    const signedTransaction = await this.#callWindowApi("sign", [transaction, options]);
+    const signedTransaction = await this.callWindowApi("sign", [transaction, options]);
 
     transaction.setSignature({
       id: signedTransaction.id,
@@ -104,37 +104,37 @@ export default class BrowserWalletStrategy implements Strategy {
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array> {
-    return await this.#callWindowApi("encrypt", [data, algorithm]);
+    return await this.callWindowApi("encrypt", [data, algorithm]);
   }
 
   public async decrypt(
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array> {
-    return await this.#callWindowApi("decrypt", [data, algorithm]);
+    return await this.callWindowApi("decrypt", [data, algorithm]);
   }
 
   public async getArweaveConfig(): Promise<GatewayConfig> {
-    return await this.#callWindowApi("getArweaveConfig");
+    return await this.callWindowApi("getArweaveConfig");
   }
 
   public async signature(
     data: Uint8Array,
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
   ): Promise<Uint8Array> {
-    return await this.#callWindowApi("signature", [data, algorithm]);
+    return await this.callWindowApi("signature", [data, algorithm]);
   }
 
   public async getActivePublicKey(): Promise<string> {
-    return await this.#callWindowApi("getActivePublicKey");
+    return await this.callWindowApi("getActivePublicKey");
   }
 
   public async addToken(id: string): Promise<void> {
-    return await this.#callWindowApi("addToken", [id]);
+    throw new Error("Not implemented");
   }
 
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
-    return await this.#callWindowApi("dispatch", [transaction]);
+    return await this.callWindowApi("dispatch", [transaction]);
   }
 
   public addAddressEvent(listener: (address: string) => void) {
@@ -159,7 +159,7 @@ export default class BrowserWalletStrategy implements Strategy {
    * @param params Params
    * @returns API result
    */
-  async #callWindowApi(fn: string, params: any[] = []) {
+  async callWindowApi(fn: string, params: any[] = []) {
     // if it is already injected
     if (window?.arweaveWallet) {
       // @ts-expect-error
