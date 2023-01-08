@@ -92,9 +92,9 @@ With the `theme` field, you can define a custom theme configuration for the ArCo
 
 | Prop | Type |   |
 | ---- | ---- | - |
-| `displayTheme` | `"dark" | "light"` | UI display theme to use |
+| `displayTheme` | `"dark"`, `"light"` | UI display theme to use |
 | `accent` | `RGBObject` | RGB accent color for the UI |
-| `radius` | `"default" | "minimal" | "none"` | Border radius level used throughout the Kit UI |
+| `radius` | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI |
 
 ## Terminology of ArConnect Kit
 
