@@ -85,8 +85,16 @@ export default class ArConnectStrategy implements Strategy {
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<Transaction> {
-    return await this.#callWindowApi("sign", [transaction, options]);
+  ): Promise<void> {
+    const signedTransaction = await this.#callWindowApi("sign", [transaction, options]);
+
+    transaction.setSignature({
+      id: signedTransaction.id,
+      owner: signedTransaction.owner,
+      reward: signedTransaction.reward,
+      tags: signedTransaction.tags,
+      signature: signedTransaction.signature,
+    });
   }
 
   public async encrypt(

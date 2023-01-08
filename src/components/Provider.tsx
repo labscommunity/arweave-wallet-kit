@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useReducer } from "react";
+import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
 import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
 import { useSyncStrategy } from "../hooks/strategy";
@@ -31,13 +31,19 @@ export function ArConnectKit({
 
   useSyncStrategy(state?.config, dispatch);
 
+  // final theme config
+  const themeConfig = useMemo(() => ({
+    ...defaultTheme,
+    ...theme
+  }), [theme]);
+
   return (
     <Context.Provider value={{ state, dispatch }}>
       <ThemeProvider
         theme={{
-          ...(theme.displayTheme === "light" ? lightTheme : darkTheme),
-          displayTheme: theme.displayTheme || "light",
-          theme: `${theme.accent?.r}, ${theme.accent?.g}, ${theme.accent?.b}`
+          ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
+          displayTheme: themeConfig.displayTheme || "light",
+          theme: `${themeConfig.accent.r}, ${themeConfig.accent.g}, ${themeConfig.accent.b}`
         }}
       >
         <AddressSync>
@@ -75,7 +81,8 @@ const defaultTheme: ThemeConfig = {
     r: 0,
     g: 0,
     b: 0
-  }
+  },
+  radius: "default"
 };
 
 const defaultConfig: Config = {
@@ -109,4 +116,5 @@ interface ThemeConfig {
     g: number;
     b: number;
   };
+  radius: "default" | "minimal" | "none";
 }
