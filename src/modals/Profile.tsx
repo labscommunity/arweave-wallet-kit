@@ -1,4 +1,5 @@
 import { CopyIcon, LogOutIcon, UserIcon } from "@iconicicons/react";
+import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
@@ -8,11 +9,10 @@ import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
 import { useEffect, useState } from "react";
 import { Title } from "../components/Title";
+import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
-import Arweave from "arweave";
-import type { Radius } from "../components/Provider"
 
 export function ProfileModal() {
   // modal controlls and statuses
@@ -33,27 +33,7 @@ export function ProfileModal() {
   }
 
   // load balance
-  const [balance, setBalance] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      if (!state.activeAddress) return;
-
-      const arweave = new Arweave(
-        state?.config?.gatewayConfig || {
-          host: "arweave.net",
-          port: 443,
-          protocol: "https"
-        }
-      );
-
-      const bal = arweave.ar.winstonToAr(
-        await arweave.wallets.getBalance(state.activeAddress)
-      );
-
-      setBalance(Number(bal));
-    })();
-  }, [state?.activeAddress]);
+  const balance = useBalance();
 
   // load ans profile
   const [ans, setAns] = useState<AnsProfile>();

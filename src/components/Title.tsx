@@ -1,3 +1,4 @@
+import { rgbToString } from "../utils";
 import styled from "styled-components";
 
 export const Title = styled.h1<{ small?: boolean; themed?: boolean }>`
@@ -6,7 +7,13 @@ export const Title = styled.h1<{ small?: boolean; themed?: boolean }>`
   font-size: ${(props) => (props.small ? "1.05rem" : "1.2rem")};
   font-weight: 600;
   color: rgb(
-    ${(props) => (props.themed ? "0, 122, 255" : props.theme.primaryText)}
+    ${props => {
+      if (!props.themed) {
+        return props.theme.primaryText;
+      }
+
+      return rgbToString(props.theme.themeConfig.titleHighlight);
+    }}
   );
   cursor: ${(props) => (props.themed ? "pointer" : "text")};
   align-items: center;

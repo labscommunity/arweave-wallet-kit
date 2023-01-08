@@ -1,3 +1,4 @@
+import type { RGBObject } from "./components/Provider";
 import type { PermissionType } from "arconnect";
 
 /**
@@ -31,3 +32,5 @@ export function formatAddress(address: string, count = 13) {
     address.substring(address.length - count, address.length)
   );
 }
+
+export const rgbToString = (rgb: RGBObject) => `${rgb.r}, ${rgb.g}, ${rgb.b}`;

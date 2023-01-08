@@ -9,6 +9,7 @@ import { ProfileModal } from "../modals/Profile";
 import type { DisplayTheme } from "../vite-env";
 import type { Config } from "../context/faces";
 import globalReducer from "../context/reducer";
+import { rgbToString } from "../utils";
 import { Helmet } from "react-helmet";
 
 export function ArConnectKit({
@@ -43,7 +44,7 @@ export function ArConnectKit({
         theme={{
           ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
           displayTheme: themeConfig.displayTheme || "light",
-          theme: `${themeConfig.accent.r}, ${themeConfig.accent.g}, ${themeConfig.accent.b}`,
+          theme: rgbToString(themeConfig.accent),
           themeConfig
         }}
       >
@@ -83,6 +84,11 @@ const defaultTheme: ThemeConfig = {
     g: 0,
     b: 0
   },
+  titleHighlight: {
+    r: 0,
+    g: 122,
+    b: 255
+  },
   radius: "default"
 };
 
@@ -112,12 +118,15 @@ interface Props {
 
 export interface ThemeConfig {
   displayTheme: "dark" | "light";
-  accent: {
-    r: number;
-    g: number;
-    b: number;
-  };
+  accent: RGBObject;
+  titleHighlight: RGBObject;
   radius: Radius;
+}
+
+export interface RGBObject {
+  r: number;
+  g: number;
+  b: number;
 }
 
 export type Radius = "default" | "minimal" | "none";

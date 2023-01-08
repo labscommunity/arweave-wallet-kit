@@ -100,6 +100,7 @@ With the `theme` field, you can define a custom theme configuration for the ArCo
 | ---- | ---- | - |
 | `displayTheme` | `"dark"`, `"light"` | UI display theme to use |
 | `accent` | `RGBObject` | RGB accent color for the UI |
+| `titleHighlight` | `RGBObject` | RGB accent color for the subscreen titles (like the connection screen) |
 | `radius` | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI |
 
 ## Terminology of ArConnect Kit
