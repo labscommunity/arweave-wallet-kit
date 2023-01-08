@@ -99,7 +99,7 @@ const lightTheme: DisplayTheme = {
 };
 
 const darkTheme: DisplayTheme = {
-  primaryText: "255, 255, 255",
+  primaryText: "240, 240, 240",
   background: "26, 27, 31",
   secondaryText: "161, 161, 161",
   light: "44, 45, 49"

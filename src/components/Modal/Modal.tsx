@@ -89,6 +89,7 @@ const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
   z-index: 100000;
   font-family: "Manrope", sans-serif;
   overflow: hidden;
+  transition: background-color .23s ease-in-out;
 
   @media screen and (max-width: 1080px) {
     width: 50vw;

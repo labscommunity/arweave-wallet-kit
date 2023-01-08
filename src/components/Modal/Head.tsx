@@ -28,7 +28,7 @@ const CloseButton = styled.div`
   background-color: rgb(${(props) => props.theme.light});
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.23s ease-in-out, transform 0.125s ease;
+  transition: opacity 0.23s ease-in-out, transform 0.125s ease, background-color 0.23s ease-in-out;
 
   &:hover {
     transform: scale(1.14);

@@ -30,18 +30,10 @@ export const Button = styled.button`
 
   &:hover:not(:active):not(:disabled) {
     transform: translate3d(0px, -1.4px, 0px);
-    box-shadow: 0px 0px 2px
-        rgba(
-          ${(props) =>
-            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"},
-          0.15
-        ),
-      0px 4px 7px
-        rgba(
-          ${(props) =>
-            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"},
-          0.1
-        );
+    box-shadow: ${
+      props => props.theme.displayTheme === "light" ?
+        `0px 0px 2px rgba(${props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, .15), 0px 4px 7px rgba(${props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, .1)` : "none"
+    };
   }
 
   &:disabled {

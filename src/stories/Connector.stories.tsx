@@ -38,10 +38,8 @@ const Button = () => {
   const [status, setStatus] = useState("Idle...");
 
   useEffect(() => {
-    if (connection.connected) {
-      setStatus("connected");
-    }
-  }, [connection]);
+    setStatus(connection.connected ? "connected" : "disconnected");
+  }, [connection.connected]);
 
   async function connect() {
     try {
