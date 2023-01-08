@@ -12,7 +12,11 @@ import { Button } from "./Button";
 
 export default function ConnectButton({
   accent,
+  showBalance = true,
+  showProfilePicture = true,
   onClick,
+  useAns: ansOption = true,
+  profileModal: showProfileModal = true,
   ...props
 }: HTMLProps<HTMLButtonElement> & Props) {
   // connection
@@ -35,7 +39,8 @@ export default function ConnectButton({
       accent={accent}
       onClick={async (e) => {
         if (!connected) await connect();
-        else profileModal.setOpen(true);
+        else if (showProfileModal) profileModal.setOpen(true);
+        else await disconnect();
 
         if (onClick) return onClick(e);
       }}
@@ -43,17 +48,23 @@ export default function ConnectButton({
     >
       {(connected && (
         <>
-          <Balance>
-            {balance.toLocaleString(undefined, { maximumFractionDigits: 2 }) +
-              " AR"}
-          </Balance>
-          <ProfileSection>
-            {(ans?.avatar && <Avatar src={ans?.avatar} />) || (
-              <AvatarPlaceholder>
-                <AvatarIcon />
-              </AvatarPlaceholder>
+          {showBalance && (
+            <Balance>
+              {balance.toLocaleString(undefined, { maximumFractionDigits: 2 }) +
+                " AR"}
+            </Balance>
+          )}
+          <ProfileSection showBalance={showBalance}>
+            {showProfilePicture && (
+              <>
+                {(ans?.avatar && ansOption && <Avatar src={ans?.avatar} />) || (
+                  <AvatarPlaceholder>
+                    <AvatarIcon />
+                  </AvatarPlaceholder>
+                )}
+              </>
             )}
-            {ans?.currentLabel || formatAddress(address || "", 5)}
+            {(ansOption && ans?.currentLabel) || formatAddress(address || "", 5)}
             <ExpandIcon />
           </ProfileSection>
         </>
@@ -80,10 +91,10 @@ const ConnectText = styled.span`
   padding: 0 0.9rem;
 `;
 
-const ProfileSection = styled.div`
+const ProfileSection = styled.div<{ showBalance?: boolean }>`
   display: flex;
   align-items: center;
-  background-color: rgb(${(props) => props.theme.background}, 0.2);
+  background-color: rgb(${(props) => props.showBalance ? props.theme.background : "transparent"}, 0.2);
   height: 2.6rem;
   border-radius: ${(props) =>
     radius[props.theme.themeConfig.radius] - 3 + "px"};
@@ -140,4 +151,8 @@ const AvatarPlaceholder = styled.span`
 
 interface Props {
   accent?: string;
+  showBalance?: boolean;
+  showProfilePicture?: boolean;
+  useAns?: boolean;
+  profileModal?: boolean;
 }
