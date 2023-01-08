@@ -36,6 +36,11 @@ export interface UpdateAddress extends Action {
   payload: string;
 }
 
+export interface UpdatePermissions extends Action {
+  type: "UPDATE_PERMISSIONS";
+  payload: PermissionType[];
+}
+
 /** Modal types */
 export type ModalType = "connect" | "profile";
 
@@ -46,7 +51,8 @@ export type Actions =
   | DisconnectAction
   | UpdateStrategyAction
   | UpdateConfig
-  | UpdateAddress;
+  | UpdateAddress
+  | UpdatePermissions;
 
 /** Global state type */
 export interface GlobalState {
@@ -54,6 +60,7 @@ export interface GlobalState {
   activeStrategy: string | false;
   config: Config;
   activeAddress?: string;
+  givenPermissions: PermissionType[];
 }
 
 /** Global config for ArConnect kit */

@@ -22,7 +22,8 @@ export default function reducer(
       return {
         ...state,
         activeStrategy: false,
-        activeAddress: undefined
+        activeAddress: undefined,
+        givenPermissions: []
       };
 
     case "UPDATE_STRATEGY":
@@ -41,6 +42,12 @@ export default function reducer(
       return {
         ...state,
         activeAddress: action.payload
+      };
+
+    case "UPDATE_PERMISSIONS":
+      return {
+        ...state,
+        givenPermissions: action.payload
       };
 
     default:

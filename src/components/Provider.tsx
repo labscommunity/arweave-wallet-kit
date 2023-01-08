@@ -1,4 +1,5 @@
 import { PropsWithChildren, useEffect, useReducer } from "react";
+import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
 import { useSyncStrategy } from "../hooks/strategy";
 import Context, { defaultState } from "../context";
@@ -62,6 +63,7 @@ export function ArConnectKit({
 }
 
 const AddressSync = ({ children }: PropsWithChildren<{}>) => {
+  useSyncPermissions();
   useSyncAddress();
 
   return <>{children}</>;

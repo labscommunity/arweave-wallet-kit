@@ -4,6 +4,7 @@ import { Dispatch, createContext } from "react";
 export const defaultState: GlobalState = {
   activeModal: false,
   activeStrategy: false,
+  givenPermissions: [],
   config: {
     permissions: []
   }
