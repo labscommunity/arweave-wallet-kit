@@ -67,7 +67,7 @@ export function ProfileModal() {
   const gateway = useGatewayURL();
 
   // disconnect
-  const { disconnect } = useConnection("fdsf");
+  const { disconnect } = useConnection();
 
   return (
     <Modal {...modalController.bindings} onClose={onClose}>

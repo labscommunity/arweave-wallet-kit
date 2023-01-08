@@ -47,6 +47,9 @@ export function saveStrategy(active: string) {
   localStorage.setItem(STRATEGY_STORE, active);
 }
 
+/**
+ * Get strategy by id
+ */
 export function getStrategy(id: string) {
   return strategies.find((s) => s.id === id);
 }

@@ -93,7 +93,7 @@ export function ConnectModal() {
 
       // send success message
       postMessage({
-        connectId: state.connectId,
+        type: "connect_result",
         res: true
       });
 
@@ -121,7 +121,7 @@ export function ConnectModal() {
   // on connect modal close
   function onClose() {
     postMessage({
-      connectId: state.connectId,
+      type: "connect_result",
       res: false
     });
     dispatch({ type: "CLOSE_MODAL" });
@@ -273,6 +273,10 @@ const BackButton = styled(ChevronLeftIcon)`
   transform: scale(1.75);
   transition: transform 0.125s ease;
 
+  &:hover {
+    transform: scale(1.9);
+  }
+  
   &:active {
     transform: scale(1.5);
   }

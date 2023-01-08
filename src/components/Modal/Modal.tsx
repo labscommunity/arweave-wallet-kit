@@ -93,6 +93,9 @@ const KitName = styled.p`
   position: fixed;
   font-family: "Manrope", sans-serif;
   font-size: 0.8rem;
+  font-weight: 500;
+  user-select: none;
+  cursor: default;
   text-align: center;
   margin: 0;
   color: rgb(255, 255, 255, 0.5);
