@@ -1,6 +1,7 @@
 import { ChevronDownIcon, UserIcon } from "@iconicicons/react";
 import useAddress from "../hooks/active_address";
 import useConnection from "../hooks/connection";
+import useProfileModal from "../hooks/profile";
 import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import type { Radius } from "./Provider";
@@ -26,12 +27,15 @@ export default function ConnectButton({
   // ans profile
   const ans = useAns();
 
+  // profile modal
+  const profileModal = useProfileModal();
+
   return (
     <Wrapper
       accent={accent}
       onClick={async (e) => {
         if (!connected) await connect();
-        else await disconnect();
+        else profileModal.setOpen(true);
 
         if (onClick) return onClick(e);
       }}
