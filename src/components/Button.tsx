@@ -1,19 +1,20 @@
+import type { Radius } from "./Provider";
 import styled from "styled-components";
+
+const radius: Record<Radius, number> = {
+  default: 30,
+  minimal: 6,
+  none: 0
+};
 
 export const Button = styled.button`
   display: flex;
   font-family: "Manrope", sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-  color: rgb(
-    ${(props) =>
-      props.theme.displayTheme === "dark" ? "0, 0, 0" : "255, 255, 255"}
-  );
-  background-color: rgb(
-    ${(props) =>
-      props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}
-  );
-  border-radius: 30px;
+  color: #fff;
+  background-color: rgb(${(props) => props.theme.theme});
+  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
   padding: 0.3rem 0.8rem;
   text-align: center;
   border: none;

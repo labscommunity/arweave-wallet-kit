@@ -1,4 +1,5 @@
 import type { MouseEventHandler } from "react";
+import type { Radius } from "./Provider";
 import { Paragraph } from "./Paragraph";
 import styled from "styled-components";
 import { Button } from "./Button";
@@ -49,11 +50,17 @@ export const Logo = styled.img.attrs({
   object-fit: contain;
 `;
 
+const radius: Record<Radius, number> = {
+  default: 15,
+  minimal: 6,
+  none: 0
+};
+
 export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
-  border-radius: 15px;
+  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
   background-color: rgb(
     ${(props) => props.colorTheme || props.theme.primaryText}
   );

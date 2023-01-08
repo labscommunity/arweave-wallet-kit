@@ -32,7 +32,7 @@ export function ArConnectKit({
   useSyncStrategy(state?.config, dispatch);
 
   // final theme config
-  const themeConfig = useMemo(() => ({
+  const themeConfig = useMemo<ThemeConfig>(() => ({
     ...defaultTheme,
     ...theme
   }), [theme]);
@@ -43,7 +43,8 @@ export function ArConnectKit({
         theme={{
           ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
           displayTheme: themeConfig.displayTheme || "light",
-          theme: `${themeConfig.accent.r}, ${themeConfig.accent.g}, ${themeConfig.accent.b}`
+          theme: `${themeConfig.accent.r}, ${themeConfig.accent.g}, ${themeConfig.accent.b}`,
+          themeConfig
         }}
       >
         <AddressSync>
@@ -109,12 +110,14 @@ interface Props {
   config?: Config;
 }
 
-interface ThemeConfig {
+export interface ThemeConfig {
   displayTheme: "dark" | "light";
   accent: {
     r: number;
     g: number;
     b: number;
   };
-  radius: "default" | "minimal" | "none";
+  radius: Radius;
 }
+
+export type Radius = "default" | "minimal" | "none";

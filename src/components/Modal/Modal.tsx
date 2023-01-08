@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
+import type { Radius } from "../Provider";
 import styled from "styled-components";
 
 export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
@@ -67,6 +68,12 @@ const modalAnimation = (mobile = false): Variants => ({
   }
 });
 
+const radius: Record<Radius, number> = {
+  default: 30,
+  minimal: 12,
+  none: 0
+};
+
 const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
   variants: modalAnimation(props.mobile),
   initial: "hidden",
@@ -78,7 +85,7 @@ const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
   top: 50%;
   width: 28vw;
   background-color: rgb(${(props) => props.theme.background});
-  border-radius: 30px;
+  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
   z-index: 100000;
   font-family: "Manrope", sans-serif;
   overflow: hidden;

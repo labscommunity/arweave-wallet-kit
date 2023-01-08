@@ -12,6 +12,7 @@ import { formatAddress } from "../utils";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
 import Arweave from "arweave";
+import type { Radius } from "../components/Provider"
 
 export function ProfileModal() {
   // modal controlls and statuses
@@ -103,6 +104,12 @@ export function ProfileModal() {
   );
 }
 
+const btnRadius: Record<Radius, number> = {
+  default: 18,
+  minimal: 10,
+  none: 0
+};
+
 const ProfileData = styled.div`
   display: flex;
   flex-direction: column;
@@ -134,16 +141,22 @@ const ProfileData = styled.div`
     margin-top: 1.5rem;
     width: 100%;
     padding: 0.9rem 0;
-    border-radius: 18px;
+    border-radius: ${props => btnRadius[props.theme.themeConfig.radius] + "px"};
     text-transform: none;
   }
 `;
+
+const pfpRadius: Record<Radius, string> = {
+  default: "100%",
+  minimal: "8px",
+  none: "none"
+};
 
 const ProfilePicture = styled.div<{ profilePicture?: string }>`
   position: relative;
   width: 80px;
   height: 80px;
-  border-radius: 100%;
+  border-radius: ${props => pfpRadius[props.theme.themeConfig.radius]};
   margin-bottom: 0.475rem;
   background-color: rgb(${(props) => props.theme.theme});
   background-size: cover;
