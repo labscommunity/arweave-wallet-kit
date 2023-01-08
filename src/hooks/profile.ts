@@ -9,7 +9,7 @@ export default function useProfileModal() {
   useEffect(() => {
     if (state.activeStrategy || state.activeModal !== "profile") return;
     dispatch({ type: "CLOSE_MODAL" });
-  }, [state]);
+  }, [state, dispatch]);
 
   return {
     setOpen(val: boolean) {

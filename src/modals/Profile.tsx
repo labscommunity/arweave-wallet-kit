@@ -25,7 +25,7 @@ export function ProfileModal() {
   useEffect(() => {
     if (modalController.open) return;
     dispatch({ type: "CLOSE_MODAL" });
-  }, [modalController.open]);
+  }, [modalController.open, dispatch]);
 
   function onClose() {
     dispatch({ type: "CLOSE_MODAL" });

@@ -54,7 +54,7 @@ export async function useSyncAddress() {
         removeEventListener("focus", sync);
       };
     })();
-  }, [strategy]);
+  }, [strategy, dispatch]);
 }
 
 /**
