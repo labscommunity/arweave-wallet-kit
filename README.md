@@ -107,6 +107,33 @@ With the `theme` field, you can define a custom theme configuration for the ArCo
 
 ArConnect Kit supports several _strategies_. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
 
+## Connect Button
+
+To quickly integrate the ArConnect Kit, you can use the `<ConnectButton>` component. It is a highly customizable button that supports the [ANS](https://ar.page) protocol to display information about the connected wallet.
+
+### Usage
+
+```tsx
+<ConnectButton
+  accent="rgb(255, 0, 0)"
+  profileModal={false}
+  showBalance={true}
+  ...
+/>
+```
+
+### Config
+
+You can configure the Connect Button through it's props.
+
+| Props | Type |   |
+| ----- | ---- | - |
+| `accent` | `string` | A theme color for the button |
+| `showBalance` | `boolean` | Show user balance when connected |
+| `showProfilePicture` | `boolean` | Show user profile picture when connected |
+| `useAns` | `boolean` | Use ANS to grab profile information |
+| `profileModal` | `boolean` | Show profile modal on click (if disabled, clicking the button will disconnect the user) |
+
 ## Hooks
 
 Inside the [`<ArConnectKit>`](#setup), you can use all kinds of hooks that are reactive to the different [strategies](#terminology-of-arconnect-kit). Some of the hooks / api functions might not be supported by all wallets.
