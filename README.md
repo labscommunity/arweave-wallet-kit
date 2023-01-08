@@ -2,6 +2,12 @@
 
 React Hooks and Components for better interaction with Arweave wallets. Modular, can support any Arweave-based wallet.
 
+## Supported wallets
+
+- [ArConnect](https://arconnect.io)
+- [Arweave.app](https://arweave.app)
+- Any extension-based Arweave wallet, that injects it's ArConnect-like API into `window.arweaveWallet`
+
 ## Installation
 
 ```sh
