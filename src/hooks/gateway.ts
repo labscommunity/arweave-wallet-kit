@@ -11,7 +11,7 @@ export default function useGatewayURL() {
       return "https://arweave.net";
     }
 
-    return `${gatewayConfig.protocol}://${gatewayConfig.host}:${gatewayConfig.protocol}`;
+    return `${gatewayConfig.protocol}://${gatewayConfig.host}:${gatewayConfig.port}`;
   }, [state?.config?.gatewayConfig]);
 
   return url;

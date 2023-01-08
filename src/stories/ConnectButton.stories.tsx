@@ -1,16 +1,48 @@
 import ConnectButton from "../components/ConnectButton";
+import type { ComponentStory } from "@storybook/react";
 import { ArConnectKit } from "../components/Provider";
-import { rgbToString } from "../utils";
 
 export default {
   name: "ConnectButton",
   component: ConnectButton
 };
 
-export const Basic = () => (
-  <ArConnectKit>
+const Template: ComponentStory<typeof ArConnectKit> = (props) => (
+  <ArConnectKit {...props}>
     <ConnectButton
       accent={"rgb(0, 122, 255)"}
     />
   </ArConnectKit>
 );
+
+export const Basic = Template.bind({})
+
+Basic.args = {
+  theme: {
+    displayTheme: "light",
+    accent: {
+      r: 0,
+      g: 0,
+      b: 0
+    },
+    titleHighlight: {
+      r: 0,
+      g: 122,
+      b: 255
+    },
+    radius: "default"
+  },
+  config: {
+    permissions: ["ACCESS_ADDRESS", "ACCESS_ALL_ADDRESSES"],
+    ensurePermissions: true,
+    appInfo: {
+      name: "Test App",
+      logo: "https://arweave.net/tQUcL4wlNj_NED2VjUGUhfCTJ6pDN9P0e3CbnHo3vUE"
+    },
+    gatewayConfig: {
+      host: "arweave.net",
+      port: 443,
+      protocol: "https"
+    }
+  }
+};
