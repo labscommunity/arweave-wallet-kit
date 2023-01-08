@@ -14,7 +14,7 @@ export default abstract class Strategy {
   public abstract description: string;
   public abstract theme?: string;
   public abstract logo: string;
-  public abstract url: string;
+  public abstract url?: string;
 
   // connection
   public abstract connect(

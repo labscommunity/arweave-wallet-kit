@@ -1,10 +1,14 @@
+import BrowserWalletStrategy from "./strategies/BrowserWallet";
 import ArConnectStrategy from "./strategies/ArConnect";
 
 import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
 import type Strategy from "./Strategy";
 
-const strategies: Strategy[] = [new ArConnectStrategy()];
+const strategies: Strategy[] = [
+  new ArConnectStrategy(),
+  new BrowserWalletStrategy()
+];
 
 export const STRATEGY_STORE = "arconnect_kit_strategy_id";
 

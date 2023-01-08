@@ -188,9 +188,11 @@ export function ConnectModal() {
                   <Paragraph>
                     If you don't have it yet, you can try to download it
                   </Paragraph>
-                  <Button onClick={() => window.open(strategyData?.url)}>
-                    Download
-                  </Button>
+                  {strategyData?.url && (
+                    <Button onClick={() => window.open(strategyData.url)}>
+                      Download
+                    </Button>
+                  )}
                 </>
               ))}
             {(connecting || loadingAvailability) && <ConnectLoading />}
@@ -214,7 +216,7 @@ const Apps = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.1rem;
   padding-bottom: 1.2rem;
   max-height: 280px;
   overflow-y: auto;
