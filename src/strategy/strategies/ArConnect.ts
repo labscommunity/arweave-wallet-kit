@@ -1,7 +1,10 @@
 import BrowserWalletStrategy from "./BrowserWallet";
 import type Strategy from "../Strategy";
 
-export default class ArConnectStrategy extends BrowserWalletStrategy implements Strategy {
+export default class ArConnectStrategy
+  extends BrowserWalletStrategy
+  implements Strategy
+{
   public id = "arconnect";
   public name = "ArConnect";
   public description = "Secure wallet management for Arweave";

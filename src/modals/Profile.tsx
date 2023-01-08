@@ -51,9 +51,7 @@ export function ProfileModal() {
         <Title>Profile</Title>
       </Head>
       <ProfileData>
-        <ProfilePicture
-          profilePicture={ans?.avatar}
-        >
+        <ProfilePicture profilePicture={ans?.avatar}>
           {!ans?.avatar && <ProfileIcon />}
         </ProfilePicture>
         <Title>
@@ -114,7 +112,8 @@ const ProfileData = styled.div`
     margin-top: 1.5rem;
     width: 100%;
     padding: 0.9rem 0;
-    border-radius: ${props => btnRadius[props.theme.themeConfig.radius] + "px"};
+    border-radius: ${(props) =>
+      btnRadius[props.theme.themeConfig.radius] + "px"};
     text-transform: none;
   }
 `;
@@ -129,7 +128,7 @@ const ProfilePicture = styled.div<{ profilePicture?: string }>`
   position: relative;
   width: 80px;
   height: 80px;
-  border-radius: ${props => pfpRadius[props.theme.themeConfig.radius]};
+  border-radius: ${(props) => pfpRadius[props.theme.themeConfig.radius]};
   margin-bottom: 0.475rem;
   background-color: rgb(${(props) => props.theme.theme});
   background-size: cover;

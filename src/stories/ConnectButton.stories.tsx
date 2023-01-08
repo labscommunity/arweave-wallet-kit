@@ -9,13 +9,11 @@ export default {
 
 const Template: ComponentStory<typeof ArConnectKit> = (props) => (
   <ArConnectKit {...props}>
-    <ConnectButton
-      accent={"rgb(0, 122, 255)"}
-    />
+    <ConnectButton accent={"rgb(0, 122, 255)"} />
   </ArConnectKit>
 );
 
-export const Basic = Template.bind({})
+export const Basic = Template.bind({});
 
 Basic.args = {
   theme: {

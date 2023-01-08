@@ -132,7 +132,9 @@ export function ConnectModal() {
 
   function fixupArConnectModal() {
     try {
-      document.querySelectorAll(".arconnect_connect_overlay_extension_temporary").forEach(el => el.remove());
+      document
+        .querySelectorAll(".arconnect_connect_overlay_extension_temporary")
+        .forEach((el) => el.remove());
     } catch {}
   }
 
@@ -281,7 +283,7 @@ const BackButton = styled(ChevronLeftIcon)`
   &:hover {
     transform: scale(1.9);
   }
-  
+
   &:active {
     transform: scale(1.5);
   }

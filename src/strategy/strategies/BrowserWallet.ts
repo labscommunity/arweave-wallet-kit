@@ -9,7 +9,7 @@ import type {
 } from "arconnect";
 
 /**
- * Any kind of browser wallet, with an 
+ * Any kind of browser wallet, with an
  * ArConnect-like injected API
  */
 export default class BrowserWalletStrategy implements Strategy {
@@ -58,11 +58,7 @@ export default class BrowserWalletStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ): Promise<void> {
-    return await this.callWindowApi("connect", [
-      permissions,
-      appInfo,
-      gateway
-    ]);
+    return await this.callWindowApi("connect", [permissions, appInfo, gateway]);
   }
 
   public async disconnect(): Promise<void> {
@@ -89,14 +85,17 @@ export default class BrowserWalletStrategy implements Strategy {
     transaction: Transaction,
     options?: SignatureOptions
   ): Promise<void> {
-    const signedTransaction = await this.callWindowApi("sign", [transaction, options]);
+    const signedTransaction = await this.callWindowApi("sign", [
+      transaction,
+      options
+    ]);
 
     transaction.setSignature({
       id: signedTransaction.id,
       owner: signedTransaction.owner,
       reward: signedTransaction.reward,
       tags: signedTransaction.tags,
-      signature: signedTransaction.signature,
+      signature: signedTransaction.signature
     });
   }
 

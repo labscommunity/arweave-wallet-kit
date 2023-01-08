@@ -60,7 +60,7 @@ export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
-  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
   background-color: rgb(
     ${(props) => props.colorTheme || props.theme.primaryText}
   );

@@ -33,10 +33,13 @@ export function ArConnectKit({
   useSyncStrategy(state?.config, dispatch);
 
   // final theme config
-  const themeConfig = useMemo<ThemeConfig>(() => ({
-    ...defaultTheme,
-    ...theme
-  }), [theme]);
+  const themeConfig = useMemo<ThemeConfig>(
+    () => ({
+      ...defaultTheme,
+      ...theme
+    }),
+    [theme]
+  );
 
   return (
     <Context.Provider value={{ state, dispatch }}>

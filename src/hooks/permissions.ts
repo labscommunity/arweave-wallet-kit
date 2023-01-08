@@ -9,7 +9,7 @@ import { useEffect } from "react";
 export default function usePermissions() {
   const { state, dispatch } = useGlobalState();
   const strategy = useActiveStrategy();
-  
+
   // no need to add the strategy to the
   // dependencies of this "useEffect" hook
   // because we don't need to sync the
@@ -105,10 +105,10 @@ export function useSyncPermissions() {
     addEventListener("focus", sync);
     addEventListener("message", msgSync);
 
-    // add sync on address change if 
+    // add sync on address change if
     // there is an active strategy
     let addressChangeSync: any;
-  
+
     if (strategy) {
       addressChangeSync = strategy.addAddressEvent(sync);
     }

@@ -7,7 +7,7 @@ export const Title = styled.h1<{ small?: boolean; themed?: boolean }>`
   font-size: ${(props) => (props.small ? "1.05rem" : "1.2rem")};
   font-weight: 600;
   color: rgb(
-    ${props => {
+    ${(props) => {
       if (!props.themed) {
         return props.theme.primaryText;
       }

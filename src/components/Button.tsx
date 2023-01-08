@@ -14,7 +14,7 @@ export const Button = styled.button`
   font-weight: 600;
   color: #fff;
   background-color: rgb(${(props) => props.theme.theme});
-  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
   padding: 0.3rem 0.8rem;
   text-align: center;
   border: none;
@@ -30,10 +30,14 @@ export const Button = styled.button`
 
   &:hover:not(:active):not(:disabled) {
     transform: translate3d(0px, -1.4px, 0px);
-    box-shadow: ${
-      props => props.theme.displayTheme === "light" ?
-        `0px 0px 2px rgba(${props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, .15), 0px 4px 7px rgba(${props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"}, .1)` : "none"
-    };
+    box-shadow: ${(props) =>
+      props.theme.displayTheme === "light"
+        ? `0px 0px 2px rgba(${
+            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"
+          }, .15), 0px 4px 7px rgba(${
+            props.theme.displayTheme === "light" ? "0, 0, 0" : "255, 255, 255"
+          }, .1)`
+        : "none"};
   }
 
   &:disabled {

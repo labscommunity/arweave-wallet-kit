@@ -12,12 +12,14 @@ export default function useAns() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`https://ans-testnet.herokuapp.com/profile/${address}`);
+      const res = await fetch(
+        `https://ans-testnet.herokuapp.com/profile/${address}`
+      );
       const data: AnsProfile = await res.json();
 
       if (!data?.currentLabel) {
         return setAns(undefined);
-      };
+      }
 
       setAns({
         ...data,

@@ -83,12 +83,12 @@ Using the `config` field of the `<ArConnectKit>` provider component, you can def
 
 #### Available options
 
-| Prop | Type | Default |   |
-| ---- | ---- | ------- | - |
-| `permissions` | [`PermissionType[]`](https://github.com/arconnectio/ArConnect#permissions) | `[]` | Permissions to connect with. |
-| `ensurePermissions` | `boolean` | `false` | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
-| `appInfo` | [`AppInfo`](https://github.com/arconnectio/ArConnect#app-infos) | `{}` | Information about your app (name/logo). |
-| `gatewayConfig` | `GatewayConfig` | arweave.net gateway | Configuration for the Arweave gateway to use.
+| Prop                | Type                                                                       | Default             |                                                                                                            |
+| ------------------- | -------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `permissions`       | [`PermissionType[]`](https://github.com/arconnectio/ArConnect#permissions) | `[]`                | Permissions to connect with.                                                                               |
+| `ensurePermissions` | `boolean`                                                                  |  `false`            | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
+| `appInfo`           | [`AppInfo`](https://github.com/arconnectio/ArConnect#app-infos)            | `{}`                | Information about your app (name/logo).                                                                    |
+| `gatewayConfig`     | `GatewayConfig`                                                            | arweave.net gateway | Configuration for the Arweave gateway to use.                                                              |
 
 ### Custom theme
 
@@ -96,21 +96,20 @@ With the `theme` field, you can define a custom theme configuration for the ArCo
 
 #### Available options
 
-| Prop | Type |   |
-| ---- | ---- | - |
-| `displayTheme` | `"dark"`, `"light"` | UI display theme to use |
-| `accent` | `RGBObject` | RGB accent color for the UI |
-| `titleHighlight` | `RGBObject` | RGB accent color for the subscreen titles (like the connection screen) |
-| `radius` | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI |
+| Prop             | Type                               |                                                                        |
+| ---------------- | ---------------------------------- | ---------------------------------------------------------------------- |
+| `displayTheme`   | `"dark"`, `"light"`                | UI display theme to use                                                |
+| `accent`         | `RGBObject`                        | RGB accent color for the UI                                            |
+| `titleHighlight` | `RGBObject`                        | RGB accent color for the subscreen titles (like the connection screen) |
+| `radius`         | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI                         |
 
 ## Terminology of ArConnect Kit
 
-ArConnect Kit supports several *strategies*. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
+ArConnect Kit supports several _strategies_. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
 
 ## Hooks
 
 Inside the [`<ArConnectKit>`](#setup), you can use all kinds of hooks that are reactive to the different [strategies](#terminology-of-arconnect-kit). Some of the hooks / api functions might not be supported by all wallets.
-
 
 ### `useConnection`
 
@@ -119,11 +118,7 @@ The core hook for connecting / disconnecting a [strategy](#terminology-of-arconn
 #### Usage
 
 ```ts
-const {
-  connected,
-  connect,
-  disconnect
-} = useConnection();
+const { connected, connect, disconnect } = useConnection();
 
 // initiate connection
 await connect();

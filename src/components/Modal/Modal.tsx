@@ -15,7 +15,11 @@ export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
           <KitName>ArConnect Kit v{version}</KitName>
         </BackgroundLayer>
       )}
-      {open && <Wrapper key="modal" mobile={mobile}>{children}</Wrapper>}
+      {open && (
+        <Wrapper key="modal" mobile={mobile}>
+          {children}
+        </Wrapper>
+      )}
     </AnimatePresence>
   );
 }
@@ -75,7 +79,7 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
+const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>((props) => ({
   variants: modalAnimation(props.mobile),
   initial: "hidden",
   animate: "shown",
@@ -86,11 +90,11 @@ const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>(props => ({
   top: 50%;
   width: 28vw;
   background-color: rgb(${(props) => props.theme.background});
-  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
   z-index: 100000;
   font-family: "Manrope", sans-serif;
   overflow: hidden;
-  transition: background-color .23s ease-in-out;
+  transition: background-color 0.23s ease-in-out;
 
   @media screen and (max-width: 1080px) {
     width: 50vw;

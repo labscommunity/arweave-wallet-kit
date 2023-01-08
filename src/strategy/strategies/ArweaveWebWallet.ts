@@ -3,7 +3,10 @@ import { ArweaveWebWallet } from "arweave-wallet-connector";
 import BrowserWalletStrategy from "./BrowserWallet";
 import type Strategy from "../Strategy";
 
-export default class ArweaveWebWalletStrategy extends BrowserWalletStrategy implements Strategy {
+export default class ArweaveWebWalletStrategy
+  extends BrowserWalletStrategy
+  implements Strategy
+{
   public id = "webwallet";
   public name = "Arweave.app";
   public description = "Web based wallet software";
@@ -27,7 +30,9 @@ export default class ArweaveWebWalletStrategy extends BrowserWalletStrategy impl
     gateway?: GatewayConfig
   ): Promise<void> {
     if (gateway) {
-      console.warn("[ArConnect Kit] Arweave.app does not support custom gateway connection yet.")
+      console.warn(
+        "[ArConnect Kit] Arweave.app does not support custom gateway connection yet."
+      );
     }
 
     // try connecting

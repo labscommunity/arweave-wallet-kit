@@ -10,10 +10,7 @@ export default function useConnected() {
   const givenPermissions = usePermissions();
 
   const { state } = useGlobalState();
-  const {
-    permissions: requiredPermissions,
-    ensurePermissions
-  } = state.config;
+  const { permissions: requiredPermissions, ensurePermissions } = state.config;
 
   useEffect(() => {
     if (!strategy) {
@@ -21,9 +18,7 @@ export default function useConnected() {
     }
 
     if (ensurePermissions) {
-      setConnected(
-        comparePermissions(requiredPermissions, givenPermissions)
-      );
+      setConnected(comparePermissions(requiredPermissions, givenPermissions));
     } else {
       setConnected(givenPermissions.length > 0);
     }

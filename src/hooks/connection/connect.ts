@@ -8,8 +8,8 @@ export default function useConnect() {
   const { dispatch } = useGlobalState();
   const connected = useConnected();
 
-  const connect = () => new Promise<void>(
-    (resolve, reject) => {
+  const connect = () =>
+    new Promise<void>((resolve, reject) => {
       // check if connected
       if (connected) {
         return reject("[ArConnect Kit] Already connected");
@@ -39,8 +39,7 @@ export default function useConnect() {
 
       // wait for confirmation
       addEventListener("message", listener);
-    }
-  );
+    });
 
   return connect;
 }
