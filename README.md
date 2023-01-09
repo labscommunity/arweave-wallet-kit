@@ -244,3 +244,7 @@ await api.encrypt(...)
 ```
 
 Read more about the available APIs [here](https://github.com/arconnectio/ArConnect/#other-supported-functions).
+
+## Advanced theming
+
+If you are familiar with `styled-components`, you can take advantage of it's `<ThemeProvider>` component and override the default internal theme values ArConnect Kit uses. You can read more about this [here](https://styled-components.com/docs/advanced#function-themes).

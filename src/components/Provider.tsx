@@ -1,9 +1,9 @@
 import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
+import { DefaultTheme, ThemeProvider } from "styled-components";
 import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
 import { useSyncStrategy } from "../hooks/strategy";
 import Context, { defaultState } from "../context";
-import { ThemeProvider } from "styled-components";
 import { ConnectModal } from "../modals/Connect";
 import { ProfileModal } from "../modals/Profile";
 import type { DisplayTheme } from "../vite-env";
@@ -41,16 +41,23 @@ export function ArConnectKit({
     [theme]
   );
 
+  // theme calculator
+  // enables an outside ThemeProvider
+  // component to override the internal
+  // theme
+  function themeCalculator(props: Partial<DefaultTheme> = {}) {
+    return {
+      ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
+      displayTheme: themeConfig.displayTheme || "light",
+      theme: rgbToString(themeConfig.accent),
+      themeConfig,
+      ...props
+    };
+  }
+
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <ThemeProvider
-        theme={{
-          ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
-          displayTheme: themeConfig.displayTheme || "light",
-          theme: rgbToString(themeConfig.accent),
-          themeConfig
-        }}
-      >
+      <ThemeProvider theme={themeCalculator}>
         <AddressSync>
           <Helmet>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
