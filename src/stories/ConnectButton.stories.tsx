@@ -28,8 +28,7 @@ Basic.args = {
       g: 122,
       b: 255
     },
-    radius: "default",
-    details: "rich"
+    radius: "default"
   },
   config: {
     permissions: ["ACCESS_ADDRESS", "ACCESS_ALL_ADDRESSES"],

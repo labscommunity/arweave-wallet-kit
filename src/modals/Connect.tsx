@@ -220,8 +220,7 @@ const Apps = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${props => props.theme.themeConfig.details === "rich" ? "1.1rem" : "0.75rem"};
-  padding-top: ${props => props.theme.themeConfig.details === "minimal" ? "6px" : "0"};
+  gap: 1.1rem;
   padding-bottom: 1.2rem;
   max-height: 280px;
   overflow-y: auto;

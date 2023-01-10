@@ -99,8 +99,7 @@ const defaultTheme: ThemeConfig = {
     g: 122,
     b: 255
   },
-  radius: "default",
-  details: "rich"
+  radius: "default"
 };
 
 const defaultConfig: Config = {
@@ -132,7 +131,6 @@ export interface ThemeConfig {
   accent: RGBObject;
   titleHighlight: RGBObject;
   radius: Radius;
-  details: UIDetails;
 }
 
 export interface RGBObject {
@@ -142,4 +140,3 @@ export interface RGBObject {
 }
 
 export type Radius = "default" | "minimal" | "none";
-export type UIDetails = "rich" | "minimal";
