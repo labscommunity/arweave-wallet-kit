@@ -205,12 +205,12 @@ export function ConnectModal() {
       )}
       <Footer>
         <TitleWithParagraph>
-          <Title small>New to Arweave?</Title>
+          <Title small>Don't have a wallet?</Title>
           <Paragraph small>
             Click to learn more about the permaweb & wallets.
           </Paragraph>
         </TitleWithParagraph>
-        <Button onClick={() => window.open("https://arwiki.wiki")}>MORE</Button>
+        <Button onClick={() => window.open("https://arwiki.wiki/#/en/wallets")}>Get</Button>
       </Footer>
     </Modal>
   );
