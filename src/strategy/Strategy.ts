@@ -47,7 +47,7 @@ export default abstract class Strategy {
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
   ): Promise<Uint8Array>;
   public abstract getActivePublicKey(): Promise<string>;
-  public abstract addToken(id: string): Promise<void>;
+  public abstract addToken?(id: string): Promise<void>;
   public abstract dispatch(transaction: Transaction): Promise<DispatchResult>;
 
   /** Is this strategy available in the current context */
