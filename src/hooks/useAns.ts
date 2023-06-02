@@ -13,7 +13,7 @@ export default function useAns() {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `https://ans-testnet.herokuapp.com/profile/${address}`
+        `http://ans-stats.decent.land/profile/${address}`
       );
       const data: AnsProfile = await res.json();
 
@@ -36,10 +36,12 @@ interface AnsProfile {
   user: string;
   currentLabel: string;
   ownedLabels?: {
+    domain: string;
+    color: string;
+    subdomains: unknown[];
+    record: string | null;
+    created_at: number;
     label: string;
-    scarcity: string;
-    acquisationBlock: number;
-    mintedFor: number;
   }[];
   nickname?: string;
   address_color: string;
@@ -48,7 +50,4 @@ interface AnsProfile {
   links?: {
     [key: string]: string;
   };
-  subdomains?: any;
-  freeSubdomains: number;
-  timestamp: number;
 }
