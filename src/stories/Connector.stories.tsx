@@ -1,4 +1,4 @@
-import { ArConnectKit } from "../components/Provider";
+import { ArweaveWalletsKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export default {
 
 export const Basic = () => {
   return (
-    <ArConnectKit
+    <ArweaveWalletsKit
       config={{
         permissions: [
           "ACCESS_ADDRESS",
@@ -22,12 +22,12 @@ export const Basic = () => {
         ],
         ensurePermissions: true,
         appInfo: {
-          name: "ArConnect Kit"
+          name: "Arweave Wallets Kit"
         }
       }}
     >
       <Button />
-    </ArConnectKit>
+    </ArweaveWalletsKit>
   );
 };
 

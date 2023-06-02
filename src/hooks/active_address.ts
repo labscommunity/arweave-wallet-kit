@@ -32,7 +32,7 @@ export async function useSyncAddress() {
           });
         } catch (e: any) {
           console.error(
-            `[ArConnect Kit] Failed to sync address\n${e?.message || e}`
+            `[Arweave Wallets Kit] Failed to sync address\n${e?.message || e}`
           );
         }
       };

@@ -4,7 +4,7 @@ export { default as usePermissions } from "./hooks/permissions";
 export { default as useConnection } from "./hooks/connection";
 export { default as useProfileModal } from "./hooks/profile";
 export { useApi, useStrategy } from "./hooks/strategy";
-export { ArConnectKit } from "./components/Provider";
+export { ArweaveWalletsKit } from "./components/Provider";
 export {
   default as useActiveAddress,
   usePublicKey

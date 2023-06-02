@@ -39,7 +39,7 @@ export function useApi() {
     if (!strategy) return undefined;
 
     // only return api functions that would
-    // not break ArConnect Kit
+    // not break the kit
     // e.g.: we don't return connect(),
     // as it needs it's implementation
     // from "useConnection"

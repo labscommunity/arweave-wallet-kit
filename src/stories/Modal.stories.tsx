@@ -1,4 +1,4 @@
-import { ArConnectKit } from "../components/Provider";
+import { ArweaveWalletsKit } from "../components/Provider";
 import { Modal } from "../components/Modal/Modal";
 import { Head } from "../components/Modal/Head";
 import { Footer } from "../components/Modal/Footer";
@@ -18,7 +18,7 @@ export const Basic = () => {
   const modal = useModal(true);
 
   return (
-    <ArConnectKit>
+    <ArweaveWalletsKit>
       <Modal {...modal.bindings}>
         <Head onClose={modal.bindings.onClose}>
           <Title>Connect wallet</Title>
@@ -41,7 +41,7 @@ export const Basic = () => {
           <Button>MORE</Button>
         </Footer>
       </Modal>
-    </ArConnectKit>
+    </ArweaveWalletsKit>
   );
 };
 

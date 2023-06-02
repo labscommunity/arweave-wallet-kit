@@ -1,4 +1,4 @@
-# ArConnect Kit
+# Arweave Wallets Kit
 
 React Hooks and Components for better interaction with Arweave wallets. Modular, can support any Arweave-based wallet.
 
@@ -11,18 +11,18 @@ React Hooks and Components for better interaction with Arweave wallets. Modular,
 ## Installation
 
 ```sh
-yarn add @arconnect/kit
+yarn add arweave-wallets-kit
 ```
 
 or
 
 ```sh
-npm i @arconnect/kit
+npm i arweave-wallets-kit
 ```
 
 ## Prerequisites
 
-To use the library, you need to have `styled-components` installed. This library is not bundled with the ArConnect Kit, you'll need to include it in your project. Read more about this [here](https://styled-components.com/docs/faqs#i-am-a-library-author-should-i-bundle-styledcomponents-with-my-library).
+To use the library, you need to have `styled-components` installed. This library is not bundled with the Arweave Wallets Kit, you'll need to include it in your project. Read more about this [here](https://styled-components.com/docs/faqs#i-am-a-library-author-should-i-bundle-styledcomponents-with-my-library).
 
 ```sh
 yarn add styled-components
@@ -36,7 +36,7 @@ npm i styled-components
 
 ### SSR
 
-`styled-components` needs special attention, if you wish to use ArConnect Kit correctly, with Server Side Rendering. You'll need to follow the guidlines to achieve this:
+`styled-components` needs special attention, if you wish to use Arweave Wallets Kit correctly, with Server Side Rendering. You'll need to follow the guidlines to achieve this:
 
 - With [Next.js](https://styled-components.com/docs/advanced#nextjs)
 - With [Gatsby](https://styled-components.com/docs/advanced#gatsby)
@@ -48,20 +48,20 @@ To use the library, you'll need to wrap your application with the Kit Provider.
 ```tsx
 const App = () => {
   return (
-    <ArConnectKit>
+    <ArweaveWalletsKit>
       <YourApp />
-    </ArConnectKit>
+    </ArweaveWalletsKit>
   );
 };
 ```
 
 ## Config
 
-The ArConnect kit can be configured with information about your application and with a custom theme.
+The Arweave Wallets Kit can be configured with information about your application and with a custom theme.
 
 ```tsx
 ...
-  <ArConnectKit
+  <ArweaveWalletsKit
     config={{
       permissions: ["ACCESS_ADDRESS"],
       ensurePermissions: true,
@@ -73,26 +73,26 @@ The ArConnect kit can be configured with information about your application and 
     }}
   >
     <YourApp />
-  </ArConnectKit>
+  </ArweaveWalletsKit>
 ...
 ```
 
 ### App config
 
-Using the `config` field of the `<ArConnectKit>` provider component, you can define a name, a logo or the required permissions for your app.
+Using the `config` field of the `<ArweaveWalletsKit>` provider component, you can define a name, a logo or the required permissions for your app.
 
 #### Available options
 
 | Prop                | Type                                                                       | Default             |                                                                                                            |
 | ------------------- | -------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `permissions`       | [`PermissionType[]`](https://github.com/arconnectio/ArConnect#permissions) | `[]`                | Permissions to connect with.                                                                               |
+| `permissions`       | [`PermissionType[]`](https://docs.arconnect.io/api/connect#permissions) | `[]`                | Permissions to connect with.                                                                               |
 | `ensurePermissions` | `boolean`                                                                  |  `false`            | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
-| `appInfo`           | [`AppInfo`](https://github.com/arconnectio/ArConnect#app-infos)            | `{}`                | Information about your app (name/logo).                                                                    |
+| `appInfo`           | [`AppInfo`](https://docs.arconnect.io/api/connect#additional-application-information)            | `{}`                | Information about your app (name/logo).                                                                    |
 | `gatewayConfig`     | `GatewayConfig`                                                            | arweave.net gateway | Configuration for the Arweave gateway to use.                                                              |
 
 ### Custom theme
 
-With the `theme` field, you can define a custom theme configuration for the ArConnect Kit modals and buttons.
+With the `theme` field, you can define a custom theme configuration for the Arweave Wallets Kit modals and buttons.
 
 #### Available options
 
@@ -103,13 +103,13 @@ With the `theme` field, you can define a custom theme configuration for the ArCo
 | `titleHighlight` | `RGBObject`                        | RGB accent color for the subscreen titles (like the connection screen) |
 | `radius`         | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI                         |
 
-## Terminology of ArConnect Kit
+## Terminology of Arweave Wallets Kit
 
-ArConnect Kit supports several _strategies_. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
+Arweave Wallets Kit supports several _strategies_. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
 
 ## Connect Button
 
-To quickly integrate the ArConnect Kit, you can use the `<ConnectButton>` component. It is a highly customizable button that supports the [ANS](https://ar.page) protocol to display information about the connected wallet.
+To quickly integrate the Arweave Wallets Kit, you can use the `<ConnectButton>` component. It is a highly customizable button that supports the [ANS](https://ar.page) protocol to display information about the connected wallet.
 
 ### Usage
 
@@ -136,11 +136,11 @@ You can configure the Connect Button through it's props.
 
 ## Hooks
 
-Inside the [`<ArConnectKit>`](#setup), you can use all kinds of hooks that are reactive to the different [strategies](#terminology-of-arconnect-kit). Some of the hooks / api functions might not be supported by all wallets.
+Inside the [`<ArweaveWalletsKit>`](#setup), you can use all kinds of hooks that are reactive to the different [strategies](#terminology-of-arweave-wallets-kit). Some of the hooks / api functions might not be supported by all wallets.
 
 ### `useConnection`
 
-The core hook for connecting / disconnecting a [strategy](#terminology-of-arconnect-kit).
+The core hook for connecting / disconnecting a [strategy](#terminology-of-arweave-wallets-kit).
 
 #### Usage
 
@@ -189,7 +189,7 @@ const publicKey = usePublicKey();
 
 ### `usePermissions`
 
-Permissions hook. Returns the permissions given to the app, known by ArConnect Kit.
+Permissions hook. Returns the permissions given to the app, known by Arweave Wallets Kit.
 
 #### Usage
 
@@ -199,7 +199,7 @@ const permissions = usePermissions();
 
 ### `useAddresses`
 
-All addresses hook. Returns the addresses in the connected wallet, known by ArConnect Kit. Requires the `ACCESS_ALL_ADDRESSES` permission.
+All addresses hook. Returns the addresses in the connected wallet, known by Arweave Wallets Kit. Requires the `ACCESS_ALL_ADDRESSES` permission.
 
 #### Usage
 
@@ -209,7 +209,7 @@ const addresses = useAddresses();
 
 ### `useWalletNames`
 
-All addresses hook. Returns the addresses in the connected wallet, known by ArConnect Kit. Requires the `ACCESS_ALL_ADDRESSES` permission.
+All addresses hook. Returns the addresses in the connected wallet, known by Arweave Wallets Kit. Requires the `ACCESS_ALL_ADDRESSES` permission.
 
 #### Usage
 
@@ -243,8 +243,6 @@ await api.sign(transaction);
 await api.encrypt(...)
 ```
 
-Read more about the available APIs [here](https://github.com/arconnectio/ArConnect/#other-supported-functions).
-
 ## Advanced theming
 
-If you are familiar with `styled-components`, you can take advantage of it's `<ThemeProvider>` component and override the default internal theme values ArConnect Kit uses. You can read more about this [here](https://styled-components.com/docs/advanced#function-themes).
+If you are familiar with `styled-components`, you can take advantage of it's `<ThemeProvider>` component and override the default internal theme values Arweave Wallets Kit uses. You can read more about this [here](https://styled-components.com/docs/advanced#function-themes).

@@ -12,7 +12,7 @@ export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
     <AnimatePresence>
       {open && (
         <BackgroundLayer key="bg" onClick={onClose}>
-          <KitName>ArConnect Kit v{version}</KitName>
+          <KitName>Arweave Wallets Kit v{version}</KitName>
         </BackgroundLayer>
       )}
       {open && (

@@ -63,13 +63,13 @@ export interface GlobalState {
   givenPermissions: PermissionType[];
 }
 
-/** Global config for ArConnect kit */
+/** Global config for the kit */
 export interface Config {
   /** The permissions your app requires */
   permissions: PermissionType[];
   /**
    * This will ensure that all required permissions are
-   * given to your app. If not, ArConnect kit will not
+   * given to your app. If not, the kit will not
    * consider the strategy "connected"
    */
   ensurePermissions?: boolean;
