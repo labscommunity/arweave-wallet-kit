@@ -7,7 +7,7 @@ export default class ArConnectStrategy
 {
   public id = "arconnect";
   public name = "ArConnect";
-  public description = "Secure wallet management for Arweave";
+  public description = "Non-custodial Arweave wallet for your favorite browser";
   public theme = "171, 154, 255";
   public logo = "tQUcL4wlNj_NED2VjUGUhfCTJ6pDN9P0e3CbnHo3vUE";
   public url = "https://arconnect.io";
