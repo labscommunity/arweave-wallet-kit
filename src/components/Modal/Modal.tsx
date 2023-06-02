@@ -96,6 +96,16 @@ const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>((props) => ({
   overflow: hidden;
   transition: background-color 0.23s ease-in-out;
 
+  *::selection {
+    background-color: rgba(0, 0, 0, .75);
+    color: #fff;
+  }
+
+  *::-moz-selection {
+    background-color: rgba(0, 0, 0, .75);
+    color: #fff;
+  }
+
   @media screen and (max-width: 1080px) {
     width: 50vw;
   }
