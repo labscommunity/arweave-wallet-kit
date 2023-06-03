@@ -24,22 +24,28 @@ export async function syncStrategies(
   requiredPermissions: PermissionType[],
   enforcePermissions: boolean
 ) {
-  for (const strategy of strategies) {
-    const permissions = await strategy.getPermissions();
+  let activeStrategy: string | false = localStorage?.getItem(STRATEGY_STORE) || false;
 
-    if (!enforcePermissions && permissions.length > 0) {
-      saveStrategy(strategy.id);
-      return strategy.id;
-    } else if (
-      enforcePermissions &&
-      comparePermissions(requiredPermissions, permissions)
-    ) {
-      saveStrategy(strategy.id);
-      return strategy.id;
+  if (activeStrategy && !!getStrategy(activeStrategy)) {
+    return getStrategy(activeStrategy);
+  } else {
+    for (const strategy of strategies) {
+      const permissions = await strategy.getPermissions();
+
+      if (!enforcePermissions && permissions.length > 0) {
+        saveStrategy(strategy.id);
+        return getStrategy(strategy.id);
+      } else if (
+        enforcePermissions &&
+        comparePermissions(requiredPermissions, permissions)
+      ) {
+        saveStrategy(strategy.id);
+        return getStrategy(strategy.id);
+      }
     }
-  }
 
-  return false;
+    return false;
+  }
 }
 
 /**

@@ -85,19 +85,18 @@ export function useSyncStrategy(
   // try to get an active strategy on mount
   useEffect(() => {
     (async () => {
-      let activeStrategy: string | false =
-        localStorage?.getItem(STRATEGY_STORE) || false;
+      const activeStrategy = await syncStrategies(
+        config.permissions,
+        !!config.ensurePermissions
+      );
 
-      if (!activeStrategy) {
-        activeStrategy = await syncStrategies(
-          config.permissions,
-          !!config.ensurePermissions
-        );
+      if (!!activeStrategy) {
+        await activeStrategy.sync();
       }
 
       return dispatch({
         type: "UPDATE_STRATEGY",
-        payload: activeStrategy
+        payload: (!!activeStrategy && activeStrategy.id) || false
       });
     })();
   }, []);

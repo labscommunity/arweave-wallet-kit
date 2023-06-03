@@ -53,6 +53,8 @@ export default class BrowserWalletStrategy implements Strategy {
     });
   }
 
+  public async sync() {}
+
   public async connect(
     permissions: PermissionType[],
     appInfo?: AppInfo,
