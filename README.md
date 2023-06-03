@@ -2,6 +2,8 @@
 
 React Hooks and Components for better interaction with Arweave wallets. Modular, can support any Arweave-based wallet.
 
+> The Arweave Wallets Kit is in BETA. Please report bugs at the issues tab.
+
 ## Supported wallets
 
 - [ArConnect](https://arconnect.io)
