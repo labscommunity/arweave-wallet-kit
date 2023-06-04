@@ -12,7 +12,7 @@ export default function useConnect() {
     new Promise<void>((resolve, reject) => {
       // check if connected
       if (connected) {
-        return reject("[Arweave Wallets Kit] Already connected");
+        return reject("[Arweave Wallet Kit] Already connected");
       }
 
       // open connection modal
@@ -33,7 +33,7 @@ export default function useConnect() {
         if (e.data.res) {
           resolve();
         } else {
-          reject("[Arweave Wallets Kit] User cancelled the connection");
+          reject("[Arweave Wallet Kit] User cancelled the connection");
         }
       }
 

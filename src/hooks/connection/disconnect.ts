@@ -16,7 +16,7 @@ export default function useDisconnect() {
    */
   async function disconnect() {
     if (!strategy || !connected) {
-      throw new Error("[Arweave Wallets Kit] Not yet connected");
+      throw new Error("[Arweave Wallet Kit] Not yet connected");
     }
 
     try {
@@ -26,7 +26,7 @@ export default function useDisconnect() {
       dispatch({ type: "DISCONNECT" });
     } catch (e: any) {
       throw new Error(
-        "[Arweave Wallets Kit] Could not disconnect\n" + (e?.message || e)
+        "[Arweave Wallet Kit] Could not disconnect\n" + (e?.message || e)
       );
     }
   }

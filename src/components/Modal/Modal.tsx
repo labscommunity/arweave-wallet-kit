@@ -12,7 +12,7 @@ export function Modal({ open, onClose, children, className, variants, noWatermar
     <AnimatePresence>
       {open && (
         <BackgroundLayer key="bg" onClick={onClose}>
-          {!noWatermark && <KitName>Arweave Wallets Kit v{version}</KitName>}
+          {!noWatermark && <KitName>Arweave Wallet Kit v{version}</KitName>}
         </BackgroundLayer>
       )}
       {open && (

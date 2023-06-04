@@ -12,7 +12,7 @@ const strategies: Strategy[] = [
   new BrowserWalletStrategy()
 ];
 
-export const STRATEGY_STORE = "wallets_kit_strategy_id";
+export const STRATEGY_STORE = "wallet_kit_strategy_id";
 
 /**
  * On page mount, sync the logged in strategy

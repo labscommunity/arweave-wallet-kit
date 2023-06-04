@@ -36,7 +36,7 @@ export default class ArweaveWebWalletStrategy
   ): Promise<void> {
     if (gateway) {
       console.warn(
-        "[Arweave Wallets Kit] Arweave.app does not support custom gateway connection yet."
+        "[Arweave Wallet Kit] Arweave.app does not support custom gateway connection yet."
       );
     }
 

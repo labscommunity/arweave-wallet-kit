@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "arweave-wallets-kit",
+      name: "arweave-wallet-kit",
       formats: ["es", "umd"],
       fileName: (format) => `index.${format}.js`
     },

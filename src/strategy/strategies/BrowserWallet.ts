@@ -24,7 +24,7 @@ export default class BrowserWalletStrategy implements Strategy {
   public async isAvailable() {
     if (typeof window === "undefined" || !window) {
       console.error(
-        `[Arweave Wallets Kit] "${this.id}" strategy is unavailable. Window is undefined`
+        `[Arweave Wallet Kit] "${this.id}" strategy is unavailable. Window is undefined`
       );
       return false;
     }
@@ -44,7 +44,7 @@ export default class BrowserWalletStrategy implements Strategy {
 
         if (!window.arweaveWallet) {
           console.error(
-            `[Arweave Wallets Kit] "${this.id}" strategy is unavailable. window.arweaveWallet is undefined`
+            `[Arweave Wallet Kit] "${this.id}" strategy is unavailable. window.arweaveWallet is undefined`
           );
         }
 

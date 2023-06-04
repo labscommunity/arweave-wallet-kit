@@ -14,7 +14,7 @@ export default function useProfileModal() {
   return {
     setOpen(val: boolean) {
       if (!state.activeStrategy) {
-        throw new Error("[Arweave Wallets Kit] App not connected");
+        throw new Error("[Arweave Wallet Kit] App not connected");
       }
 
       if (val) {

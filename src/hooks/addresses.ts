@@ -25,7 +25,7 @@ export default function useAddresses() {
           setAddresses(await strategy.getAllAddresses());
         } catch (e: any) {
           console.error(
-            `[Arweave Wallets Kit] Failed to sync addresses\n${e?.message || e}`
+            `[Arweave Wallet Kit] Failed to sync addresses\n${e?.message || e}`
           );
         }
       };
@@ -63,7 +63,7 @@ export function useWalletNames() {
         setNames(names);
       } catch (e: any) {
         console.error(
-          `[Arweave Wallets Kit] Failed to sync wallet names\n${e?.message || e}`
+          `[Arweave Wallet Kit] Failed to sync wallet names\n${e?.message || e}`
         );
       }
     })();

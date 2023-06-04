@@ -12,7 +12,7 @@ import globalReducer from "../context/reducer";
 import { rgbToString } from "../utils";
 import { Helmet } from "react-helmet";
 
-export function ArweaveWalletsKit({
+export function ArweaveWalletKit({
   children,
   theme = defaultTheme,
   config = defaultConfig

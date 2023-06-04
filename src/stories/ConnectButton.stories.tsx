@@ -1,4 +1,4 @@
-import { ArweaveWalletsKit } from "../components/Provider";
+import { ArweaveWalletKit } from "../components/Provider";
 import ConnectButton from "../components/ConnectButton";
 import type { ComponentStory } from "@storybook/react";
 
@@ -7,10 +7,10 @@ export default {
   component: ConnectButton
 };
 
-const Template: ComponentStory<typeof ArweaveWalletsKit> = (props) => (
-  <ArweaveWalletsKit {...props}>
+const Template: ComponentStory<typeof ArweaveWalletKit> = (props) => (
+  <ArweaveWalletKit {...props}>
     <ConnectButton accent={"rgb(0, 122, 255)"} />
-  </ArweaveWalletsKit>
+  </ArweaveWalletKit>
 );
 
 export const Basic = Template.bind({});
