@@ -7,13 +7,13 @@ import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
-import { useEffect, useState } from "react";
 import { Title } from "../components/Title";
 import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
 import useAns from "../hooks/useAns";
+import { useEffect } from "react";
 
 export function ProfileModal() {
   // modal controlls and statuses

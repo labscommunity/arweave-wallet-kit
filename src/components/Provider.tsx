@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
-import { useSyncStrategy } from "../hooks/strategy";
+import RestoreSession from "../modals/RestoreSession";
 import Context, { defaultState } from "../context";
 import { ConnectModal } from "../modals/Connect";
 import { ProfileModal } from "../modals/Profile";
@@ -29,8 +29,6 @@ export function ArweaveWalletsKit({
       payload: config
     });
   }, [config]);
-
-  useSyncStrategy(state?.config, dispatch);
 
   // final theme config
   const themeConfig = useMemo<ThemeConfig>(
@@ -74,6 +72,7 @@ export function ArweaveWalletsKit({
           {children}
           <ConnectModal />
           <ProfileModal />
+          <RestoreSession />
         </AddressSync>
       </ThemeProvider>
     </Context.Provider>

@@ -1,4 +1,4 @@
-import { getStrategy, STRATEGY_STORE, syncStrategies } from "../strategy";
+import { getStrategy, syncStrategies } from "../strategy";
 import type { Actions, Config } from "../context/faces";
 import { useEffect, useMemo } from "react";
 import useGlobalState from "./global";
@@ -75,29 +75,4 @@ export function useApi() {
   }, [strategy]);
 
   return api;
-}
-
-// sync active strategy in global state
-export function useSyncStrategy(
-  config: Config,
-  dispatch: (value: Actions) => void
-) {
-  // try to get an active strategy on mount
-  useEffect(() => {
-    (async () => {
-      const activeStrategy = await syncStrategies(
-        config.permissions,
-        !!config.ensurePermissions
-      );
-
-      if (!!activeStrategy) {
-        await activeStrategy.sync();
-      }
-
-      return dispatch({
-        type: "UPDATE_STRATEGY",
-        payload: (!!activeStrategy && activeStrategy.id) || false
-      });
-    })();
-  }, []);
 }

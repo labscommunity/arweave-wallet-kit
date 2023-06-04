@@ -24,7 +24,7 @@ export default class ArweaveWebWalletStrategy
     return true;
   }
 
-  public async sync() {
+  public async resumeSession() {
     this.#instance.setUrl("arweave.app");
     await this.#instance.connect();
   }
@@ -42,7 +42,7 @@ export default class ArweaveWebWalletStrategy
 
     // try connecting
     this.#instance = new ArweaveWebWallet(appInfo);
-    await this.sync();
+    await this.resumeSession();
   }
 
   public addAddressEvent(listener: (address: string) => void) {

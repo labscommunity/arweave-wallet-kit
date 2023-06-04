@@ -1,22 +1,22 @@
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, MotionProps, Variants } from "framer-motion";
 import { version } from "../../../package.json";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
 import type { Radius } from "../Provider";
 import styled from "styled-components";
 
-export function Modal({ open, onClose, children }: PropsWithChildren<Props>) {
+export function Modal({ open, onClose, children, className, variants, noWatermark = false }: PropsWithChildren<Props>) {
   const mobile = useMobile();
 
   return (
     <AnimatePresence>
       {open && (
         <BackgroundLayer key="bg" onClick={onClose}>
-          <KitName>Arweave Wallets Kit v{version}</KitName>
+          {!noWatermark && <KitName>Arweave Wallets Kit v{version}</KitName>}
         </BackgroundLayer>
       )}
       {open && (
-        <Wrapper key="modal" mobile={mobile}>
+        <Wrapper key="modal" className={className} variants={variants || modalAnimation(mobile)}>
           {children}
         </Wrapper>
       )}
@@ -79,12 +79,11 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = styled(motion.div).attrs<{ mobile: boolean }>((props) => ({
-  variants: modalAnimation(props.mobile),
+const Wrapper = styled(motion.div).attrs({
   initial: "hidden",
   animate: "shown",
   exit: "hidden"
-}))<{ mobile: boolean }>`
+})`
   position: fixed;
   left: 50%;
   top: 50%;
@@ -139,7 +138,9 @@ const KitName = styled.p`
   }
 `;
 
-interface Props {
+interface Props extends MotionProps {
   open: boolean;
   onClose: () => void;
+  className?: string;
+  noWatermark?: boolean;
 }

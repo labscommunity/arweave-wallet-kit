@@ -16,8 +16,9 @@ export default abstract class Strategy {
   public abstract logo: string;
   public abstract url?: string;
 
-  // optional syncing (restore session for e.g. Arweave.app)
-  public abstract sync(): Promise<void>;
+  // restore session from previous connection
+  // Arweave.app needs this
+  public abstract resumeSession?(): Promise<void>;
 
   // connection
   public abstract connect(
