@@ -146,6 +146,11 @@ const BottomModal = styled(Modal).attrs({ variants: bottomModalVariants, noWater
   left: unset;
   top: unset;
   width: auto;
+
+  @media screen and (max-width: 720px) {
+    left: 1.5rem;
+    gap: 1rem;
+  }
 `;
 
 const Text = styled.p`
@@ -159,6 +164,14 @@ const Buttons = styled.div`
   display: flex;
   align-items: center;
   gap: .6rem;
+
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+
+    ${Button} {
+      width: 100%;
+    }
+  }
 `;
 
 const CloseButton = styled(Button)`

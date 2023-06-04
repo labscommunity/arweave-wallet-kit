@@ -13,7 +13,7 @@ export default function useAns() {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `http://ans-stats.decent.land/profile/${address}`
+        `https://ans-stats.decent.land/profile/${address}`
       );
       const data: AnsProfile = await res.json();
 
