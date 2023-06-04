@@ -12,6 +12,10 @@ export default function useAns() {
 
   useEffect(() => {
     (async () => {
+      if (!address) {
+        return setAns(undefined);
+      }
+
       const res = await fetch(
         `https://ans-stats.decent.land/profile/${address}`
       );
