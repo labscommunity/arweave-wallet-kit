@@ -1,6 +1,7 @@
 import { CopyIcon, LogOutIcon, UserIcon } from "@iconicicons/react";
 import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
+import { DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { Head } from "../components/Modal/Head";
@@ -10,7 +11,7 @@ import useGatewayURL from "../hooks/gateway";
 import { Title } from "../components/Title";
 import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 import useModal from "../hooks/modal";
 import useAns from "../hooks/useAns";
 import { useEffect } from "react";
@@ -81,7 +82,7 @@ const btnRadius: Record<Radius, number> = {
   none: 0
 };
 
-const ProfileData = styled.div`
+const ProfileData = withTheme(styled.div<{ theme: DefaultTheme }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,7 +117,7 @@ const ProfileData = styled.div`
       btnRadius[props.theme.themeConfig.radius] + "px"};
     text-transform: none;
   }
-`;
+`);
 
 const pfpRadius: Record<Radius, string> = {
   default: "100%",
@@ -124,7 +125,7 @@ const pfpRadius: Record<Radius, string> = {
   none: "none"
 };
 
-const ProfilePicture = styled.div<{ profilePicture?: string }>`
+const ProfilePicture = withTheme(styled.div<{ profilePicture?: string; theme: DefaultTheme }>`
   position: relative;
   width: 80px;
   height: 80px;
@@ -136,7 +137,7 @@ const ProfilePicture = styled.div<{ profilePicture?: string }>`
     props.profilePicture
       ? `background-image: url(${props.profilePicture});`
       : ""}
-`;
+`);
 
 const ProfileIcon = styled(UserIcon)`
   position: absolute;

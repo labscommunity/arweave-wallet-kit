@@ -55,7 +55,11 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-export const AppIcon = withTheme(styled.div<{ colorTheme?: string; clickable?: boolean; theme: DefaultTheme; }>`
+export const AppIcon = withTheme(styled.div<{
+  colorTheme?: string;
+  clickable?: boolean;
+  theme: DefaultTheme;
+}>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;

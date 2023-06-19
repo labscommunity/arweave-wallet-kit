@@ -1,22 +1,54 @@
-import { AnimatePresence, motion, MotionProps, Variants } from "framer-motion";
+import { Radius, withTheme } from "../../theme";
 import { version } from "../../../package.json";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
-import type { Radius } from "../Provider";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
+import {
+  AnimatePresence,
+  ForwardRefComponent,
+  HTMLMotionProps,
+  motion,
+  MotionProps,
+  Variants
+} from "framer-motion";
 
-export function Modal({ open, onClose, children, className, variants, noWatermark = false }: PropsWithChildren<Props>) {
+export function Modal({
+  open,
+  onClose,
+  children,
+  className,
+  variants,
+  noWatermark = false
+}: PropsWithChildren<Props>) {
   const mobile = useMobile();
 
   return (
     <AnimatePresence>
       {open && (
-        <BackgroundLayer key="bg" onClick={onClose}>
+        <BackgroundLayer
+          variants={backgroundAnimation}
+          initial="hidden"
+          animate="shown"
+          exit="hidden"
+          transition={{
+            ease: "easeInOut",
+            duration: 0.23
+          }}
+          key="bg"
+          onClick={onClose}
+        >
           {!noWatermark && <KitName>Arweave Wallet Kit v{version}</KitName>}
         </BackgroundLayer>
       )}
       {open && (
-        <Wrapper key="modal" className={className} variants={variants || modalAnimation(mobile)}>
+        <Wrapper
+          key="modal"
+          className={className}
+          variants={variants || modalAnimation(mobile)}
+          initial="hidden"
+          animate="shown"
+          exit="hidden"
+        >
           {children}
         </Wrapper>
       )}
@@ -29,16 +61,7 @@ const backgroundAnimation: Variants = {
   hidden: { opacity: 0 }
 };
 
-const BackgroundLayer = styled(motion.div).attrs({
-  variants: backgroundAnimation,
-  initial: "hidden",
-  animate: "shown",
-  exit: "hidden",
-  transition: {
-    ease: "easeInOut",
-    duration: 0.23
-  }
-})`
+const BackgroundLayer = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
@@ -79,29 +102,26 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = styled(motion.div).attrs({
-  initial: "hidden",
-  animate: "shown",
-  exit: "hidden"
-})`
+const Wrapper = withTheme(styled(motion.div as any)<any>`
   position: fixed;
   left: 50%;
   top: 50%;
   width: 28vw;
   background-color: rgb(${(props) => props.theme.background});
-  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
+  border-radius: ${(props) =>
+    radius[props.theme.themeConfig.radius as Radius] + "px"};
   z-index: 100000;
   font-family: "Manrope", sans-serif;
   overflow: hidden;
   transition: background-color 0.23s ease-in-out;
 
   *::selection {
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
   }
 
   *::-moz-selection {
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
   }
 
@@ -116,7 +136,7 @@ const Wrapper = styled(motion.div).attrs({
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
-`;
+`) as ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>;
 
 const KitName = styled.p`
   position: fixed;

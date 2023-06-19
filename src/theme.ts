@@ -1,13 +1,13 @@
 import { createTheming, ThemingType } from "@callstack/react-theme-provider";
 
-const lightTheme: DisplayTheme = {
+export const lightTheme: DisplayTheme = {
   primaryText: "0, 0, 0",
   background: "255, 255, 255",
   secondaryText: "146, 146, 147",
   light: "242, 242, 247"
 };
 
-const darkTheme: DisplayTheme = {
+export const darkTheme: DisplayTheme = {
   primaryText: "240, 240, 240",
   background: "26, 27, 31",
   secondaryText: "161, 161, 161",
@@ -57,7 +57,15 @@ export interface RGBObject {
 
 export type Radius = "default" | "minimal" | "none";
 
-export const { ThemeProvider, withTheme, useTheme }: ThemingType<DefaultTheme> & { ThemeProvider: React.ComponentType<React.PropsWithChildren<{ theme?: DefaultTheme }>> } = createTheming<DefaultTheme>({
+export const {
+  ThemeProvider,
+  withTheme,
+  useTheme
+}: ThemingType<DefaultTheme> & {
+  ThemeProvider: React.ComponentType<
+    React.PropsWithChildren<{ theme?: DefaultTheme }>
+  >;
+} = createTheming<DefaultTheme>({
   displayTheme: "light",
   theme: "0, 0, 0",
   themeConfig: defaultThemeConfig,

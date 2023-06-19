@@ -24,7 +24,8 @@ export async function syncStrategies(
   requiredPermissions: PermissionType[],
   enforcePermissions: boolean
 ) {
-  let activeStrategy: string | false = localStorage?.getItem(STRATEGY_STORE) || false;
+  let activeStrategy: string | false =
+    localStorage?.getItem(STRATEGY_STORE) || false;
 
   if (activeStrategy && !!getStrategy(activeStrategy)) {
     return getStrategy(activeStrategy);
