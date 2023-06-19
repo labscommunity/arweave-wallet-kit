@@ -11,6 +11,7 @@ import type { Config } from "../context/faces";
 import globalReducer from "../context/reducer";
 import { rgbToString } from "../utils";
 import { Helmet } from "react-helmet";
+import { ThemeProvider as ThemeProvider2 } from "../theme"
 
 export function ArweaveWalletKit({
   children,
@@ -55,6 +56,12 @@ export function ArweaveWalletKit({
 
   return (
     <Context.Provider value={{ state, dispatch }}>
+      <ThemeProvider2 theme={{
+        ...(themeConfig.displayTheme === "light" ? lightTheme : darkTheme),
+        displayTheme: themeConfig.displayTheme || "light",
+        theme: rgbToString(themeConfig.accent),
+        themeConfig
+      }}>
       <ThemeProvider theme={themeCalculator}>
         <AddressSync>
           <Helmet>
@@ -75,6 +82,7 @@ export function ArweaveWalletKit({
           <RestoreSession />
         </AddressSync>
       </ThemeProvider>
+      </ThemeProvider2>
     </Context.Provider>
   );
 }

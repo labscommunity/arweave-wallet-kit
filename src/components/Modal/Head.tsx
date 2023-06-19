@@ -1,6 +1,7 @@
+import { DefaultTheme, withTheme } from "../../theme";
 import type { PropsWithChildren } from "react";
 import { CloseIcon } from "@iconicicons/react";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 
 export function Head({ children, onClose }: PropsWithChildren<Props>) {
   return (
@@ -20,7 +21,7 @@ const HeadWrapper = styled.div`
   padding: 20px;
 `;
 
-const CloseButton = styled.div`
+const CloseButton = withTheme(styled.div<{ theme: DefaultTheme }>`
   position: relative;
   width: 1.4rem;
   height: 1.4rem;
@@ -49,7 +50,7 @@ const CloseButton = styled.div`
     color: rgb(${(props) => props.theme.secondaryText});
     transform: translate(-50%, -50%);
   }
-`;
+`);
 
 interface Props {
   onClose: () => void;

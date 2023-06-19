@@ -1,5 +1,6 @@
+import { DefaultTheme, withTheme } from "../theme";
 import type { Radius } from "./Provider";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 
 const radius: Record<Radius, number> = {
   default: 30,
@@ -7,7 +8,7 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-export const Button = styled.button`
+export const Button = withTheme(styled.button<{ theme: DefaultTheme }>`
   display: flex;
   font-family: "Manrope", sans-serif;
   font-size: 0.9rem;
@@ -50,4 +51,4 @@ export const Button = styled.button`
     width: 1em;
     height: 1em;
   }
-`;
+`);
