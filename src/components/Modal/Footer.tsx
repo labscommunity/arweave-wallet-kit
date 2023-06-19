@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 
 export function Footer({ children }: PropsWithChildren<{}>) {
   return <Wrapper>{children}</Wrapper>;

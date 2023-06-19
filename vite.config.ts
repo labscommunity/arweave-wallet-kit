@@ -1,10 +1,20 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import linaria from "@linaria/vite";
 import dts from "vite-plugin-dts";
 import path from "node:path";
 
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true })],
+  plugins: [
+    react(),
+    dts({ insertTypesEntry: true }),
+    linaria({
+      include: ["**/*.{ts,tsx}"],
+      babelOptions: {
+        presets: ["@babel/preset-typescript", "@babel/preset-react"]
+      }
+    })
+  ],
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
