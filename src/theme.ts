@@ -77,4 +77,10 @@ export const {
 // the issue occurs because the theme provider context only
 // works in the browser or on client side, but Linaria Vite
 // tries to eval it regardless
+// during evaluation, some components are outside the theme
+// provider context and some are not
+// the components that are outside throw the undefined error
+// naturally on production use, this will never happen, as
+// the users need to wrap their application with the
+// <ArweaveWalletKit> component anyway
 export const withTheme = theming.withTheme || ((val) => val as ThemingType<DefaultTheme>["withTheme"]);
