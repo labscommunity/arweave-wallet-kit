@@ -57,11 +57,7 @@ export interface RGBObject {
 
 export type Radius = "default" | "minimal" | "none";
 
-export const {
-  ThemeProvider,
-  withTheme,
-  useTheme
-}: ThemingType<DefaultTheme> & {
+const theming: ThemingType<DefaultTheme> & {
   ThemeProvider: React.ComponentType<
     React.PropsWithChildren<{ theme?: DefaultTheme }>
   >;
@@ -71,3 +67,14 @@ export const {
   themeConfig: defaultThemeConfig,
   ...lightTheme
 });
+
+export const {
+  ThemeProvider,
+  useTheme
+} = theming;
+
+// this fixes "withTheme" being undefined on build or dev
+// the issue occurs because the theme provider context only
+// works in the browser or on client side, but Linaria Vite
+// tries to eval it regardless
+export const withTheme = theming.withTheme || ((val) => val as ThemingType<DefaultTheme>["withTheme"]);
