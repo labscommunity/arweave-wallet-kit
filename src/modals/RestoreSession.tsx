@@ -1,9 +1,9 @@
-import type { ForwardRefComponent, HTMLMotionProps, Variants } from "framer-motion";
 import { STRATEGY_STORE, syncStrategies } from "../strategy";
 import type { Radius } from "../components/Provider";
 import { DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
+import type { Variants } from "framer-motion";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import { useEffect, useState } from "react";
@@ -139,6 +139,7 @@ const BottomModal = withTheme(styled(Modal as any)<any>`
   gap: 1.24rem;
   padding: 0.75rem 1rem;
   border-radius: ${(props) => radius[props.theme.themeConfig.radius as Radius] + "px"};
+  border-radius: 15px;
   bottom: 0;
   right: 1.5rem;
   left: unset;
