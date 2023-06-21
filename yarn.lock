@@ -8290,17 +8290,19 @@ os-homedir@^1.0.0:
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
   integrity sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==
 
-othent@^1.0.619:
-  version "1.0.619"
-  resolved "https://registry.yarnpkg.com/othent/-/othent-1.0.619.tgz#206e6df1e2ba7ca9d29113870b0e9dc04fdeed5e"
-  integrity sha512-Ya7suD6ZxUQ57XFFLwQEVKm11PEnTyqZVwLurVdNMgHpgVrU2oY971pjgDiwqDCIN5lRryUc56VJM/axl1W77Q==
+othent@^1.0.632:
+  version "1.0.632"
+  resolved "https://registry.yarnpkg.com/othent/-/othent-1.0.632.tgz#4359f7b566f857df934480d3e2bfb09f744a53be"
+  integrity sha512-vRLpC5sHTrbuakaI2tjrp54oIAQBTmHW+e11G/JuKG5Mn72sr4USZLYavXL7yXC0irqeKpVA6i2/XmsSLvAlvQ==
   dependencies:
     "@auth0/auth0-spa-js" "^2.0.4"
     axios "^1.3.4"
     crypto-hash "^2.0.1"
+    debug "^4.3.4"
     jsrsasign "^10.8.6"
     jwk-to-pem "^2.0.5"
     jwt-decode "^3.1.2"
+    supports-color "^8.1.1"
 
 p-all@^2.1.0:
   version "2.1.0"
@@ -10114,7 +10116,7 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^8.0.0:
+supports-color@^8.0.0, supports-color@^8.1.1:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==

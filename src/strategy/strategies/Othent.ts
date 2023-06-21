@@ -1,35 +1,48 @@
-import type { GatewayConfig, PermissionType } from "arconnect";
+import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
+import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
+import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
 import { Othent } from "othent";
 
 export default class OthentStrategy implements Strategy {
   public id = "othent";
-  public name = "Google (Othent)";
+  public name = "Google";
   public description = "Sign in with Google through Othent Smart Contract Wallets";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
 
-  #othent: Awaited<ReturnType<typeof Othent>> | undefined;
-  #connected = false;
+  #apiID = "e923634af8cc8b63bc8c74735d177aae";
+  #addressListeners: ListenerFunction[] = [];
 
   constructor() {}
 
+  async #othentInstance(ensureConnection = true) {
+    // init othent
+    const othent = await Othent({
+      API_ID: this.#apiID
+    });
+
+    if (!othent) {
+      throw new Error("[Arweave Wallet Kit] Invalid Othent API ID");
+    }
+
+    if (ensureConnection) {
+      const permissions = await this.getPermissions();
+
+      if (permissions.length === 0) {
+        throw new Error("[Arweave Wallet Kit] You are not connected to Othent");
+      }
+    }
+
+    return othent;
+  }
+
   public async isAvailable() {
     try {
-      this.#othent = await Othent({
-        API_ID: this.#apiID
-      });
-
-      // get if logged in
-      try {
-        await this.#othent.userDetails();
-
-        this.#connected = true;
-      } catch {
-        this.#connected = false;
-      }
+      // ensure instance
+      await this.#othentInstance(false);
 
       return true;
     } catch {
@@ -42,40 +55,88 @@ export default class OthentStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ) {
-    if (!this.#othent) {
-      throw new Error(
-        "[Arweave Wallet Kit] Failed to connect to Othent"
-      );
-    }
+    const othent = await this.#othentInstance(false);
+    const res = await othent.logIn();
 
-    await this.#othent.logIn();
+    for (const listener of this.#addressListeners) {
+      listener(res.contract_id);
+    }
   }
 
   public async disconnect() {
-    if (!this.#othent) {
-      throw new Error(
-        "[Arweave Wallet Kit] Failed to connect to Othent"
-      );
-    }
+    const othent = await this.#othentInstance();
 
-    await this.#othent.logOut();
+    await othent.logOut();
+
+    for (const listener of this.#addressListeners) {
+      listener(undefined as any);
+    }
   }
 
   public async getPermissions() {
-    if (!this.#othent || !this.#connected) {
+    const othent = await this.#othentInstance(false);
+
+    try {
+      const res = await othent.userDetails();
+
+      for (const listener of this.#addressListeners) {
+        listener(res.contract_id);
+      }
+
+      return [
+        "ACCESS_ADDRESS",
+        "ACCESS_PUBLIC_KEY",
+        "ACCESS_ALL_ADDRESSES",
+        "SIGN_TRANSACTION",
+        "ENCRYPT",
+        "DECRYPT",
+        "SIGNATURE",
+        "ACCESS_ARWEAVE_CONFIG",
+        "DISPATCH"
+      ] as PermissionType[];
+    } catch {
       return [];
     }
+  }
 
-    return [
-      "ACCESS_ADDRESS",
-      "ACCESS_PUBLIC_KEY",
-      "ACCESS_ALL_ADDRESSES",
-      "SIGN_TRANSACTION",
-      "ENCRYPT",
-      "DECRYPT",
-      "SIGNATURE",
-      "ACCESS_ARWEAVE_CONFIG",
-      "DISPATCH"
-    ] as PermissionType[];
+  public async getActiveAddress(): Promise<string> {
+    
+  }
+
+  public async sign(
+    transaction: Transaction,
+    options?: SignatureOptions
+  ): Promise<void> {
+    
+  }
+
+  public async signature(
+    data: Uint8Array,
+    algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
+  ): Promise<Uint8Array> {
+    return new Uint8Array(1);
+  }
+
+  public async getActivePublicKey(): Promise<string> {
+    return "";
+  }
+
+  public async dispatch(transaction: Transaction): Promise<DispatchResult> {
+    
+  }
+
+  public addAddressEvent(listener: ListenerFunction) {
+    this.#addressListeners.push(listener);
+
+    // placeholder function
+    return listener as any;
+  }
+
+  public removeAddressEvent(
+    listener: (e: CustomEvent<{ address: string }>) => void
+  ) {
+    this.#addressListeners.splice(this.#addressListeners.indexOf(listener as any), 1);
   }
 }
+
+type ListenerFunction = (address: string) => void;
