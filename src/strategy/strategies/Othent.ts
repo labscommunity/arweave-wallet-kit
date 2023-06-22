@@ -100,7 +100,10 @@ export default class OthentStrategy implements Strategy {
   }
 
   public async getActiveAddress(): Promise<string> {
-    
+    const othent = await this.#othentInstance(false);
+    const res = await othent.userDetails();
+
+    return res.contract_id;
   }
 
   public async sign(
