@@ -1,7 +1,7 @@
-import { getStrategy, syncStrategies } from "../strategy";
-import type { Actions, Config } from "../context/faces";
-import { useEffect, useMemo } from "react";
+import type Strategy from "../strategy/Strategy";
+import { getStrategy } from "../strategy";
 import useGlobalState from "./global";
+import { useMemo } from "react";
 
 /**
  * Active strategy (wallet) identifier
@@ -35,7 +35,7 @@ export default function useActiveStrategy() {
  */
 export function useApi() {
   const strategy = useActiveStrategy();
-  const api = useMemo(() => {
+  const api = useMemo<ApiType | undefined>(() => {
     if (!strategy) return undefined;
 
     // only return api functions that would
@@ -43,36 +43,22 @@ export function useApi() {
     // e.g.: we don't return connect(),
     // as it needs it's implementation
     // from "useConnection"
-    const {
-      getActiveAddress,
-      getAllAddresses,
-      sign,
-      getPermissions,
-      getWalletNames,
-      encrypt,
-      decrypt,
-      getArweaveConfig,
-      signature,
-      getActivePublicKey,
-      addToken,
-      dispatch
-    } = strategy;
-
-    return {
-      getActiveAddress,
-      getAllAddresses,
-      sign,
-      getPermissions,
-      getWalletNames,
-      encrypt,
-      decrypt,
-      getArweaveConfig,
-      signature,
-      getActivePublicKey,
-      addToken,
-      dispatch
-    };
+    // @ts-expect-error
+    const apiObj: ApiType = strategy;
+    const omit = ["id" , "name" , "description" , "theme" , "logo" , "url" , "resumeSession" , "isAvailable" , "addAddressEvent" , "removeAddressEvent" , "connect"];
+    
+    for (const key in strategy) {
+      if (!omit.includes(key)) continue;
+      
+      delete apiObj[key];
+    }
+    
+    return apiObj;
   }, [strategy]);
 
   return api;
 }
+
+type ApiType = Omit<Strategy, "id" | "name" | "description" | "theme" | "logo" | "url" | "resumeSession" | "isAvailable" | "addAddressEvent" | "removeAddressEvent" | "connect"> & {
+  [functionName: string]: (...props: unknown[]) => Promise<unknown>;
+};
