@@ -159,6 +159,24 @@ await disconnect();
 connected ? "wallet connected" : "no connected wallet";
 ```
 
+### `useApi`
+
+API hook. Returns the active strategy's API as an interactable object. Can be used to sign/encrypt, etc.
+
+**Some API functions might not be supported depending on the [strategy](#terminology-of-arweave-wallet-kit) the user chose. For example, Othent does not support the `signature()` function.** Make sure to verify beforehand.
+
+#### Usage
+
+```ts
+const api = useApi();
+
+// sign
+await api.sign(transaction);
+
+// encrypt
+await api.encrypt(...)
+```
+
 ### `useProfileModal`
 
 Toggle / display a modal with profile information and a disconnect button.
@@ -227,24 +245,6 @@ Active strategy hook. Returns the currently used strategy's ID.
 
 ```ts
 const strategy = useStrategy();
-```
-
-### `useApi`
-
-API hook. Returns the active strategy's API as an interactable object. Can be used to sign/encrypt, etc.
-
-**Some API functions might not be supported depending on the [strategy](#terminology-of-arweave-wallet-kit) the user chose. For example, Othent does not support the `signature()` function.** Make sure to verify beforehand.
-
-#### Usage
-
-```ts
-const api = useApi();
-
-// sign
-await api.sign(transaction);
-
-// encrypt
-await api.encrypt(...)
 ```
 
 ## Advanced theming
