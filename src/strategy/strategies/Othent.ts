@@ -133,17 +133,6 @@ export default class OthentStrategy implements Strategy {
     return signedTransaction;
   }
 
-  public async signature(
-    data: Uint8Array,
-    algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
-  ): Promise<Uint8Array> {
-    return new Uint8Array(1);
-  }
-
-  public async getActivePublicKey(): Promise<string> {
-    return "";
-  }
-
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
     
   }
