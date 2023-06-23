@@ -3,7 +3,7 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { Othent } from "othent";
+import { Othent, SignTransactionWarpProps } from "othent";
 
 export default class OthentStrategy implements Strategy {
   public id = "othent";
@@ -124,21 +124,16 @@ export default class OthentStrategy implements Strategy {
     await othent.sendTransactionArweave(signedTransaction);
   }
 
-  public async signWarp(transaction: Transaction): Promise<void> {
-    if (transaction.quantity !== "0" && transaction.target !== "") {
-      throw new Error(
-        "Signing with Othent only supports data type transactions."
-      );
-    }
+  public async signWarp(options: SignTransactionWarpProps): Promise<void> {
     const othent = await this.#othentInstance(false);
 
-    const signedTransaction = await othent.signTransactionArweave({
-      othentFunction: "uploadData",
-      data: transaction.data,
-      tags: transaction.tags ? transaction.tags : []
+    const signedTransaction = await othent.signTransactionWarp({
+      othentFunction: options.othentFunction,
+      data: options.data,
+      tags: options.tags ? options.tags : []
     });
 
-    await othent.sendTransactionArweave(signedTransaction);
+    await othent.sendTransactionWarp(signedTransaction);
   }
 
   public async signature(
