@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useAddress from "../hooks/active_address";
 import useAddresses, { useWalletNames } from "../hooks/addresses";
 import useProfileModal from "../hooks/profile";
+import { useApi } from "../hooks/strategy"
 
 export default {
   name: "Modal",

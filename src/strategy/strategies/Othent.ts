@@ -6,7 +6,7 @@ import type Strategy from "../Strategy";
 import { Othent } from "othent";
 
 export default class OthentStrategy implements Strategy {
-  public id = "othent";
+  public id: "othent" = "othent";
   public name = "Google";
   public description = "Sign in with Google through Othent Smart Contract Wallets";
   public theme = "35, 117, 239";

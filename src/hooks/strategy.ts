@@ -1,3 +1,7 @@
+import type ArweaveWebWalletStrategy from "../strategy/strategies/ArweaveWebWallet";
+import type BrowserWalletStrategy from "../strategy/strategies/BrowserWallet";
+import type ArConnectStrategy from "../strategy/strategies/ArConnect";
+import type OthentStrategy from "../strategy/strategies/Othent";
 import type Strategy from "../strategy/Strategy";
 import { getStrategy } from "../strategy";
 import useGlobalState from "./global";
@@ -35,7 +39,7 @@ export default function useActiveStrategy() {
  */
 export function useApi() {
   const strategy = useActiveStrategy();
-  const api = useMemo<ApiType | undefined>(() => {
+  const api = useMemo<PossibleApis | undefined>(() => {
     if (!strategy) return undefined;
 
     // only return api functions that would
@@ -44,8 +48,8 @@ export function useApi() {
     // as it needs it's implementation
     // from "useConnection"
     // @ts-expect-error
-    const apiObj: ApiType = strategy;
-    const omit = ["id" , "name" , "description" , "theme" , "logo" , "url" , "resumeSession" , "isAvailable" , "addAddressEvent" , "removeAddressEvent" , "connect"];
+    const apiObj: PossibleApis = strategy;
+    const omit = ["name", "description", "theme", "logo", "url", "resumeSession", "isAvailable", "addAddressEvent", "removeAddressEvent", "connect"];
     
     for (const key in strategy) {
       if (!omit.includes(key)) continue;
@@ -59,6 +63,7 @@ export function useApi() {
   return api;
 }
 
-type ApiType = Omit<Strategy, "id" | "name" | "description" | "theme" | "logo" | "url" | "resumeSession" | "isAvailable" | "addAddressEvent" | "removeAddressEvent" | "connect"> & {
+type PossibleApis = ApiType<ArConnectStrategy> | ApiType<ArweaveWebWalletStrategy> | ApiType<BrowserWalletStrategy> | ApiType<OthentStrategy>;
+type ApiType<S = Strategy> = Omit<S, "name" | "description" | "theme" | "logo" | "url" | "resumeSession" | "isAvailable" | "addAddressEvent" | "removeAddressEvent" | "connect"> & {
   [functionName: string]: (...props: unknown[]) => Promise<unknown>;
 };

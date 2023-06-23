@@ -1,11 +1,13 @@
 import BrowserWalletStrategy from "./BrowserWallet";
+import { callWindowApi } from "../../utils";
 import type Strategy from "../Strategy";
 
 export default class ArConnectStrategy
   extends BrowserWalletStrategy
   implements Strategy
 {
-  public id = "arconnect";
+  // @ts-expect-error
+  public id: "arconnect" = "arconnect";
   public name = "ArConnect";
   public description = "Non-custodial Arweave wallet for your favorite browser";
   public theme = "171, 154, 255";
@@ -27,6 +29,6 @@ export default class ArConnectStrategy
   }
 
   public async addToken(id: string): Promise<void> {
-    return await super.callWindowApi("addToken", [id]);
+    return await callWindowApi("addToken", [id]);
   }
 }
