@@ -233,6 +233,8 @@ const strategy = useStrategy();
 
 API hook. Returns the active strategy's API as an interactable object. Can be used to sign/encrypt, etc.
 
+**Some API functions might not be supported depending on the [strategy](#terminology-of-arweave-wallet-kit) the user chose. For example, Othent does not support the `signature()` function.** Make sure to verify beforehand.
+
 #### Usage
 
 ```ts
