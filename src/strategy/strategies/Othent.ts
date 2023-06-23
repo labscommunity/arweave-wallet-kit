@@ -134,7 +134,47 @@ export default class OthentStrategy implements Strategy {
   }
 
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
-    
+    try {
+      const othent = await this.#othentInstance(false);
+
+      const signedTransaction = await othent.signTransactionBundlr({
+        othentFunction: "uploadData",
+        data: transaction.data,
+        tags: transaction.tags ? transaction.tags : []
+      });
+
+      const res = await othent.sendTransactionBundlr(signedTransaction);
+
+      if (res.success === true) {
+        return { id: res.transactionId, type: "BUNDLED" };
+      } else {
+        try {
+          const othent = await this.#othentInstance(false);
+
+          const signedTransaction = await othent.signTransactionArweave({
+            othentFunction: "uploadData",
+            data: transaction.data,
+            tags: transaction.tags ? transaction.tags : []
+          });
+
+          const res = await othent.sendTransactionArweave(signedTransaction);
+
+          if (res.success === true) {
+            return { id: res.transactionId, type: "BASE" };
+          } else {
+            throw new Error(
+              `Failed to dispatch layer transaction. Please recheck request.`
+            );
+          }
+        } catch (error) {
+          throw new Error(
+            `Unable to dispatch Base layer transaction: ${error}`
+          );
+        }
+      }
+    } catch (error) {
+      throw new Error(`Unable to dispatch Bundled transaction: ${error}`);
+    }
   }
 
   public addAddressEvent(listener: ListenerFunction) {
