@@ -5,9 +5,8 @@ import OthentStrategy from "./strategies/Othent";
 
 import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
-import type Strategy from "./Strategy";
 
-const strategies: Strategy[] = [
+const strategies = [
   new ArConnectStrategy(),
   new ArweaveWebWalletStrategy(),
   new OthentStrategy(),
