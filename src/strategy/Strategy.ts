@@ -34,7 +34,7 @@ export default abstract class Strategy {
   public abstract sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<void>;
+  ): Promise<Transaction>;
   public abstract getPermissions(): Promise<PermissionType[]>;
   public abstract getWalletNames?(): Promise<{ [addr: string]: string }>;
   public abstract encrypt?(

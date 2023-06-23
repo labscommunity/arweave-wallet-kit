@@ -86,7 +86,7 @@ export default class BrowserWalletStrategy implements Strategy {
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<void> {
+  ): Promise<Transaction> {
     const signedTransaction = await this.callWindowApi("sign", [
       transaction,
       options
@@ -99,6 +99,8 @@ export default class BrowserWalletStrategy implements Strategy {
       tags: signedTransaction.tags,
       signature: signedTransaction.signature
     });
+
+    return transaction;
   }
 
   public async encrypt(

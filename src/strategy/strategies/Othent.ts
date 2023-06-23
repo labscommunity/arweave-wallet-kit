@@ -109,8 +109,28 @@ export default class OthentStrategy implements Strategy {
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<void> {
-    
+  ): Promise<Transaction> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support transaction signature options"
+      );
+    }
+
+    if (transaction.quantity !== "0" && transaction.target !== "") {
+      throw new Error(
+        "[Arweave Wallet Kit] Signing with Othent only supports data type transactions"
+      );
+    }
+    const othent = await this.#othentInstance(false);
+
+    const signedTransaction = await othent.signTransactionArweave({
+      othentFunction: "uploadData",
+      data: transaction.data,
+      tags: transaction.tags ? transaction.tags : []
+    });
+
+    // @ts-expect-error
+    return signedTransaction;
   }
 
   public async signature(
