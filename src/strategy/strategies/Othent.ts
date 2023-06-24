@@ -3,7 +3,7 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { Othent } from "othent";
+import { Othent, queryWalletAddressTxnsProps, readCustomContractProps, SendTransactionArweaveProps, SendTransactionBundlrProps, SendTransactionWarpProps, SignTransactionBundlrProps, SignTransactionWarpProps, verifyArweaveDataProps, verifyBundlrDataProps } from "othent";
 
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
@@ -48,6 +48,12 @@ export default class OthentStrategy implements Strategy {
     } catch {
       return false;
     }
+  }
+
+  public async ping() {
+    const othent = await this.#othentInstance(false);
+
+    return await othent.ping();
   }
 
   public async connect(
@@ -106,10 +112,14 @@ export default class OthentStrategy implements Strategy {
     return res.contract_id;
   }
 
+  /**
+   * Same as "sendTransactionArweave()" of the Othent SDK
+   */
+  // @ts-expect-error - Return type is different for Othent transaction signing
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<Transaction> {
+  ) {
     if (options) {
       console.warn(
         "[Arweave Wallet Kit] Othent does not support transaction signature options"
@@ -129,8 +139,49 @@ export default class OthentStrategy implements Strategy {
       tags: transaction.tags ? transaction.tags : []
     });
 
-    // @ts-expect-error
     return signedTransaction;
+  }
+
+  public async signTransactionBundlr(params: SignTransactionBundlrProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.signTransactionBundlr(params);
+  }
+
+  public async signTransactionWarp(params: SignTransactionWarpProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.signTransactionWarp(params);
+  }
+
+  public async sendTransactionArweave(params: SendTransactionArweaveProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.sendTransactionArweave(params);
+  }
+
+  public async sendTransactionBundlr(params: SendTransactionBundlrProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.sendTransactionBundlr(params);
+  }
+
+  public async sendTransactionWarp(params: SendTransactionWarpProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.sendTransactionWarp(params);
+  }
+
+  public async verifyArweaveData(params: verifyArweaveDataProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.verifyArweaveData(params);
+  }
+
+  public async verifyBundlrData(params: verifyBundlrDataProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.verifyBundlrData(params);
   }
 
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
@@ -175,6 +226,30 @@ export default class OthentStrategy implements Strategy {
     } catch (error) {
       throw new Error(`Unable to dispatch Bundled transaction: ${error}`);
     }
+  }
+
+  public async queryWalletAddressTxns(params: queryWalletAddressTxnsProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.queryWalletAddressTxns(params);
+  }
+
+  public async userDetails() {
+    const othent = await this.#othentInstance();
+
+    return await othent.userDetails();
+  }
+
+  public async readContract() {
+    const othent = await this.#othentInstance();
+
+    return await othent.readContract();
+  }
+
+  public async readCustomContract(params: readCustomContractProps) {
+    const othent = await this.#othentInstance();
+
+    return await othent.readCustomContract(params);
   }
 
   public addAddressEvent(listener: ListenerFunction) {
