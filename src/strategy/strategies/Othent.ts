@@ -18,6 +18,14 @@ export default class OthentStrategy implements Strategy {
 
   constructor() {}
 
+  /**
+   * Advanced function to override the default API ID
+   * Othent uses.
+   */
+  public __overrideApiID(othentApiID: string) {
+    this.#apiID = othentApiID;
+  }
+
   async #othentInstance(ensureConnection = true) {
     // init othent
     const othent = await Othent({

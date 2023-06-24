@@ -35,10 +35,6 @@ export default function useActiveStrategy() {
 export function useApi() {
   const strategy = useActiveStrategy();
 
-  useEffect(() => {
-    console.log(strategy?.id)
-  }, [strategy])
-
   const api = useMemo(() => {
     if (!strategy) return undefined;
 
