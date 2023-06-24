@@ -64,7 +64,7 @@ export function saveStrategy(active: string) {
 /**
  * Get strategy by id
  */
-export function getStrategy(id: string) {
+export function getStrategy(id: string | false) {
   return strategies.find((s) => s.id === id);
 }
 

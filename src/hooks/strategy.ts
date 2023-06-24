@@ -18,13 +18,7 @@ export default function useActiveStrategy() {
   // global context
   const activeStrategy = useStrategy();
 
-  const strategy = useMemo(() => {
-    if (!activeStrategy) {
-      return undefined;
-    }
-
-    return getStrategy(activeStrategy);
-  }, [activeStrategy]);
+  const strategy = useMemo(() => getStrategy(activeStrategy), [activeStrategy]);
 
   return strategy;
 }
@@ -44,22 +38,11 @@ export function useApi() {
     // as it needs it's implementation
     // from "useConnection"
     const apiObj = strategy;
-    const omit = [
-      "name",
-      "description",
-      "theme",
-      "logo",
-      "url",
-      "resumeSession",
-      "isAvailable",
-      "addAddressEvent",
-      "removeAddressEvent",
-      "connect"
-    ];
-
+    const omit = ["name", "description", "theme", "logo", "url", "resumeSession", "isAvailable", "addAddressEvent", "removeAddressEvent", "connect"];
+    
     for (const key in strategy) {
       if (!omit.includes(key)) continue;
-
+      
       // @ts-expect-error
       delete apiObj[key];
     }
