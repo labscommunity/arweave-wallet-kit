@@ -1,6 +1,6 @@
 import { getStrategy } from "../strategy";
 import useGlobalState from "./global";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 /**
  * Active strategy (wallet) identifier
@@ -34,6 +34,11 @@ export default function useActiveStrategy() {
  */
 export function useApi() {
   const strategy = useActiveStrategy();
+
+  useEffect(() => {
+    console.log(strategy?.id)
+  }, [strategy])
+
   const api = useMemo(() => {
     if (!strategy) return undefined;
 
@@ -51,7 +56,7 @@ export function useApi() {
       // @ts-expect-error
       delete apiObj[key];
     }
-    
+
     return apiObj;
   }, [strategy]);
 

@@ -14,6 +14,7 @@ import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
+import useConnection from "../hooks/connection"
 
 export function ConnectModal() {
   // modal controlls and statuses
@@ -29,6 +30,15 @@ export function ConnectModal() {
     setSelectedStrategy(undefined);
     dispatch({ type: "CLOSE_MODAL" });
   }, [modalController.open]);
+
+  // connection
+  const { connected } = useConnection();
+
+  // close modal if the user is connected
+  useEffect(() => {
+    if (!connected || state?.activeModal !== "connect") return;
+    dispatch({ type: "CLOSE_MODAL" });
+  }, [connected, state]);
 
   // selected strategy
   const [selectedStrategy, setSelectedStrategy] = useState<string>();
