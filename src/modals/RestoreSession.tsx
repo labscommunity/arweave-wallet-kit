@@ -94,15 +94,12 @@ export default function RestoreSession() {
   return (
     <BottomModal {...modalController.bindings} onClose={cancel}>
       <Text>
-        Would you like to restore your {strategyToRestore?.name + " " || ""}session?
+        Would you like to restore your {strategyToRestore?.name + " " || ""}
+        session?
       </Text>
       <Buttons>
-        <Button onClick={restore}>
-          Restore
-        </Button>
-        <CloseButton onClick={cancel}>
-          Cancel
-        </CloseButton>
+        <Button onClick={restore}>Restore</Button>
+        <CloseButton onClick={cancel}>Cancel</CloseButton>
       </Buttons>
     </BottomModal>
   );
@@ -135,7 +132,10 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const BottomModal = styled(Modal).attrs({ variants: bottomModalVariants, noWatermark: true })`
+const BottomModal = styled(Modal).attrs({
+  variants: bottomModalVariants,
+  noWatermark: true
+})`
   display: flex;
   align-items: center;
   gap: 1.24rem;
@@ -156,14 +156,14 @@ const BottomModal = styled(Modal).attrs({ variants: bottomModalVariants, noWater
 const Text = styled.p`
   font-size: 1.05rem;
   font-weight: 500;
-  color: rgb(${props => props.theme.primaryText});
+  color: rgb(${(props) => props.theme.primaryText});
   margin: 0px;
 `;
 
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  gap: .6rem;
+  gap: 0.6rem;
 
   @media screen and (max-width: 720px) {
     flex-direction: column;
@@ -176,11 +176,11 @@ const Buttons = styled.div`
 
 const CloseButton = styled(Button)`
   background-color: transparent;
-  color: rgb(${props => props.theme.primaryText});
+  color: rgb(${(props) => props.theme.primaryText});
 
   &:hover {
-    background-color: rgba(${(props) => props.theme.theme}, .05);
-    color: rgb(${props => props.theme.theme});
+    background-color: rgba(${(props) => props.theme.theme}, 0.05);
+    color: rgb(${(props) => props.theme.theme});
     box-shadow: none !important;
   }
 `;

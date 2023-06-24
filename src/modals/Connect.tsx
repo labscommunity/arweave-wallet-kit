@@ -14,7 +14,7 @@ import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
 import styled from "styled-components";
 import useModal from "../hooks/modal";
-import useConnection from "../hooks/connection"
+import useConnection from "../hooks/connection";
 
 export function ConnectModal() {
   // modal controlls and statuses
@@ -220,7 +220,9 @@ export function ConnectModal() {
             Click to learn more about the permaweb & wallets.
           </Paragraph>
         </TitleWithParagraph>
-        <Button onClick={() => window.open("https://arwiki.wiki/#/en/wallets")}>Get</Button>
+        <Button onClick={() => window.open("https://arwiki.wiki/#/en/wallets")}>
+          Get
+        </Button>
       </Footer>
     </Modal>
   );

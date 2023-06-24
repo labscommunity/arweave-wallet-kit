@@ -64,7 +64,8 @@ export default function ConnectButton({
                 )}
               </>
             )}
-            {(ansOption && ans?.currentLabel) || formatAddress(address || "", 5)}
+            {(ansOption && ans?.currentLabel) ||
+              formatAddress(address || "", 5)}
             <ExpandIcon />
           </ProfileSection>
         </>
@@ -94,7 +95,10 @@ const ConnectText = styled.span`
 const ProfileSection = styled.div<{ showBalance?: boolean }>`
   display: flex;
   align-items: center;
-  background-color: rgb(${(props) => props.showBalance ? props.theme.background : "transparent"}, 0.2);
+  background-color: rgb(
+    ${(props) => (props.showBalance ? props.theme.background : "transparent")},
+    0.2
+  );
   height: 2.6rem;
   border-radius: ${(props) =>
     radius[props.theme.themeConfig.radius] - 3 + "px"};

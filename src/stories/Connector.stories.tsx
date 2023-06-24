@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useAddress from "../hooks/active_address";
 import useAddresses, { useWalletNames } from "../hooks/addresses";
 import useProfileModal from "../hooks/profile";
-import { useApi } from "../hooks/strategy"
+import { useApi } from "../hooks/strategy";
 
 export default {
   name: "Modal",
@@ -66,11 +66,11 @@ const Button = () => {
   useEffect(() => {
     if (!api) return;
     if (api.id === "othent") {
-      console.log("f")
-      api.userDetails().then(res => console.log(res))
+      console.log("f");
+      api.userDetails().then((res) => console.log(res));
     }
-    console.log(api.sign)
-  }, [api])
+    console.log(api.sign);
+  }, [api]);
 
   return (
     <>

@@ -3,12 +3,24 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { Othent, queryWalletAddressTxnsProps, readCustomContractProps, SendTransactionArweaveProps, SendTransactionBundlrProps, SendTransactionWarpProps, SignTransactionBundlrProps, SignTransactionWarpProps, verifyArweaveDataProps, verifyBundlrDataProps } from "othent";
+import {
+  Othent,
+  queryWalletAddressTxnsProps,
+  readCustomContractProps,
+  SendTransactionArweaveProps,
+  SendTransactionBundlrProps,
+  SendTransactionWarpProps,
+  SignTransactionBundlrProps,
+  SignTransactionWarpProps,
+  verifyArweaveDataProps,
+  verifyBundlrDataProps
+} from "othent";
 
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
   public name = "Google";
-  public description = "Sign in with Google through Othent Smart Contract Wallets";
+  public description =
+    "Sign in with Google through Othent Smart Contract Wallets";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
@@ -124,10 +136,7 @@ export default class OthentStrategy implements Strategy {
    * Same as "sendTransactionArweave()" of the Othent SDK
    */
   // @ts-expect-error - Return type is different for Othent transaction signing
-  public async sign(
-    transaction: Transaction,
-    options?: SignatureOptions
-  ) {
+  public async sign(transaction: Transaction, options?: SignatureOptions) {
     if (options) {
       console.warn(
         "[Arweave Wallet Kit] Othent does not support transaction signature options"
@@ -270,7 +279,10 @@ export default class OthentStrategy implements Strategy {
   public removeAddressEvent(
     listener: (e: CustomEvent<{ address: string }>) => void
   ) {
-    this.#addressListeners.splice(this.#addressListeners.indexOf(listener as any), 1);
+    this.#addressListeners.splice(
+      this.#addressListeners.indexOf(listener as any),
+      1
+    );
   }
 }
 

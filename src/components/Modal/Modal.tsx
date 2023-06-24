@@ -5,7 +5,14 @@ import useMobile from "../../hooks/mobile";
 import type { Radius } from "../Provider";
 import styled from "styled-components";
 
-export function Modal({ open, onClose, children, className, variants, noWatermark = false }: PropsWithChildren<Props>) {
+export function Modal({
+  open,
+  onClose,
+  children,
+  className,
+  variants,
+  noWatermark = false
+}: PropsWithChildren<Props>) {
   const mobile = useMobile();
 
   return (
@@ -16,7 +23,11 @@ export function Modal({ open, onClose, children, className, variants, noWatermar
         </BackgroundLayer>
       )}
       {open && (
-        <Wrapper key="modal" className={className} variants={variants || modalAnimation(mobile)}>
+        <Wrapper
+          key="modal"
+          className={className}
+          variants={variants || modalAnimation(mobile)}
+        >
           {children}
         </Wrapper>
       )}
@@ -96,12 +107,12 @@ const Wrapper = styled(motion.div).attrs({
   transition: background-color 0.23s ease-in-out;
 
   *::selection {
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
   }
 
   *::-moz-selection {
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
   }
 

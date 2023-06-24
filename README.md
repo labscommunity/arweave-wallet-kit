@@ -85,12 +85,12 @@ Using the `config` field of the `<ArweaveWalletKit>` provider component, you can
 
 #### Available options
 
-| Prop                | Type                                                                       | Default             |                                                                                                            |
-| ------------------- | -------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `permissions`       | [`PermissionType[]`](https://docs.arconnect.io/api/connect#permissions) | `[]`                | Permissions to connect with.                                                                               |
-| `ensurePermissions` | `boolean`                                                                  |  `false`            | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
-| `appInfo`           | [`AppInfo`](https://docs.arconnect.io/api/connect#additional-application-information)            | `{}`                | Information about your app (name/logo).                                                                    |
-| `gatewayConfig`     | `GatewayConfig`                                                            | arweave.net gateway | Configuration for the Arweave gateway to use.                                                              |
+| Prop                | Type                                                                                  | Default             |                                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `permissions`       | [`PermissionType[]`](https://docs.arconnect.io/api/connect#permissions)               | `[]`                | Permissions to connect with.                                                                               |
+| `ensurePermissions` | `boolean`                                                                             |  `false`            | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
+| `appInfo`           | [`AppInfo`](https://docs.arconnect.io/api/connect#additional-application-information) | `{}`                | Information about your app (name/logo).                                                                    |
+| `gatewayConfig`     | `GatewayConfig`                                                                       | arweave.net gateway | Configuration for the Arweave gateway to use.                                                              |
 
 ### Custom theme
 
@@ -128,13 +128,13 @@ To quickly integrate the Arweave Wallet Kit, you can use the `<ConnectButton>` c
 
 You can configure the Connect Button through it's props.
 
-| Props | Type |   |
-| ----- | ---- | - |
-| `accent` | `string` | A theme color for the button |
-| `showBalance` | `boolean` | Show user balance when connected |
-| `showProfilePicture` | `boolean` | Show user profile picture when connected |
-| `useAns` | `boolean` | Use ANS to grab profile information |
-| `profileModal` | `boolean` | Show profile modal on click (if disabled, clicking the button will disconnect the user) |
+| Props                | Type      |                                                                                         |
+| -------------------- | --------- | --------------------------------------------------------------------------------------- |
+| `accent`             | `string`  |  A theme color for the button                                                           |
+| `showBalance`        | `boolean` | Show user balance when connected                                                        |
+| `showProfilePicture` | `boolean` | Show user profile picture when connected                                                |
+| `useAns`             | `boolean` | Use ANS to grab profile information                                                     |
+| `profileModal`       | `boolean` | Show profile modal on click (if disabled, clicking the button will disconnect the user) |
 
 ## Hooks
 
