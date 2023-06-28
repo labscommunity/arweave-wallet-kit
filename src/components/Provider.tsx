@@ -1,3 +1,5 @@
+"use client";
+
 import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
 import { darkTheme, lightTheme, ThemeProvider } from "../theme";
 import { useSyncPermissions } from "../hooks/permissions";
