@@ -1,5 +1,6 @@
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import react from "@vitejs/plugin-react";
+import banner from "vite-plugin-banner";
 import { defineConfig } from "vite";
 import linaria from "@linaria/vite";
 import dts from "vite-plugin-dts";
@@ -15,7 +16,11 @@ export default defineConfig({
         presets: ["@babel/preset-typescript", "@babel/preset-react"]
       }
     }),
-    cssInjectedByJsPlugin()
+    cssInjectedByJsPlugin(),
+    banner({
+      content: '"use client";',
+      verify: false
+    })
   ],
   build: {
     lib: {
@@ -25,14 +30,12 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ["react", "react-dom", "styled-components"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
-          "react-dom": "ReactDOM",
-          "styled-components": "styled"
-        },
-        interop: "compat"
+          "react-dom": "ReactDOM"
+        }
       }
     }
   }

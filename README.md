@@ -22,27 +22,6 @@ or
 npm i arweave-wallet-kit
 ```
 
-## Prerequisites
-
-To use the library, you need to have `styled-components` installed. This library is not bundled with the Arweave Wallet Kit, you'll need to include it in your project. Read more about this [here](https://styled-components.com/docs/faqs#i-am-a-library-author-should-i-bundle-styledcomponents-with-my-library).
-
-```sh
-yarn add styled-components
-```
-
-or
-
-```sh
-npm i styled-components
-```
-
-### SSR
-
-`styled-components` needs special attention, if you wish to use Arweave Wallet Kit correctly, with Server Side Rendering. You'll need to follow the guidlines to achieve this:
-
-- With [Next.js](https://styled-components.com/docs/advanced#nextjs)
-- With [Gatsby](https://styled-components.com/docs/advanced#gatsby)
-
 ## Setup
 
 To use the library, you'll need to wrap your application with the Kit Provider.
@@ -244,7 +223,3 @@ await api.sign(transaction);
 // encrypt
 await api.encrypt(...)
 ```
-
-## Advanced theming
-
-If you are familiar with `styled-components`, you can take advantage of it's `<ThemeProvider>` component and override the default internal theme values Arweave Wallet Kit uses. You can read more about this [here](https://styled-components.com/docs/advanced#function-themes).
