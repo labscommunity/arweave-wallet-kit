@@ -132,6 +132,12 @@ export default class OthentStrategy implements Strategy {
     return res.contract_id;
   }
 
+  public async getAllAddresses(): Promise<string[]> {
+    const addr = await this.getActiveAddress();
+
+    return [addr];
+  }
+
   /**
    * Same as "sendTransactionArweave()" of the Othent SDK
    */

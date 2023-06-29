@@ -34,7 +34,7 @@ export default function RestoreSession() {
       // browser
       // @ts-expect-error
       if (!!activeStrategy && !!activeStrategy.resumeSession) {
-        setStrategyToRestore(activeStrategy);
+        setStrategyToRestore(activeStrategy as Strategy);
         modalController.setOpen(true);
       } else {
         // if there is not active strategy or

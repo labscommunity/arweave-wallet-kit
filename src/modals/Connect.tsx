@@ -86,7 +86,7 @@ export function ConnectModal() {
       return;
     }
 
-    await tryConnecting(s);
+    await tryConnecting(s as Strategy);
   }
 
   // try to connect
@@ -189,7 +189,7 @@ export function ConnectModal() {
                   Confirm connection request in the wallet popup window
                 </Paragraph>
                 {retry && strategyData && (
-                  <Button onClick={() => tryConnecting(strategyData)}>
+                  <Button onClick={() => tryConnecting(strategyData as Strategy)}>
                     Retry
                   </Button>
                 )}
@@ -203,8 +203,12 @@ export function ConnectModal() {
                   <Paragraph>
                     If you don't have it yet, you can try to download it
                   </Paragraph>
-                  {strategyData?.url && (
-                    <Button onClick={() => window.open(strategyData.url)}>
+                  {// @ts-expect-error
+                  strategyData?.url && (
+                    <Button onClick={() => {
+                      // @ts-expect-error
+                      window.open(strategyData.url);
+                    }}>
                       Download
                     </Button>
                   )}
