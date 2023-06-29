@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronLeftIcon } from "@iconicicons/react";
 import { Paragraph } from "../components/Paragraph";
 import { Footer } from "../components/Modal/Footer";
+import { DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
 import { Loading } from "../components/Loading";
@@ -12,7 +13,7 @@ import { Head } from "../components/Modal/Head";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 import useModal from "../hooks/modal";
 import useConnection from "../hooks/connection";
 
@@ -273,14 +274,14 @@ const WalletData = styled.div`
   }
 `;
 
-const ConnectLoading = styled(Loading)`
+const ConnectLoading = withTheme(styled(Loading)<{ theme: DefaultTheme }>`
   display: block;
   margin: 0 auto;
   margin-top: 1rem;
   color: rgb(${(props) => props.theme.primaryText});
   width: 1.25rem;
   height: 1.25rem;
-`;
+`);
 
 const BackButton = styled(ChevronLeftIcon)`
   font-size: 1em;

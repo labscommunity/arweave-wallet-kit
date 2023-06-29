@@ -1,7 +1,8 @@
+import { DefaultTheme, withTheme } from "../theme";
 import type { MouseEventHandler } from "react";
 import type { Radius } from "./Provider";
 import { Paragraph } from "./Paragraph";
-import styled from "styled-components";
+import { styled } from "@linaria/react";
 import { Button } from "./Button";
 import { Title } from "./Title";
 
@@ -16,7 +17,7 @@ export function Application({
     <Wrapper>
       <AppInfo>
         <AppIcon colorTheme={theme} clickable onClick={onClick as any}>
-          <Logo src={logo} />
+          <Logo src={logo} draggable={false} />
         </AppIcon>
         <AppNameAndDescription>
           <Title small>{name}</Title>
@@ -41,9 +42,7 @@ const AppInfo = styled.div`
   gap: 0.8rem;
 `;
 
-export const Logo = styled.img.attrs({
-  draggable: false
-})`
+export const Logo = styled.img`
   width: 60%;
   height: 60%;
   user-select: none;
@@ -56,7 +55,11 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
+export const AppIcon = withTheme(styled.div<{
+  colorTheme?: string;
+  clickable?: boolean;
+  theme: DefaultTheme;
+}>`
   position: relative;
   width: 3.8rem;
   height: 3.8rem;
@@ -79,7 +82,7 @@ export const AppIcon = styled.div<{ colorTheme?: string; clickable?: boolean }>`
   &:active {
     transform: scale(${(props) => (props.clickable ? ".95" : "1")});
   }
-`;
+`);
 
 const AppNameAndDescription = styled.div`
   flex-shrink: 1;

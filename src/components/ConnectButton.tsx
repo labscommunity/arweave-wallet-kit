@@ -1,12 +1,13 @@
 import { ChevronDownIcon, UserIcon } from "@iconicicons/react";
+import { DefaultTheme, withTheme } from "../theme";
 import useAddress from "../hooks/active_address";
 import useConnection from "../hooks/connection";
 import useProfileModal from "../hooks/profile";
 import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import type { Radius } from "./Provider";
+import { styled } from "@linaria/react";
 import type { HTMLProps } from "react";
-import styled from "styled-components";
 import useAns from "../hooks/useAns";
 import { Button } from "./Button";
 
@@ -57,7 +58,7 @@ export default function ConnectButton({
           <ProfileSection showBalance={showBalance}>
             {showProfilePicture && (
               <>
-                {(ans?.avatar && ansOption && <Avatar src={ans?.avatar} />) || (
+                {(ans?.avatar && ansOption && <Avatar src={ans?.avatar} draggable={false} />) || (
                   <AvatarPlaceholder>
                     <AvatarIcon />
                   </AvatarPlaceholder>
@@ -80,19 +81,19 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = styled(Button)<{ accent?: string }>`
+const Wrapper = withTheme(styled(Button)<{ accent?: string; theme: DefaultTheme }>`
   border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
   text-transform: none;
   padding: 0.3rem;
   background-color: ${(props) => props.accent || `rgb(${props.theme.theme})`};
-`;
+`);
 
 const ConnectText = styled.span`
   line-height: 2.6rem;
   padding: 0 0.9rem;
 `;
 
-const ProfileSection = styled.div<{ showBalance?: boolean }>`
+const ProfileSection = withTheme(styled.div<{ showBalance?: boolean; theme: DefaultTheme }>`
   display: flex;
   align-items: center;
   background-color: rgb(
@@ -104,7 +105,7 @@ const ProfileSection = styled.div<{ showBalance?: boolean }>`
     radius[props.theme.themeConfig.radius] - 3 + "px"};
   padding: 0 0.3rem 0 0.6rem;
   gap: 0.25rem;
-`;
+`);
 
 const Balance = styled.span`
   padding: 0 0.5rem;
@@ -120,23 +121,21 @@ const avatarRadius: Record<Radius, string> = {
   none: "0px"
 };
 
-const Avatar = styled.img.attrs({
-  draggable: false
-})`
+const Avatar = withTheme(styled.img<{ theme: DefaultTheme }>`
   user-select: none;
   border-radius: ${(props) => avatarRadius[props.theme.themeConfig.radius]};
   object-fit: cover;
   width: 1.7rem;
   height: 1.7rem;
   margin-right: 0.4rem;
-`;
+`);
 
 const AvatarIcon = styled(UserIcon)`
   font-size: 1rem !important;
   color: #fff;
 `;
 
-const AvatarPlaceholder = styled.span`
+const AvatarPlaceholder = withTheme(styled.span<{ theme: DefaultTheme }>`
   position: relative;
   border-radius: ${(props) => avatarRadius[props.theme.themeConfig.radius]};
   width: 1.7rem;
@@ -151,7 +150,7 @@ const AvatarPlaceholder = styled.span`
     left: 50%;
     transform: translate(-50%, -50%);
   }
-`;
+`);
 
 interface Props {
   accent?: string;

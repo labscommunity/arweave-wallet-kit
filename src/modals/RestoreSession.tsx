@@ -1,13 +1,14 @@
 import { STRATEGY_STORE, syncStrategies } from "../strategy";
 import type { Radius } from "../components/Provider";
+import { DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
 import type { Variants } from "framer-motion";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import useModal from "../hooks/modal";
+import { styled } from "@linaria/react"
 
 export default function RestoreSession() {
   // modal controlls and statuses
@@ -31,6 +32,7 @@ export default function RestoreSession() {
       // because opening popups without user
       // action is disabled by default in the
       // browser
+      // @ts-expect-error
       if (!!activeStrategy && !!activeStrategy.resumeSession) {
         setStrategyToRestore(activeStrategy);
         modalController.setOpen(true);
@@ -92,7 +94,7 @@ export default function RestoreSession() {
   }
 
   return (
-    <BottomModal {...modalController.bindings} onClose={cancel}>
+    <BottomModal variants={bottomModalVariants} {...modalController.bindings} onClose={cancel} noWatermark>
       <Text>
         Would you like to restore your {strategyToRestore?.name + " " || ""}
         session?
@@ -132,15 +134,13 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const BottomModal = styled(Modal).attrs({
-  variants: bottomModalVariants,
-  noWatermark: true
-})`
+const BottomModal = withTheme(styled(Modal as any)<any>`
   display: flex;
   align-items: center;
   gap: 1.24rem;
   padding: 0.75rem 1rem;
-  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius as Radius] + "px"};
+  border-radius: 15px;
   bottom: 0;
   right: 1.5rem;
   left: unset;
@@ -151,14 +151,14 @@ const BottomModal = styled(Modal).attrs({
     left: 1.5rem;
     gap: 1rem;
   }
-`;
+`) as typeof Modal;
 
-const Text = styled.p`
+const Text = withTheme(styled.p<{ theme: DefaultTheme }>`
   font-size: 1.05rem;
   font-weight: 500;
   color: rgb(${(props) => props.theme.primaryText});
   margin: 0px;
-`;
+`);
 
 const Buttons = styled.div`
   display: flex;
@@ -174,7 +174,7 @@ const Buttons = styled.div`
   }
 `;
 
-const CloseButton = styled(Button)`
+const CloseButton = withTheme(styled(Button)<{ theme: DefaultTheme }>`
   background-color: transparent;
   color: rgb(${(props) => props.theme.primaryText});
 
@@ -183,4 +183,4 @@ const CloseButton = styled(Button)`
     color: rgb(${(props) => props.theme.theme});
     box-shadow: none !important;
   }
-`;
+`);

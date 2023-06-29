@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import { styled } from "@linaria/react";
 import type { HTMLProps } from "react";
 
 export const Loading = (props: HTMLProps<SVGElement>) => (
@@ -30,19 +30,19 @@ export const Loading = (props: HTMLProps<SVGElement>) => (
   </SvgWrapper>
 );
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
 const SvgWrapper = styled.svg`
   color: currentColor;
   font-size: 1em;
   width: 1em;
   height: 1em;
-  animation: ${rotate} 0.9s linear infinite;
+  animation: rotate 0.9s linear infinite;
+
+  @keyframes rotate {
+    from {
+    transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `;

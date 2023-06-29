@@ -1,7 +1,8 @@
+import { DefaultTheme, withTheme } from "../theme";
+import { styled } from "@linaria/react";
 import { rgbToString } from "../utils";
-import styled from "styled-components";
 
-export const Title = styled.h1<{ small?: boolean; themed?: boolean }>`
+export const Title = withTheme(styled.h1<{ small?: boolean; themed?: boolean; theme: DefaultTheme }>`
   display: flex;
   font-family: "Manrope", sans-serif;
   font-size: ${(props) => (props.small ? "1.05rem" : "1.2rem")};
@@ -20,7 +21,7 @@ export const Title = styled.h1<{ small?: boolean; themed?: boolean }>`
   gap: 0.34rem;
   margin: 0;
   transition: color 0.23s ease-in-out;
-`;
+`);
 
 export const TitleWithParagraph = styled.div`
   display: flex;
