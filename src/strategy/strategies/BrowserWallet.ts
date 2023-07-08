@@ -67,26 +67,26 @@ export default class BrowserWalletStrategy implements Strategy {
     return await this.callWindowApi("disconnect");
   }
 
-  public async getActiveAddress(): Promise<string> {
+  public getActiveAddress = async (): Promise<string> => {
     return await this.callWindowApi("getActiveAddress");
   }
 
-  public async getAllAddresses(): Promise<string[]> {
+  public getAllAddresses = async (): Promise<string[]> => {
     return await this.callWindowApi("getAllAddresses");
   }
 
-  public async getPermissions(): Promise<PermissionType[]> {
+  public getPermissions = async (): Promise<PermissionType[]> => {
     return await this.callWindowApi("getPermissions");
   }
 
-  public async getWalletNames(): Promise<{ [addr: string]: string }> {
+  public getWalletNames = async(): Promise<{ [addr: string]: string }> => {
     return await this.callWindowApi("getWalletNames");
   }
 
-  public async sign(
+  public sign = async (
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<void> {
+  ): Promise<void> => {
     const signedTransaction = await this.callWindowApi("sign", [
       transaction,
       options
@@ -101,32 +101,32 @@ export default class BrowserWalletStrategy implements Strategy {
     });
   }
 
-  public async encrypt(
+  public encrypt = async (
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
-  ): Promise<Uint8Array> {
+  ): Promise<Uint8Array> => {
     return await this.callWindowApi("encrypt", [data, algorithm]);
   }
 
-  public async decrypt(
+  public decrypt = async (
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
-  ): Promise<Uint8Array> {
+  ): Promise<Uint8Array> => {
     return await this.callWindowApi("decrypt", [data, algorithm]);
   }
 
-  public async getArweaveConfig(): Promise<GatewayConfig> {
+  public getArweaveConfig = async (): Promise<GatewayConfig> => {
     return await this.callWindowApi("getArweaveConfig");
   }
 
-  public async signature(
+  public signature = async (
     data: Uint8Array,
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
-  ): Promise<Uint8Array> {
+  ): Promise<Uint8Array> => {
     return await this.callWindowApi("signature", [data, algorithm]);
   }
 
-  public async getActivePublicKey(): Promise<string> {
+  public getActivePublicKey = async (): Promise<string> => {
     return await this.callWindowApi("getActivePublicKey");
   }
 
@@ -134,7 +134,7 @@ export default class BrowserWalletStrategy implements Strategy {
     throw new Error("Not implemented");
   }
 
-  public async dispatch(transaction: Transaction): Promise<DispatchResult> {
+  public dispatch = async (transaction: Transaction): Promise<DispatchResult> => {
     return await this.callWindowApi("dispatch", [transaction]);
   }
 
