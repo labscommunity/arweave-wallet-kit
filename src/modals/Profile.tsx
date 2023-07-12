@@ -2,6 +2,7 @@ import { CopyIcon, LogOutIcon, UserIcon } from "@iconicicons/react";
 import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
 import { DefaultTheme, withTheme } from "../theme";
+import useActiveStrategy from "../hooks/strategy";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";
 import { Head } from "../components/Modal/Head";
@@ -46,6 +47,9 @@ export function ProfileModal() {
   // disconnect
   const { disconnect } = useConnection();
 
+  // strategy
+  const strategy = useActiveStrategy();
+
   return (
     <Modal {...modalController.bindings} onClose={onClose}>
       <Head onClose={onClose}>
@@ -54,6 +58,13 @@ export function ProfileModal() {
       <ProfileData>
         <ProfilePicture profilePicture={ans?.avatar}>
           {!ans?.avatar && <ProfileIcon />}
+          <ActiveStrategy strategyTheme={strategy?.theme}>
+            <img
+              src={strategy?.logo ? `${gateway}/${strategy.logo}` : ""}
+              alt={strategy?.name || "active strategy logo"}
+              draggable={false}
+            />
+          </ActiveStrategy>
         </ProfilePicture>
         <Title>
           {ans?.currentLabel || formatAddress(state?.activeAddress || "", 8)}
@@ -133,10 +144,34 @@ const ProfilePicture = withTheme(styled.div<{ profilePicture?: string; theme: De
   margin-bottom: 0.475rem;
   background-color: rgb(${(props) => props.theme.theme});
   background-size: cover;
+  z-index: 1;
   ${(props) =>
     props.profilePicture
       ? `background-image: url(${props.profilePicture});`
       : ""}
+`);
+
+const ActiveStrategy = withTheme(styled.div<{ strategyTheme?: string; theme: DefaultTheme }>`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 100%;
+  background-color: rgb(${props => props.strategyTheme || props.theme.theme});
+  border: 2px solid rgb(${props => props.theme.background});
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: contain;
+    user-select: none;
+    width: 74%;
+    height: 74%;
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+  }
 `);
 
 const ProfileIcon = styled(UserIcon)`
