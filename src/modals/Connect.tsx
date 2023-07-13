@@ -3,6 +3,7 @@ import strategies, { getStrategy, saveStrategy } from "../strategy";
 import { Title, TitleWithParagraph } from "../components/Title";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeftIcon } from "@iconicicons/react";
+import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
 import { Footer } from "../components/Modal/Footer";
 import { DefaultTheme, withTheme } from "../theme";
@@ -10,12 +11,12 @@ import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
 import { Loading } from "../components/Loading";
 import { Head } from "../components/Modal/Head";
+import useConnection from "../hooks/connection";
 import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import useGatewayURL from "../hooks/gateway";
 import { styled } from "@linaria/react";
 import useModal from "../hooks/modal";
-import useConnection from "../hooks/connection";
 
 export function ConnectModal() {
   // modal controlls and statuses
@@ -55,7 +56,7 @@ export function ConnectModal() {
   const [loadingAvailability, setLoadingAvailability] = useState(false);
 
   // strategy available
-  const [strategyAvailable, setStrategyAvailable] = useState<string | boolean>(false);
+  const [strategyAvailable, setStrategyAvailable] = useState(false);
 
   // show retry button
   const [retry, setRetry] = useState(false);
@@ -71,7 +72,7 @@ export function ConnectModal() {
     setLoadingAvailability(true);
     setSelectedStrategy(strategyID);
 
-    let available: string | boolean = false;
+    let available = false;
 
     try {
       available = await s.isAvailable();
@@ -82,7 +83,7 @@ export function ConnectModal() {
     setStrategyAvailable(available);
     setLoadingAvailability(false);
 
-    if (!available || typeof available === "string") {
+    if (!available) {
       return;
     }
 
@@ -149,6 +150,18 @@ export function ConnectModal() {
     } catch {}
   }
 
+  // is the browser Brave
+  const [isBrave, setIsBrave] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      // @ts-expect-error
+      const brave: boolean = navigator.brave && await navigator.brave.isBrave();
+
+      setIsBrave(brave);
+    })();
+  }, []);
+
   return (
     <Modal {...modalController.bindings} onClose={onClose}>
       <Head onClose={onClose}>
@@ -180,14 +193,19 @@ export function ConnectModal() {
         <Connecting>
           <WalletData>
             <AppIcon colorTheme={strategyData?.theme}>
-              <Logo src={`${gateway}/${strategyData?.logo}`} />
+              <Logo src={`${gateway}/${strategyData?.logo}`} draggable={false} />
             </AppIcon>
-            {(strategyAvailable && typeof strategyAvailable !== "string" && (
+            {(strategyAvailable && (
               <>
                 <Title small>Connecting to {strategyData?.name || ""}...</Title>
                 <Paragraph>
                   Confirm connection request in the wallet popup window
                 </Paragraph>
+                {strategyData?.id === "othent" && isBrave && (
+                  <BraveParagraph>
+                    You might need to <b>disable Brave shields</b> for this to work properly.
+                  </BraveParagraph>
+                )}
                 {retry && strategyData && (
                   <Button
                     onClick={() => tryConnecting(strategyData as Strategy)}
@@ -203,11 +221,11 @@ export function ConnectModal() {
                     {strategyData?.name || ""} is not available.
                   </Title>
                   <Paragraph>
-                    {(typeof strategyAvailable === "string" && strategyAvailable) || "If you don't have it yet, you can try to download it"}
+                    If you don't have it yet, you can try to download it
                   </Paragraph>
                   {
                     // @ts-expect-error
-                    strategyData?.url && typeof strategyAvailable !== "string" && (
+                    strategyData?.url && (
                       <Button
                         onClick={() => {
                           // @ts-expect-error
@@ -218,11 +236,6 @@ export function ConnectModal() {
                       </Button>
                     )
                   }
-                  <Button
-                    onClick={() => tryConnecting(strategyData as Strategy)}
-                  >
-                    Retry
-                  </Button>
                 </>
               ))}
             {(connecting || loadingAvailability) && <ConnectLoading />}
@@ -288,6 +301,20 @@ const WalletData = styled.div`
     margin-top: 1rem;
   }
 `;
+
+const radius: Record<Radius, number> = {
+  default: 14,
+  minimal: 8,
+  none: 0
+};
+
+const BraveParagraph = withTheme(styled(Paragraph)<{ theme: DefaultTheme }>`
+  background-color: rgba(251, 85, 43, 0.2);
+  color: #fb542b;
+  padding: .44rem;
+  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
+  margin-top: .6rem;
+`);
 
 const ConnectLoading = withTheme(styled(Loading)<{ theme: DefaultTheme }>`
   display: block;
