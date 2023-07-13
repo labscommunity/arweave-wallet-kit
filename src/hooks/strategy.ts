@@ -1,7 +1,6 @@
-import { getStrategy, syncStrategies } from "../strategy";
-import type { Actions, Config } from "../context/faces";
-import { useEffect, useMemo } from "react";
+import { getStrategy } from "../strategy";
 import useGlobalState from "./global";
+import { useEffect, useMemo } from "react";
 
 /**
  * Active strategy (wallet) identifier
@@ -19,13 +18,7 @@ export default function useActiveStrategy() {
   // global context
   const activeStrategy = useStrategy();
 
-  const strategy = useMemo(() => {
-    if (!activeStrategy) {
-      return undefined;
-    }
-
-    return getStrategy(activeStrategy);
-  }, [activeStrategy]);
+  const strategy = useMemo(() => getStrategy(activeStrategy), [activeStrategy]);
 
   return strategy;
 }
@@ -35,6 +28,7 @@ export default function useActiveStrategy() {
  */
 export function useApi() {
   const strategy = useActiveStrategy();
+
   const api = useMemo(() => {
     if (!strategy) return undefined;
 
@@ -43,35 +37,28 @@ export function useApi() {
     // e.g.: we don't return connect(),
     // as it needs it's implementation
     // from "useConnection"
-    const {
-      getActiveAddress,
-      getAllAddresses,
-      sign,
-      getPermissions,
-      getWalletNames,
-      encrypt,
-      decrypt,
-      getArweaveConfig,
-      signature,
-      getActivePublicKey,
-      addToken,
-      dispatch
-    } = strategy;
+    const apiObj = strategy;
+    const omit = [
+      "name",
+      "description",
+      "theme",
+      "logo",
+      "url",
+      "resumeSession",
+      "isAvailable",
+      "addAddressEvent",
+      "removeAddressEvent",
+      "connect"
+    ];
 
-    return {
-      getActiveAddress,
-      getAllAddresses,
-      sign,
-      getPermissions,
-      getWalletNames,
-      encrypt,
-      decrypt,
-      getArweaveConfig,
-      signature,
-      getActivePublicKey,
-      addToken,
-      dispatch
-    };
+    for (const key in strategy) {
+      if (!omit.includes(key)) continue;
+
+      // @ts-expect-error
+      delete apiObj[key];
+    }
+
+    return apiObj;
   }, [strategy]);
 
   return api;

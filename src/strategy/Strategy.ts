@@ -30,38 +30,38 @@ export default abstract class Strategy {
 
   // other apis
   public abstract getActiveAddress(): Promise<string>;
-  public abstract getAllAddresses(): Promise<string[]>;
+  public abstract getAllAddresses?(): Promise<string[]>;
   public abstract sign(
     transaction: Transaction,
     options?: SignatureOptions
-  ): Promise<void>;
+  ): Promise<Transaction>;
   public abstract getPermissions(): Promise<PermissionType[]>;
-  public abstract getWalletNames(): Promise<{ [addr: string]: string }>;
-  public abstract encrypt(
+  public abstract getWalletNames?(): Promise<{ [addr: string]: string }>;
+  public abstract encrypt?(
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array>;
-  public abstract decrypt(
+  public abstract decrypt?(
     data: BufferSource,
     algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array>;
-  public abstract getArweaveConfig(): Promise<GatewayConfig>;
-  public abstract signature(
+  public abstract getArweaveConfig?(): Promise<GatewayConfig>;
+  public abstract signature?(
     data: Uint8Array,
     algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
   ): Promise<Uint8Array>;
-  public abstract getActivePublicKey(): Promise<string>;
+  public abstract getActivePublicKey?(): Promise<string>;
   public abstract addToken?(id: string): Promise<void>;
   public abstract dispatch(transaction: Transaction): Promise<DispatchResult>;
 
   /** Is this strategy available in the current context */
-  public abstract isAvailable(): Promise<boolean> | boolean;
+  public abstract isAvailable(): Promise<boolean | string> | boolean | string;
 
   /** Events */
-  public abstract addAddressEvent(
+  public abstract addAddressEvent?(
     listener: (address: string) => void
   ): (e: CustomEvent<{ address: string }>) => void;
-  public abstract removeAddressEvent(
+  public abstract removeAddressEvent?(
     listener: (e: CustomEvent<{ address: string }>) => void
   ): void;
 }

@@ -68,10 +68,7 @@ const theming: ThemingType<DefaultTheme> & {
   ...lightTheme
 });
 
-export const {
-  ThemeProvider,
-  useTheme
-} = theming;
+export const { ThemeProvider, useTheme } = theming;
 
 // this fixes "withTheme" being undefined on build or dev
 // the issue occurs because the theme provider context only
@@ -83,4 +80,5 @@ export const {
 // naturally on production use, this will never happen, as
 // the users need to wrap their application with the
 // <ArweaveWalletKit> component anyway
-export const withTheme = theming.withTheme || ((val) => val as ThemingType<DefaultTheme>["withTheme"]);
+export const withTheme =
+  theming.withTheme || ((val) => val as ThemingType<DefaultTheme>["withTheme"]);

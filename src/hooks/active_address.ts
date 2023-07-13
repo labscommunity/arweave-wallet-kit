@@ -39,7 +39,7 @@ export async function useSyncAddress() {
 
       await sync();
 
-      const listener = strategy.addAddressEvent((addr) =>
+      const listener = strategy.addAddressEvent?.((addr) =>
         dispatch({
           type: "UPDATE_ADDRESS",
           payload: addr
@@ -50,7 +50,10 @@ export async function useSyncAddress() {
       addEventListener("focus", sync);
 
       return () => {
-        strategy.removeAddressEvent(listener);
+        if (listener && strategy.removeAddressEvent) {
+          strategy.removeAddressEvent(listener);
+        }
+
         removeEventListener("focus", sync);
       };
     })();
@@ -67,8 +70,10 @@ export function usePublicKey() {
 
   useEffect(() => {
     (async () => {
-      if (!strategy) return;
+      // @ts-expect-error
+      if (!strategy || !strategy.getActivePublicKey) return;
 
+      // @ts-expect-error
       setPublicKey(await strategy.getActivePublicKey());
     })();
   }, [address, strategy]);

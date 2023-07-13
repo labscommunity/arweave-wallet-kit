@@ -5,14 +5,11 @@ import { useEffect, useMemo, useState } from "react";
  */
 export default function useMobile(mobileWidth = 720) {
   const [mobile, setMobile] = useState(false);
-  const query = useMemo(
-    () => {
-      if (typeof window === "undefined") return null;
+  const query = useMemo(() => {
+    if (typeof window === "undefined") return null;
 
-      return window.matchMedia(`(max-width: ${mobileWidth}px)`);
-    },
-    [mobileWidth]
-  );
+    return window.matchMedia(`(max-width: ${mobileWidth}px)`);
+  }, [mobileWidth]);
 
   useEffect(() => {
     if (!query) return;

@@ -2,7 +2,11 @@ import { DefaultTheme, withTheme } from "../theme";
 import { styled } from "@linaria/react";
 import { rgbToString } from "../utils";
 
-export const Title = withTheme(styled.h1<{ small?: boolean; themed?: boolean; theme: DefaultTheme }>`
+export const Title = withTheme(styled.h1<{
+  small?: boolean;
+  themed?: boolean;
+  theme: DefaultTheme;
+}>`
   display: flex;
   font-family: "Manrope", sans-serif;
   font-size: ${(props) => (props.small ? "1.05rem" : "1.2rem")};

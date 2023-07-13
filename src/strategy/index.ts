@@ -1,14 +1,15 @@
 import ArweaveWebWalletStrategy from "./strategies/ArweaveWebWallet";
 import BrowserWalletStrategy from "./strategies/BrowserWallet";
 import ArConnectStrategy from "./strategies/ArConnect";
+import OthentStrategy from "./strategies/Othent";
 
 import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
-import type Strategy from "./Strategy";
 
-const strategies: Strategy[] = [
+const strategies = [
   new ArConnectStrategy(),
   new ArweaveWebWalletStrategy(),
+  new OthentStrategy(),
   new BrowserWalletStrategy()
 ];
 
@@ -63,7 +64,7 @@ export function saveStrategy(active: string) {
 /**
  * Get strategy by id
  */
-export function getStrategy(id: string) {
+export function getStrategy(id: string | false) {
   return strategies.find((s) => s.id === id);
 }
 
