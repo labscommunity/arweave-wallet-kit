@@ -55,7 +55,7 @@ export function ConnectModal() {
   const [loadingAvailability, setLoadingAvailability] = useState(false);
 
   // strategy available
-  const [strategyAvailable, setStrategyAvailable] = useState(false);
+  const [strategyAvailable, setStrategyAvailable] = useState<string | boolean>(false);
 
   // show retry button
   const [retry, setRetry] = useState(false);
@@ -71,7 +71,7 @@ export function ConnectModal() {
     setLoadingAvailability(true);
     setSelectedStrategy(strategyID);
 
-    let available = false;
+    let available: string | boolean = false;
 
     try {
       available = await s.isAvailable();
@@ -82,7 +82,7 @@ export function ConnectModal() {
     setStrategyAvailable(available);
     setLoadingAvailability(false);
 
-    if (!available) {
+    if (!available || typeof available === "string") {
       return;
     }
 
@@ -182,14 +182,16 @@ export function ConnectModal() {
             <AppIcon colorTheme={strategyData?.theme}>
               <Logo src={`${gateway}/${strategyData?.logo}`} />
             </AppIcon>
-            {(strategyAvailable && (
+            {(strategyAvailable && typeof strategyAvailable !== "string" && (
               <>
                 <Title small>Connecting to {strategyData?.name || ""}...</Title>
                 <Paragraph>
                   Confirm connection request in the wallet popup window
                 </Paragraph>
                 {retry && strategyData && (
-                  <Button onClick={() => tryConnecting(strategyData as Strategy)}>
+                  <Button
+                    onClick={() => tryConnecting(strategyData as Strategy)}
+                  >
                     Retry
                   </Button>
                 )}
@@ -201,17 +203,26 @@ export function ConnectModal() {
                     {strategyData?.name || ""} is not available.
                   </Title>
                   <Paragraph>
-                    If you don't have it yet, you can try to download it
+                    {(typeof strategyAvailable === "string" && strategyAvailable) || "If you don't have it yet, you can try to download it"}
                   </Paragraph>
-                  {// @ts-expect-error
-                  strategyData?.url && (
-                    <Button onClick={() => {
-                      // @ts-expect-error
-                      window.open(strategyData.url);
-                    }}>
-                      Download
-                    </Button>
-                  )}
+                  {
+                    // @ts-expect-error
+                    strategyData?.url && typeof strategyAvailable !== "string" && (
+                      <Button
+                        onClick={() => {
+                          // @ts-expect-error
+                          window.open(strategyData.url);
+                        }}
+                      >
+                        Download
+                      </Button>
+                    )
+                  }
+                  <Button
+                    onClick={() => tryConnecting(strategyData as Strategy)}
+                  >
+                    Retry
+                  </Button>
                 </>
               ))}
             {(connecting || loadingAvailability) && <ConnectLoading />}

@@ -136,7 +136,10 @@ const pfpRadius: Record<Radius, string> = {
   none: "none"
 };
 
-const ProfilePicture = withTheme(styled.div<{ profilePicture?: string; theme: DefaultTheme }>`
+const ProfilePicture = withTheme(styled.div<{
+  profilePicture?: string;
+  theme: DefaultTheme;
+}>`
   position: relative;
   width: 80px;
   height: 80px;
@@ -151,15 +154,18 @@ const ProfilePicture = withTheme(styled.div<{ profilePicture?: string; theme: De
       : ""}
 `);
 
-const ActiveStrategy = withTheme(styled.div<{ strategyTheme?: string; theme: DefaultTheme }>`
+const ActiveStrategy = withTheme(styled.div<{
+  strategyTheme?: string;
+  theme: DefaultTheme;
+}>`
   position: absolute;
   bottom: 0;
   right: 0;
   width: 1.45rem;
   height: 1.45rem;
   border-radius: 100%;
-  background-color: rgb(${props => props.strategyTheme || props.theme.theme});
-  border: 2px solid rgb(${props => props.theme.background});
+  background-color: rgb(${(props) => props.strategyTheme || props.theme.theme});
+  border: 2px solid rgb(${(props) => props.theme.background});
 
   img {
     position: absolute;

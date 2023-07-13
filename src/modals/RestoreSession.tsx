@@ -8,7 +8,7 @@ import { Button } from "../components/Button";
 import useGlobalState from "../hooks/global";
 import { useEffect, useState } from "react";
 import useModal from "../hooks/modal";
-import { styled } from "@linaria/react"
+import { styled } from "@linaria/react";
 
 export default function RestoreSession() {
   // modal controlls and statuses
@@ -94,7 +94,12 @@ export default function RestoreSession() {
   }
 
   return (
-    <BottomModal variants={bottomModalVariants} {...modalController.bindings} onClose={cancel} noWatermark>
+    <BottomModal
+      variants={bottomModalVariants}
+      {...modalController.bindings}
+      onClose={cancel}
+      noWatermark
+    >
       <Text>
         Would you like to restore your {strategyToRestore?.name + " " || ""}
         session?
@@ -139,7 +144,8 @@ const BottomModal = withTheme(styled(Modal as any)<any>`
   align-items: center;
   gap: 1.24rem;
   padding: 0.75rem 1rem;
-  border-radius: ${(props) => radius[props.theme.themeConfig.radius as Radius] + "px"};
+  border-radius: ${(props) =>
+    radius[props.theme.themeConfig.radius as Radius] + "px"};
   border-radius: 15px;
   bottom: 0;
   right: 1.5rem;

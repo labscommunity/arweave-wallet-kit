@@ -58,7 +58,9 @@ export default function ConnectButton({
           <ProfileSection showBalance={showBalance}>
             {showProfilePicture && (
               <>
-                {(ans?.avatar && ansOption && <Avatar src={ans?.avatar} draggable={false} />) || (
+                {(ans?.avatar && ansOption && (
+                  <Avatar src={ans?.avatar} draggable={false} />
+                )) || (
                   <AvatarPlaceholder>
                     <AvatarIcon />
                   </AvatarPlaceholder>
@@ -81,7 +83,10 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = withTheme(styled(Button)<{ accent?: string; theme: DefaultTheme }>`
+const Wrapper = withTheme(styled(Button)<{
+  accent?: string;
+  theme: DefaultTheme;
+}>`
   border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
   text-transform: none;
   padding: 0.3rem;
@@ -93,7 +98,10 @@ const ConnectText = styled.span`
   padding: 0 0.9rem;
 `;
 
-const ProfileSection = withTheme(styled.div<{ showBalance?: boolean; theme: DefaultTheme }>`
+const ProfileSection = withTheme(styled.div<{
+  showBalance?: boolean;
+  theme: DefaultTheme;
+}>`
   display: flex;
   align-items: center;
   background-color: rgb(

@@ -59,7 +59,7 @@ export function useWalletNames() {
       }
 
       try {
-        // @ts-expect-error 
+        // @ts-expect-error
         const names = await strategy.getWalletNames();
 
         setNames(names);
