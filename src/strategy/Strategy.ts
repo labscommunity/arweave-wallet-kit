@@ -55,7 +55,7 @@ export default abstract class Strategy {
   public abstract dispatch(transaction: Transaction): Promise<DispatchResult>;
 
   /** Is this strategy available in the current context */
-  public abstract isAvailable(): Promise<boolean> | boolean;
+  public abstract isAvailable(): Promise<boolean | string> | boolean | string;
 
   /** Events */
   public abstract addAddressEvent?(

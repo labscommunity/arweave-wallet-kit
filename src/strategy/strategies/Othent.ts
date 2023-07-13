@@ -66,6 +66,11 @@ export default class OthentStrategy implements Strategy {
 
       return true;
     } catch {
+      // @ts-expect-error
+      if (navigator.brave && await navigator.brave.isBrave()) {
+        return "Please disable Brave shields to enable login";
+      }
+
       return false;
     }
   }
