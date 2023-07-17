@@ -30,6 +30,19 @@
   resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/othent-strategy/-/othent-strategy-0.0.1-beta.2.tgz#063189ebdff8f6d43d1055bca829555414f59d69"
   integrity sha512-YlonxuyGi91d4mnMp+WykgmwyLvgj/f2x5kNACP9QMrh8BEvJITQczQ++7n5gDKSDKqmeWYK4gf9jGBpe+lH2A==
 
+"@arweave-wallet-kit/react@workspace:*":
+  version "0.0.1-beta.1"
+  resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/react/-/react-0.0.1-beta.1.tgz#f2b8c2d584b81765de243721a08ed71121def9b4"
+  integrity sha512-fTJ6SZ1E5jcbz3wchU9yoDlRvodtVMFhTZpLJ5+S0cbyUd3NvONisD/6h/5Jxi8sgZFI28MSNXf+KhcutlRDrA==
+  dependencies:
+    "@callstack/react-theme-provider" "^3.0.8"
+    "@iconicicons/react" "^1.5.1"
+    "@linaria/babel-preset" "^4.4.5"
+    "@linaria/core" "^4.2.10"
+    "@linaria/react" "^4.3.8"
+    framer-motion "^8.1.9"
+    react-helmet "^6.1.0"
+
 "@arweave-wallet-kit/webwallet-strategy@workspace:*":
   version "0.0.1-beta.2"
   resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/webwallet-strategy/-/webwallet-strategy-0.0.1-beta.2.tgz#e054fad3df4b05af4511154eb0af31f650ecf7e8"
@@ -2622,7 +2635,7 @@ open@^8.4.2:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-othent@^1.0.634:
+othent@^1.0.634, othent@^1.0.635:
   version "1.0.635"
   resolved "https://registry.yarnpkg.com/othent/-/othent-1.0.635.tgz#4f1aa1577315c37a72123395104667811dac3d44"
   integrity sha512-ppwpsvd1Jm/ur09LohnQlmeI5JVKSAOlAoTUKAypWa5fPSvawX1mjsbntB94qOSpeOd464Jr08e43MogunIqaQ==
