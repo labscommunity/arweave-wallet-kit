@@ -4,7 +4,8 @@
   "workspaces": [
     "strategies/*",
     "core",
-    "frameworks/*"
+    "frameworks/*",
+    "examples/*"
   ],
   "scripts": {
     "build-pkgs": "yarn workspaces foreach run build --no-private"
