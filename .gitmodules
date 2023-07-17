@@ -1,0 +1,18 @@
+[submodule "core"]
+	path = core
+	url = git@github.com:labscommunity/wallet-kit-core.git
+[submodule "frameworks/react"]
+	path = frameworks/react
+	url = git@github.com:labscommunity/wallet-kit-react.git
+[submodule "strategies/arconnect"]
+	path = strategies/arconnect
+	url = git@github.com:labscommunity/wallet-kit-arconnect.git
+[submodule "strategies/webwallet"]
+	path = strategies/webwallet
+	url = git@github.com:labscommunity/wallet-kit-webwallet.git
+[submodule "strategies/othent"]
+	path = strategies/othent
+	url = git@github.com:labscommunity/wallet-kit-othent.git
+[submodule "strategies/browser-wallet"]
+	path = strategies/browser-wallet
+	url = git@github.com:labscommunity/wallet-kit-browser-wallet.git
