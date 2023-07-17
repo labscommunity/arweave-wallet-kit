@@ -5,5 +5,9 @@
     "strategies/*",
     "core",
     "frameworks/*"
-  ]
+  ],
+  "scripts": {
+    "build-pkgs": "yarn workspaces foreach run build --no-private"
+  },
+  "packageManager": "yarn@1.22.18"
 }
