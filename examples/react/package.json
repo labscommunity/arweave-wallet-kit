@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@arweave-wallet-kit/arconnect-strategy": "workspace:*",
+    "@arweave-wallet-kit/othent-strategy": "workspace:*",
+    "@arweave-wallet-kit/webwallet-strategy": "workspace:*",
+    "@arweave-wallet-kit/browser-wallet-strategy": "workspace:*",
     "@arweave-wallet-kit/core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

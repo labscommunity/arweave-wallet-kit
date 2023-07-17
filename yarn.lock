@@ -15,10 +15,25 @@
   resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/arconnect-strategy/-/arconnect-strategy-0.0.1-beta.3.tgz#5c218684db0b4d3ef145129df3c1b3bacf4adccd"
   integrity sha512-1UgbvqeSmr4aD8rTlh54xEFHPI4p/fzmwmS+kAgGsoaOYwYgQJyN6SCcCl2wS0JZCZ3/rcXfRZZOK/3YVV/UWg==
 
+"@arweave-wallet-kit/browser-wallet-strategy@workspace:*":
+  version "0.0.1-beta.2"
+  resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/browser-wallet-strategy/-/browser-wallet-strategy-0.0.1-beta.2.tgz#d6988cebdcd4c27f05e284f5f380c9de0f1a54a7"
+  integrity sha512-MePiZcaaEihtsDf1uIo/ZczcR39LYiyy0PtHYxRpjOZDN0okL7zIowZLbP40EDRYxdXOORgy34TxssS0qYgcew==
+
 "@arweave-wallet-kit/core@workspace:*":
   version "0.0.1-beta.2"
   resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/core/-/core-0.0.1-beta.2.tgz#73aba1b8e9526d3dbfabe81372129bf34ca59ea1"
   integrity sha512-JxlfN/RHT0JwZRWabMQvExJhBVvVzv+qTNwzpZDFbMitLDSpxQtsJTpQnmUh6xPvaWGH0MPkAZXxXl1Zako/Iw==
+
+"@arweave-wallet-kit/othent-strategy@workspace:*":
+  version "0.0.1-beta.2"
+  resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/othent-strategy/-/othent-strategy-0.0.1-beta.2.tgz#063189ebdff8f6d43d1055bca829555414f59d69"
+  integrity sha512-YlonxuyGi91d4mnMp+WykgmwyLvgj/f2x5kNACP9QMrh8BEvJITQczQ++7n5gDKSDKqmeWYK4gf9jGBpe+lH2A==
+
+"@arweave-wallet-kit/webwallet-strategy@workspace:*":
+  version "0.0.1-beta.2"
+  resolved "https://registry.yarnpkg.com/@arweave-wallet-kit/webwallet-strategy/-/webwallet-strategy-0.0.1-beta.2.tgz#e054fad3df4b05af4511154eb0af31f650ecf7e8"
+  integrity sha512-4xVHHIC0DWqP8cGH0jl3rSyAF5uLi+q7uJfaxG14eBF7mSolkV1rqsxJ2+LIAu+OB5XW0A6cStVTui/8Do5jtA==
 
 "@auth0/auth0-spa-js@^2.0.4":
   version "2.1.0"
