@@ -2,11 +2,14 @@
   "name": "react-example",
   "type": "module",
   "private": true,
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@arweave-wallet-kit/arconnect-strategy": "workspace:*",
+    "@arweave-wallet-kit/core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
