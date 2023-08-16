@@ -16,20 +16,26 @@ export default function useAns() {
         return setAns(undefined);
       }
 
-      const res = await fetch(
-        `https://ans-stats.decent.land/profile/${address}`
-      );
-      const data: AnsProfile = await res.json();
+      try {
+        const res = await fetch(
+          `https://ans-stats.decent.land/profile/${address}`
+        );
+        const data: AnsProfile = await res.json();
 
-      if (!data?.currentLabel) {
-        return setAns(undefined);
+        if (!data?.currentLabel) {
+          return setAns(undefined);
+        }
+
+        setAns({
+          ...data,
+          currentLabel: data.currentLabel + ".ar",
+          avatar: data.avatar ? `${gatewayURL}/${data.avatar}` : undefined
+        });
+      } catch (e: any) {
+        console.error(
+          `[Arweave Wallet Kit] Failed to fetch ans profile\n${e?.message || e}`
+        );
       }
-
-      setAns({
-        ...data,
-        currentLabel: data.currentLabel + ".ar",
-        avatar: data.avatar ? `${gatewayURL}/${data.avatar}` : undefined
-      });
     })();
   }, [address, gatewayURL]);
 
