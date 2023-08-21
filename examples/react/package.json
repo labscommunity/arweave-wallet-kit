@@ -14,6 +14,7 @@
     "@arweave-wallet-kit/othent-strategy": "workspace:*",
     "@arweave-wallet-kit/react": "workspace:*",
     "@arweave-wallet-kit/webwallet-strategy": "workspace:*",
+    "arweave": "^1.12.2",
     "arweave-wallet-connector": "^1.0.2",
     "othent": "^1.0.635",
     "react": "^18.2.0",
