@@ -8,7 +8,8 @@
     "examples/*"
   ],
   "scripts": {
-    "build-pkgs": "yarn workspaces foreach run build --no-private"
+    "build-pkgs": "yarn workspaces foreach run build --no-private",
+    "react": "yarn workspace react-example run dev"
   },
   "packageManager": "yarn@1.22.18"
 }
