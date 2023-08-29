@@ -8,7 +8,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build-pkgs": "yarn workspaces run build --no-private",
+    "build-pkgs": "yarn workspaces run --no-private build",
     "react": "yarn workspace react-example run dev"
   },
   "packageManager": "yarn@1.22.18"
