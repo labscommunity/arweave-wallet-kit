@@ -2,8 +2,9 @@
   "name": "arweave-wallet-kit",
   "private": true,
   "workspaces": [
-    "strategies/*",
     "core",
+    "styles",
+    "strategies/*",
     "frameworks/*",
     "examples/*"
   ],

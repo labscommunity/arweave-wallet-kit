@@ -1,8 +1,8 @@
-import BrowserWalletStrategy from "@arweave-wallet-kit/browser-wallet-strategy";
-import { ArweaveWalletKit, ConnectButton } from "@arweave-wallet-kit/react";
-import ArConnectStrategy from "@arweave-wallet-kit/arconnect-strategy";
-import WebWalletStrategy from "@arweave-wallet-kit/webwallet-strategy";
-import OthentStrategy from "@arweave-wallet-kit/othent-strategy";
+import BrowserWalletStrategy from "../../../strategies/browser-wallet";
+import { ArweaveWalletKit, ConnectButton } from "../../../frameworks/react";
+import ArConnectStrategy from "../../../strategies/arconnect";
+import WebWalletStrategy from "../../../strategies/webwallet";
+//import OthentStrategy from "../../../strategies/othent";
 
 export default function App() {
   return (
@@ -26,7 +26,7 @@ export default function App() {
           new ArConnectStrategy(),
           new WebWalletStrategy(),
           // @ts-expect-error
-          new OthentStrategy(),
+          //new OthentStrategy(),
           new BrowserWalletStrategy()
         ],
         permissions: ["ACCESS_ADDRESS", "ACCESS_ALL_ADDRESSES"],

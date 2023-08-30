@@ -16,3 +16,6 @@
 [submodule "strategies/browser-wallet"]
 	path = strategies/browser-wallet
 	url = git@github.com:labscommunity/wallet-kit-browser-wallet.git
+[submodule "styles"]
+	path = styles
+	url = https://github.com/labscommunity/wallet-kit-styles
