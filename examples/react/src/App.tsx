@@ -1,8 +1,8 @@
 import BrowserWalletStrategy from "../../../strategies/browser-wallet";
 import { ArweaveWalletKit, ConnectButton } from "../../../frameworks/react";
-import ArConnectStrategy from "../../../strategies/arconnect";
-import WebWalletStrategy from "../../../strategies/webwallet";
-//import OthentStrategy from "../../../strategies/othent";
+import ArConnectStrategy from "@arweave-wallet-kit/arconnect-strategy";
+import WebWalletStrategy from "@arweave-wallet-kit/webwallet-strategy";
+//import OthentStrategy from "@arweave-wallet-kit/othent-strategy";
 
 export default function App() {
   return (
