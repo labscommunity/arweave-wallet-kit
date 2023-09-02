@@ -18,4 +18,4 @@
 	url = git@github.com:labscommunity/wallet-kit-browser-wallet.git
 [submodule "styles"]
 	path = styles
-	url = https://github.com/labscommunity/wallet-kit-styles
+	url = git@github.com:labscommunity/wallet-kit-styles.git
