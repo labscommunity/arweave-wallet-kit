@@ -34,7 +34,7 @@
     react-helmet "^6.1.0"
 
 "@arweave-wallet-kit/styles@*":
-  version "0.0.1-beta.1"
+  version "0.0.1-beta.3"
 
 "@arweave-wallet-kit/webwallet-strategy@*":
   version "0.0.1-beta.2"
