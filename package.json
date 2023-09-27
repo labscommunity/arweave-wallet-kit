@@ -35,7 +35,7 @@
     "arweave": "^1.12.2",
     "arweave-wallet-connector": "^0.0.31",
     "framer-motion": "^8.1.9",
-    "othent": "^1.0.634",
+    "othent": "^1.0.645",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {

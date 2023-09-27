@@ -12,6 +12,7 @@ import {
   SendTransactionWarpProps,
   SignTransactionBundlrProps,
   SignTransactionWarpProps,
+  useOthentReturnProps,
   verifyArweaveDataProps,
   verifyBundlrDataProps
 } from "othent";
@@ -27,6 +28,8 @@ export default class OthentStrategy implements Strategy {
 
   #apiID = "e923634af8cc8b63bc8c74735d177aae";
   #addressListeners: ListenerFunction[] = [];
+  #othent: useOthentReturnProps | undefined;
+  #currentAddress: string = "";
 
   constructor() {}
 
@@ -39,13 +42,19 @@ export default class OthentStrategy implements Strategy {
   }
 
   async #othentInstance(ensureConnection = true) {
-    // init othent
-    const othent = await Othent({
-      API_ID: this.#apiID
-    });
+    if (this.#othent && !ensureConnection) {
+      return this.#othent;
+    }
 
-    if (!othent) {
-      throw new Error("[Arweave Wallet Kit] Invalid Othent API ID");
+    if (!this.#othent) {
+      try {
+        // init othent
+        this.#othent = await Othent({
+          API_ID: this.#apiID
+        });
+      } catch (error: any) {
+        throw new Error(`[Arweave Wallet Kit] ${error.message ?? error}`);
+      }
     }
 
     if (ensureConnection) {
@@ -56,7 +65,7 @@ export default class OthentStrategy implements Strategy {
       }
     }
 
-    return othent;
+    return this.#othent;
   }
 
   public async isAvailable() {
@@ -82,11 +91,13 @@ export default class OthentStrategy implements Strategy {
     gateway?: GatewayConfig
   ) {
     const othent = await this.#othentInstance(false);
-    const res = await othent.logIn();
+    const res = await othent.logIn({ testNet: false });
 
     for (const listener of this.#addressListeners) {
       listener(res.contract_id);
     }
+
+    this.#currentAddress = res.contract_id;
   }
 
   public async disconnect() {
@@ -97,6 +108,8 @@ export default class OthentStrategy implements Strategy {
     for (const listener of this.#addressListeners) {
       listener(undefined as any);
     }
+
+    this.#currentAddress = "";
   }
 
   public async getPermissions() {
@@ -105,9 +118,13 @@ export default class OthentStrategy implements Strategy {
     try {
       const res = await othent.userDetails();
 
-      for (const listener of this.#addressListeners) {
-        listener(res.contract_id);
+      if (res.contract_id !== this.#currentAddress) {
+        for (const listener of this.#addressListeners) {
+          listener(res.contract_id);
+        }
       }
+
+      this.#currentAddress = res.contract_id;
 
       return [
         "ACCESS_ADDRESS",
