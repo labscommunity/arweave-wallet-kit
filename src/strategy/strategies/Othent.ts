@@ -3,6 +3,7 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
+import { decodeTags } from "../../utils";
 import {
   Othent,
   queryWalletAddressTxnsProps,
@@ -176,7 +177,7 @@ export default class OthentStrategy implements Strategy {
     const signedTransaction = await othent.signTransactionArweave({
       othentFunction: "uploadData",
       data: transaction.data,
-      tags: transaction.tags ? transaction.tags : []
+      tags: decodeTags(transaction.tags)
     });
 
     return signedTransaction;
@@ -228,10 +229,12 @@ export default class OthentStrategy implements Strategy {
     try {
       const othent = await this.#othentInstance(false);
 
+      const tags = decodeTags(transaction.tags);
+
       const signedTransaction = await othent.signTransactionBundlr({
         othentFunction: "uploadData",
         data: transaction.data,
-        tags: transaction.tags ? transaction.tags : []
+        tags
       });
 
       const res = await othent.sendTransactionBundlr(signedTransaction);
@@ -245,7 +248,7 @@ export default class OthentStrategy implements Strategy {
           const signedTransaction = await othent.signTransactionArweave({
             othentFunction: "uploadData",
             data: transaction.data,
-            tags: transaction.tags ? transaction.tags : []
+            tags
           });
 
           const res = await othent.sendTransactionArweave(signedTransaction);
