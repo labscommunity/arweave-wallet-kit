@@ -120,12 +120,11 @@ export default class OthentStrategy implements Strategy {
       const res = await othent.userDetails();
 
       if (res.contract_id !== this.#currentAddress) {
+        this.#currentAddress = res.contract_id;
         for (const listener of this.#addressListeners) {
           listener(res.contract_id);
         }
       }
-
-      this.#currentAddress = res.contract_id;
 
       return [
         "ACCESS_ADDRESS",
