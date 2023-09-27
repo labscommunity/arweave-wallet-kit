@@ -3,6 +3,7 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
+import { decodeTags } from "../../utils";
 import {
   Othent,
   queryWalletAddressTxnsProps,
@@ -12,6 +13,7 @@ import {
   SendTransactionWarpProps,
   SignTransactionBundlrProps,
   SignTransactionWarpProps,
+  useOthentReturnProps,
   verifyArweaveDataProps,
   verifyBundlrDataProps
 } from "othent";
@@ -27,6 +29,8 @@ export default class OthentStrategy implements Strategy {
 
   #apiID = "e923634af8cc8b63bc8c74735d177aae";
   #addressListeners: ListenerFunction[] = [];
+  #othent: useOthentReturnProps | undefined;
+  #currentAddress: string = "";
 
   constructor() {}
 
@@ -39,13 +43,19 @@ export default class OthentStrategy implements Strategy {
   }
 
   async #othentInstance(ensureConnection = true) {
-    // init othent
-    const othent = await Othent({
-      API_ID: this.#apiID
-    });
+    if (this.#othent && !ensureConnection) {
+      return this.#othent;
+    }
 
-    if (!othent) {
-      throw new Error("[Arweave Wallet Kit] Invalid Othent API ID");
+    if (!this.#othent) {
+      try {
+        // init othent
+        this.#othent = await Othent({
+          API_ID: this.#apiID
+        });
+      } catch (error: any) {
+        throw new Error(`[Arweave Wallet Kit] ${error.message ?? error}`);
+      }
     }
 
     if (ensureConnection) {
@@ -56,7 +66,7 @@ export default class OthentStrategy implements Strategy {
       }
     }
 
-    return othent;
+    return this.#othent;
   }
 
   public async isAvailable() {
@@ -82,11 +92,13 @@ export default class OthentStrategy implements Strategy {
     gateway?: GatewayConfig
   ) {
     const othent = await this.#othentInstance(false);
-    const res = await othent.logIn();
+    const res = await othent.logIn({ testNet: false });
 
     for (const listener of this.#addressListeners) {
       listener(res.contract_id);
     }
+
+    this.#currentAddress = res.contract_id;
   }
 
   public async disconnect() {
@@ -97,6 +109,8 @@ export default class OthentStrategy implements Strategy {
     for (const listener of this.#addressListeners) {
       listener(undefined as any);
     }
+
+    this.#currentAddress = "";
   }
 
   public async getPermissions() {
@@ -105,8 +119,11 @@ export default class OthentStrategy implements Strategy {
     try {
       const res = await othent.userDetails();
 
-      for (const listener of this.#addressListeners) {
-        listener(res.contract_id);
+      if (res.contract_id !== this.#currentAddress) {
+        this.#currentAddress = res.contract_id;
+        for (const listener of this.#addressListeners) {
+          listener(res.contract_id);
+        }
       }
 
       return [
@@ -159,7 +176,7 @@ export default class OthentStrategy implements Strategy {
     const signedTransaction = await othent.signTransactionArweave({
       othentFunction: "uploadData",
       data: transaction.data,
-      tags: transaction.tags ? transaction.tags : []
+      tags: decodeTags(transaction.tags)
     });
 
     return signedTransaction;
@@ -211,10 +228,12 @@ export default class OthentStrategy implements Strategy {
     try {
       const othent = await this.#othentInstance(false);
 
+      const tags = decodeTags(transaction.tags);
+
       const signedTransaction = await othent.signTransactionBundlr({
         othentFunction: "uploadData",
         data: transaction.data,
-        tags: transaction.tags ? transaction.tags : []
+        tags
       });
 
       const res = await othent.sendTransactionBundlr(signedTransaction);
@@ -228,7 +247,7 @@ export default class OthentStrategy implements Strategy {
           const signedTransaction = await othent.signTransactionArweave({
             othentFunction: "uploadData",
             data: transaction.data,
-            tags: transaction.tags ? transaction.tags : []
+            tags
           });
 
           const res = await othent.sendTransactionArweave(signedTransaction);
