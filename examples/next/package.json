@@ -1,0 +1,31 @@
+{
+  "name": "next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@arweave-wallet-kit/arconnect-strategy": "*",
+    "@arweave-wallet-kit/browser-wallet-strategy": "*",
+    "@arweave-wallet-kit/core": "*",
+    "@arweave-wallet-kit/othent-strategy": "*",
+    "@arweave-wallet-kit/react": "*",
+    "@arweave-wallet-kit/styles": "*",
+    "@arweave-wallet-kit/webwallet-strategy": "*",
+    "arweave": "^1.14.4",
+    "arweave-wallet-connector": "^1.0.2",
+    "next": "latest",
+    "othent": "^1.0.645",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  }
+}

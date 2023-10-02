@@ -1,5 +1,5 @@
-import BrowserWalletStrategy from "../../../strategies/browser-wallet";
-import { ArweaveWalletKit, ConnectButton } from "../../../frameworks/react";
+import BrowserWalletStrategy from "@arweave-wallet-kit/browser-wallet-strategy";
+import { ArweaveWalletKit, ConnectButton } from "@arweave-wallet-kit/react";
 import ArConnectStrategy from "@arweave-wallet-kit/arconnect-strategy";
 import WebWalletStrategy from "@arweave-wallet-kit/webwallet-strategy";
 import OthentStrategy from "@arweave-wallet-kit/othent-strategy";
