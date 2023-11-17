@@ -25,18 +25,7 @@ export function Modal({
   return (
     <AnimatePresence>
       {open && (
-        <div
-          key="modal-screen"
-          className="modal-screen"
-          style={{
-            width: "100vw",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-            top: 0,
-            zIndex: 100000
-          }}
-        >
+        <ModalScreen key="modal-screen" className="modal-screen">
           <BackgroundLayer
             className="modal-background"
             variants={backgroundAnimation}
@@ -64,7 +53,7 @@ export function Modal({
               <ModalContents>{children}</ModalContents>
             </ModalAnimator>
           </ModalAligner>
-        </div>
+        </ModalScreen>
       )}
     </AnimatePresence>
   );
@@ -118,6 +107,15 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
+const ModalScreen = styled.div`
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 100000;
+`;
+
 const ModalAligner = styled.div`
   height: 100vh;
   display: flex;
@@ -146,6 +144,18 @@ const ModalAnimator = withTheme(styled(motion.div as any)<any>`
   *::-moz-selection {
     background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
+  }
+
+  @media screen and (min-width: 1081px) {
+    max-width: 28vw;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1080px) {
+    max-width: 50vw;
+  }
+
+  @media screen and (max-width: 720px) {
+    max-width: 100vw;
   }
 `) as ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>;
 
