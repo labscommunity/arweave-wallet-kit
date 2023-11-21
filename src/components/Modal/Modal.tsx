@@ -1,4 +1,4 @@
-import { Radius, withTheme } from "../../theme";
+import { DefaultTheme, Radius, withTheme } from "../../theme";
 import { version } from "../../../package.json";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
@@ -25,32 +25,35 @@ export function Modal({
   return (
     <AnimatePresence>
       {open && (
-        <BackgroundLayer
-          variants={backgroundAnimation}
-          initial="hidden"
-          animate="shown"
-          exit="hidden"
-          transition={{
-            ease: "easeInOut",
-            duration: 0.23
-          }}
-          key="bg"
-          onClick={onClose}
-        >
-          {!noWatermark && <KitName>Arweave Wallet Kit v{version}</KitName>}
-        </BackgroundLayer>
-      )}
-      {open && (
-        <Wrapper
-          key="modal"
-          className={className}
-          variants={variants || modalAnimation(mobile)}
-          initial="hidden"
-          animate="shown"
-          exit="hidden"
-        >
-          {children}
-        </Wrapper>
+        <ModalScreen key="modal-screen" className="modal-screen">
+          <BackgroundLayer
+            className="modal-background"
+            variants={backgroundAnimation}
+            initial="hidden"
+            animate="shown"
+            exit="hidden"
+            transition={{
+              ease: "easeInOut",
+              duration: 0.23
+            }}
+            key="bg"
+            onClick={onClose}
+          >
+            {!noWatermark && <KitName>Arweave Wallet Kit v{version}</KitName>}
+          </BackgroundLayer>
+          <ModalAligner key="modal-aligner" className="modal-aligner">
+            <ModalAnimator
+              key="modal-animator"
+              className={"modal-animator " + (className ? " " + className : "")}
+              variants={variants || modalAnimation(mobile)}
+              initial="hidden"
+              animate="shown"
+              exit="hidden"
+            >
+              <ModalContents>{children}</ModalContents>
+            </ModalAnimator>
+          </ModalAligner>
+        </ModalScreen>
       )}
     </AnimatePresence>
   );
@@ -73,28 +76,30 @@ const BackgroundLayer = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const modalAnimation = (mobile = false): Variants => ({
-  shown: {
-    opacity: 1,
-    translateX: "-50%",
-    translateY: mobile ? "0" : "-50%",
-    transition: {
-      type: "spring",
-      duration: 0.4,
-      delayChildren: 0.2,
-      staggerChildren: 0.05
+const modalAnimation = (mobile = false): Variants => {
+  return {
+    shown: {
+      top: 0,
+      opacity: 1,
+      width: mobile ? "100vw" : "50vw",
+      transition: {
+        type: "spring",
+        duration: 0.4,
+        delayChildren: 0.2,
+        staggerChildren: 0.05
+      }
+    },
+    hidden: {
+      top: "100%",
+      width: mobile ? "100vw" : "50vw",
+      opacity: 0.4, // TODO(crookse) What's the reason for stopping at 0.4? Asking because a pause in animation is seen.
+      transition: {
+        type: "spring",
+        duration: 0.4
+      }
     }
-  },
-  hidden: {
-    opacity: 0.4,
-    translateX: "-50%",
-    translateY: "200%",
-    transition: {
-      type: "spring",
-      duration: 0.4
-    }
-  }
-});
+  };
+};
 
 const radius: Record<Radius, number> = {
   default: 30,
@@ -102,18 +107,34 @@ const radius: Record<Radius, number> = {
   none: 0
 };
 
-const Wrapper = withTheme(styled(motion.div as any)<any>`
+const ModalScreen = styled.div`
+  height: 100vh;
+  left: 0;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 28vw;
-  background-color: rgb(${(props) => props.theme.background});
-  border-radius: ${(props) =>
-    radius[props.theme.themeConfig.radius as Radius] + "px"};
+  top: 0;
+  width: 100vw;
+  z-index: 100000;
+`;
+
+const ModalAligner = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 720px) {
+    align-items: flex-end;
+  }
+`;
+
+const ModalAnimator = withTheme(styled(motion.div as any)<any>`
+  position: relative;
+  left: 0;
+  top: 100%;
   z-index: 100000;
   font-family: "Manrope", sans-serif;
   overflow: hidden;
-  transition: background-color 0.23s ease-in-out;
+  transition-property: width;
 
   *::selection {
     background-color: rgba(0, 0, 0, 0.75);
@@ -125,18 +146,30 @@ const Wrapper = withTheme(styled(motion.div as any)<any>`
     color: #fff;
   }
 
-  @media screen and (max-width: 1080px) {
-    width: 50vw;
+  @media screen and (min-width: 1081px) {
+    max-width: 28vw;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1080px) {
+    max-width: 50vw;
   }
 
   @media screen and (max-width: 720px) {
-    width: 100vw;
-    top: unset;
-    bottom: 0;
+    max-width: 100vw;
+  }
+`) as ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>;
+
+const ModalContents = withTheme(styled.div<{ theme: DefaultTheme }>`
+  transition: background-color 0.23s ease-in-out;
+  background-color: rgb(${(props) => props.theme.background});
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
+  width: 100%;
+
+  @media screen and (max-width: 720px) {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
-`) as ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>;
+`);
 
 const KitName = styled.p`
   position: fixed;
