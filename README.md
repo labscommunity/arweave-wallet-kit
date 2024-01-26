@@ -83,6 +83,7 @@ With the `theme` field, you can define a custom theme configuration for the Arwe
 | `accent`         | `RGBObject`                        | RGB accent color for the UI                                            |
 | `titleHighlight` | `RGBObject`                        | RGB accent color for the subscreen titles (like the connection screen) |
 | `radius`         | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI                         |
+| `font`           | `Font`                             | Including font family used throughout the Kit UI                       |
 
 ## Terminology of Arweave Wallet Kit
 

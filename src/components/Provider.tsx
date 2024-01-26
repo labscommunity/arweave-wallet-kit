@@ -1,7 +1,7 @@
 "use client";
 
 import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
-import { darkTheme, lightTheme, ThemeProvider } from "../theme";
+import { darkTheme, Font, lightTheme, ThemeProvider } from "../theme";
 import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
 import RestoreSession from "../modals/RestoreSession";
@@ -92,7 +92,10 @@ const defaultTheme: ThemeConfig = {
     g: 122,
     b: 255
   },
-  radius: "default"
+  radius: "default",
+  font: {
+    fontFamily: "Manrope"
+  }
 };
 
 const defaultConfig: Config = {
@@ -110,6 +113,7 @@ export interface ThemeConfig {
   accent: RGBObject;
   titleHighlight: RGBObject;
   radius: Radius;
+  font: Font;
 }
 
 export interface RGBObject {
