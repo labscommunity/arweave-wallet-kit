@@ -10,8 +10,7 @@ const radius: Record<Radius, number> = {
 
 export const Button = withTheme(styled.button<{ theme: DefaultTheme }>`
   display: flex;
-  font-family: "${(props) => props.theme.themeConfig.font.fontFamily}",
-    sans-serif;
+  font-family: ${(props) => props.theme.themeConfig.font.fontFamily}, sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   color: #fff;

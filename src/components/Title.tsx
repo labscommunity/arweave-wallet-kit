@@ -8,8 +8,7 @@ export const Title = withTheme(styled.h1<{
   theme: DefaultTheme;
 }>`
   display: flex;
-  font-family: "${(props) => props.theme.themeConfig.font.fontFamily}",
-    sans-serif;
+  font-family: ${(props) => props.theme.themeConfig.font.fontFamily}, sans-serif;
   font-size: ${(props) => (props.small ? "1.05rem" : "1.2rem")};
   font-weight: 600;
   color: rgb(

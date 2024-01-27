@@ -132,8 +132,7 @@ const ModalAnimator = withTheme(styled(motion.div as any)<any>`
   left: 0;
   top: 100%;
   z-index: 100000;
-  font-family: "${(props) => props.theme.themeConfig.font.fontFamily}",
-    sans-serif;
+  font-family: ${(props) => props.theme.themeConfig.font.fontFamily}, sans-serif;
   overflow: hidden;
   transition-property: width;
 
@@ -174,8 +173,7 @@ const ModalContents = withTheme(styled.div<{ theme: DefaultTheme }>`
 
 const KitName = withTheme(styled.p<{ theme: DefaultTheme }>`
   position: fixed;
-  font-family: "${(props) => props.theme.themeConfig.font.fontFamily}",
-    sans-serif;
+  font-family: ${(props) => props.theme.themeConfig.font.fontFamily}, sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   user-select: none;

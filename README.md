@@ -85,6 +85,25 @@ With the `theme` field, you can define a custom theme configuration for the Arwe
 | `radius`         | `"default"`, `"minimal"`, `"none"` | Border radius level used throughout the Kit UI                         |
 | `font`           | `Font`                             | Including font family used throughout the Kit UI                       |
 
+##### Font
+
+The `font` field in the theme configuration allows you to specify the font family to be used throughout the Kit UI. It should be an object with a `fontFamily` property, which is a string representing the font family. If nothing is specified, the default font family is `Manrope` with a fallback to the next available sans-serif font in the system.
+
+Here's an example of how to use it:
+
+```tsx
+...
+<ArweaveWalletKit
+  theme={{
+    font: {
+      fontFamily: "Arial"
+    },
+    // other theme properties...
+  }}
+/>
+...
+```
+
 ## Terminology of Arweave Wallet Kit
 
 Arweave Wallet Kit supports several _strategies_. The word **strategy means an implementation of an Arweave Wallet** in the Kit. These strategies allow the user to communicate with all wallets the same way and with the same API.
