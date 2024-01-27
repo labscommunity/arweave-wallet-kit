@@ -28,7 +28,10 @@ Basic.args = {
       g: 122,
       b: 255
     },
-    radius: "default"
+    radius: "default",
+    font: {
+      fontFamily: "Arial"
+    }
   },
   config: {
     permissions: ["ACCESS_ADDRESS", "ACCESS_ALL_ADDRESSES"],
