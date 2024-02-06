@@ -30,7 +30,7 @@ Basic.args = {
     },
     radius: "default",
     font: {
-      fontFamily: "Arial"
+      fontFamily: "Manrope"
     }
   },
   config: {
