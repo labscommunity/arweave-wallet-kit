@@ -26,7 +26,10 @@ const defaultThemeConfig: ThemeConfig = {
     g: 122,
     b: 255
   },
-  radius: "default"
+  radius: "default",
+  font: {
+    fontFamily: "Manrope"
+  }
 };
 
 export interface DisplayTheme {
@@ -41,6 +44,7 @@ export interface ThemeConfig {
   accent: RGBObject;
   titleHighlight: RGBObject;
   radius: Radius;
+  font: Font;
 }
 
 export interface DefaultTheme extends DisplayTheme {
@@ -56,6 +60,10 @@ export interface RGBObject {
 }
 
 export type Radius = "default" | "minimal" | "none";
+
+export interface Font {
+  fontFamily: string;
+}
 
 const theming: ThemingType<DefaultTheme> & {
   ThemeProvider: React.ComponentType<
