@@ -1,7 +1,7 @@
 import * as othentKMS from '@othent/kms'
 import type { ConnectReturnType } from '@othent/kms'
-import type Transaction from "arweave/node/lib/transaction";
-import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
+import type Transaction from "arweave/web/lib/transaction";
+import type { SignatureOptions } from "arweave/web/lib/crypto/crypto-interface";
 import type {
   PermissionType,
   AppInfo,
