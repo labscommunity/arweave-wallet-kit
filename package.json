@@ -32,10 +32,10 @@
     "@linaria/babel-preset": "^4.4.5",
     "@linaria/core": "^4.2.10",
     "@linaria/react": "^4.3.8",
+    "@othent/kms": "^1.0.12",
     "arweave": "^1.12.2",
     "arweave-wallet-connector": "^0.0.31",
     "framer-motion": "^8.1.9",
-    "othent": "^1.0.645",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
