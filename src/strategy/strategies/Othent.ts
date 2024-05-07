@@ -15,10 +15,8 @@ export default class OthentStrategy implements Strategy {
 
   constructor() {}
 
-  public async isAvailable() {
-    if (othentKMS) {
-      return true;
-    }
+  public async isAvailable(): Promise<boolean> {
+    return othentKMS !== undefined;
   }
 
   public async sync() {}
@@ -27,15 +25,11 @@ export default class OthentStrategy implements Strategy {
     permissions: PermissionType[],
     appInfo?: AppInfo,
     gateway?: GatewayConfig
-  ): Promise<ConnectReturnType> {
+  ): Promise<void> {
     if (permissions || appInfo || gateway) {
       console.log("permissions/appInfo/gateway, are not implemented in Othent");
     }
-    return await othentKMS.connect();
-  }
-
-  public async disconnect(): Promise<null> {
-    return await othentKMS.disconnect();
+    await othentKMS.connect();
   }
 
   public async getActiveAddress(): Promise<string> {
@@ -46,8 +40,10 @@ export default class OthentStrategy implements Strategy {
     return [await othentKMS.getActiveAddress()];
   }
 
-  public async getWalletNames(): Promise<string> {
-    return await othentKMS.getWalletNames();
+  public async getWalletNames(): Promise<{ [addr: string]: string }> {
+    const address = await othentKMS.getActiveAddress();
+    const walletName = await othentKMS.getWalletNames();
+    return { [address]: walletName };
   }
 
   public async sign(
@@ -63,24 +59,63 @@ export default class OthentStrategy implements Strategy {
   }
 
   public async encrypt(
-    data: string | Uint8Array,
-    algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
-  ): Promise<string | Uint8Array | null> {
+    data: BufferSource,
+    algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
+  ): Promise<Uint8Array> {
     if (algorithm) {
       console.log("algorithm, is not implemented in Othent");
     }
-
-    return await othentKMS.encrypt(data);
+    let encryptData: string | Uint8Array;
+    if (data instanceof ArrayBuffer) {
+      encryptData = new Uint8Array(data);
+    } else if (ArrayBuffer.isView(data)) {
+      encryptData = new Uint8Array(
+        data.buffer,
+        data.byteOffset,
+        data.byteLength
+      );
+    } else {
+      throw new Error("Unsupported data type");
+    }
+    const result = await othentKMS.encrypt(encryptData);
+    if (typeof result === "string") {
+      return new TextEncoder().encode(result);
+    } else if (result instanceof Uint8Array) {
+      return result;
+    } else {
+      throw new Error("Unexpected encryption result type");
+    }
   }
 
   public async decrypt(
-    data: string | Uint8Array,
-    algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
-  ): Promise<string | Uint8Array | null> {
+    data: BufferSource,
+    algorithm: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
+  ): Promise<Uint8Array> {
     if (algorithm) {
       console.log("algorithm, is not implemented in Othent");
     }
-    return await othentKMS.decrypt(data);
+    let decryptData: string | Uint8Array;
+    if (typeof data === "string") {
+      decryptData = data;
+    } else if (data instanceof ArrayBuffer) {
+      decryptData = new Uint8Array(data);
+    } else if (ArrayBuffer.isView(data)) {
+      decryptData = new Uint8Array(
+        data.buffer,
+        data.byteOffset,
+        data.byteLength
+      );
+    } else {
+      throw new Error("Unsupported data type");
+    }
+    const result = await othentKMS.decrypt(decryptData);
+    if (typeof result === "string") {
+      return new TextEncoder().encode(result);
+    } else if (result instanceof Uint8Array) {
+      return result;
+    } else {
+      throw new Error("Unexpected decryption result type");
+    }
   }
 
   public async getArweaveConfig(): Promise<any> {
@@ -88,13 +123,14 @@ export default class OthentStrategy implements Strategy {
   }
 
   public async signature(
-    data: string | Uint8Array | ArrayBuffer,
-    algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
+    data: Uint8Array,
+    algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams
   ): Promise<Uint8Array> {
     if (algorithm) {
       console.log("algorithm, is not implemented in Othent");
     }
-    return await othentKMS.signature(data);
+    const uint8ArrayData = new Uint8Array(data);
+    return await othentKMS.signature(uint8ArrayData);
   }
 
   public async getActivePublicKey(): Promise<string> {
@@ -109,6 +145,7 @@ export default class OthentStrategy implements Strategy {
     return await othentKMS.dispatch(transaction);
   }
 
+  // @ts-ignore - non implemented function error
   public addAddressEvent(listener: (address: string) => void) {
     console.log("addAddressEvent, is not implemented in Othent");
   }
