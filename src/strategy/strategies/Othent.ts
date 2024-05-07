@@ -32,7 +32,7 @@ export default class OthentStrategy
     appInfo?: AppInfo,
     gateway?: GatewayConfig): Promise<ConnectReturnType> {
       if (permissions || appInfo || gateway) {
-        throw new Error("Permissions/appInfo/gateway, is not implemented in Othent");
+        console.log("permissions/appInfo/gateway, are not implemented in Othent");
       }
     return await othentKMS.connect()
   }
@@ -60,7 +60,7 @@ export default class OthentStrategy
   ): Promise<any> {
 
     if (options) {
-      throw new Error("Options, are not implemented in Othent");
+      console.log("options, are not implemented in Othent");
     }
 
     return othentKMS.sign(transaction, analyticsTags);
@@ -71,7 +71,7 @@ export default class OthentStrategy
     algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<string | Uint8Array | null> {
     if (algorithm) {
-      throw new Error("Algorithm, is not implemented in Othent");
+      console.log("algorithm, is not implemented in Othent");
     }
 
     return await othentKMS.encrypt(data)
@@ -82,13 +82,13 @@ export default class OthentStrategy
     algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<string | Uint8Array | null> {
     if (algorithm) {
-      throw new Error("Algorithm, is not implemented in Othent");
+      console.log("algorithm, is not implemented in Othent");
     }
     return await othentKMS.decrypt(data)
   }
 
-  public async getArweaveConfig(): Promise<Error> {
-    throw new Error("Not implemented in Othent");
+  public async getArweaveConfig(): Promise<any> {
+    console.log("getArweaveConfig, is not implemented in Othent");
   }
 
   public async signature(
@@ -96,7 +96,7 @@ export default class OthentStrategy
     algorithm?: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array> {
     if (algorithm) {
-      throw new Error("Algorithm, is not implemented in Othent");
+      console.log("algorithm, is not implemented in Othent");
     }
     return await othentKMS.signature(data)
   }
@@ -106,7 +106,7 @@ export default class OthentStrategy
   }
 
   public async addToken(id: string): Promise<void> {
-    throw new Error("Not implemented in Othent");
+    console.log("addToken, is not implemented in Othent");
   }
 
   public async dispatch(transaction: Transaction): Promise<{ id: string; }> {
@@ -114,13 +114,13 @@ export default class OthentStrategy
   }
 
   public addAddressEvent(listener: (address: string) => void) {
-    throw new Error("Not implemented in Othent");
+    console.log("addAddressEvent, is not implemented in Othent");
   }
 
   public removeAddressEvent(
     listener: (e: CustomEvent<{ address: string }>) => void
   ) {
-    throw new Error("Not implemented in Othent");
+    console.log("removeAddressEvent, is not implemented in Othent");
   }
 
 }
