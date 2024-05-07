@@ -156,7 +156,8 @@ export function ConnectModal() {
   useEffect(() => {
     (async () => {
       // @ts-expect-error
-      const brave: boolean = navigator.brave && await navigator.brave.isBrave();
+      const brave: boolean =
+        navigator.brave && (await navigator.brave.isBrave());
 
       setIsBrave(brave);
     })();
@@ -193,7 +194,10 @@ export function ConnectModal() {
         <Connecting>
           <WalletData>
             <AppIcon colorTheme={strategyData?.theme}>
-              <Logo src={`${gateway}/${strategyData?.logo}`} draggable={false} />
+              <Logo
+                src={`${gateway}/${strategyData?.logo}`}
+                draggable={false}
+              />
             </AppIcon>
             {(strategyAvailable && (
               <>
@@ -203,7 +207,8 @@ export function ConnectModal() {
                 </Paragraph>
                 {strategyData?.id === "othent" && isBrave && (
                   <BraveParagraph>
-                    You might need to <b>disable Brave shields</b> for this to work properly.
+                    You might need to <b>disable Brave shields</b> for this to
+                    work properly.
                   </BraveParagraph>
                 )}
                 {retry && strategyData && (
@@ -311,9 +316,9 @@ const radius: Record<Radius, number> = {
 const BraveParagraph = withTheme(styled(Paragraph)<{ theme: DefaultTheme }>`
   background-color: rgba(251, 85, 43, 0.2);
   color: #fb542b;
-  padding: .44rem;
-  border-radius: ${props => radius[props.theme.themeConfig.radius] + "px"};
-  margin-top: .6rem;
+  padding: 0.44rem;
+  border-radius: ${(props) => radius[props.theme.themeConfig.radius] + "px"};
+  margin-top: 0.6rem;
 `);
 
 const ConnectLoading = withTheme(styled(Loading)<{ theme: DefaultTheme }>`

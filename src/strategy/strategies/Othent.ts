@@ -1,21 +1,14 @@
-import * as othentKMS from '@othent/kms'
-import type { ConnectReturnType } from '@othent/kms'
+import * as othentKMS from "@othent/kms";
+import type { ConnectReturnType } from "@othent/kms";
 import type Transaction from "arweave/web/lib/transaction";
 import type { SignatureOptions } from "arweave/web/lib/crypto/crypto-interface";
-import type {
-  PermissionType,
-  AppInfo,
-  GatewayConfig,
-} from "arconnect";
+import type { PermissionType, AppInfo, GatewayConfig } from "arconnect";
 import type Strategy from "../Strategy";
 
-export default class OthentStrategy
-implements Strategy
-{
+export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
   public name = "Google";
-  public description =
-    "Sign in with Google through Othent 2.0";
+  public description = "Sign in with Google through Othent 2.0";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
@@ -30,37 +23,38 @@ implements Strategy
 
   public async sync() {}
 
-  public async connect(permissions: PermissionType[],
+  public async connect(
+    permissions: PermissionType[],
     appInfo?: AppInfo,
-    gateway?: GatewayConfig): Promise<ConnectReturnType> {
-      if (permissions || appInfo || gateway) {
-        console.log("permissions/appInfo/gateway, are not implemented in Othent");
-      }
-    return await othentKMS.connect()
+    gateway?: GatewayConfig
+  ): Promise<ConnectReturnType> {
+    if (permissions || appInfo || gateway) {
+      console.log("permissions/appInfo/gateway, are not implemented in Othent");
+    }
+    return await othentKMS.connect();
   }
 
   public async disconnect(): Promise<null> {
-    return await othentKMS.disconnect()
+    return await othentKMS.disconnect();
   }
 
   public async getActiveAddress(): Promise<string> {
-    return await othentKMS.getActiveAddress()
+    return await othentKMS.getActiveAddress();
   }
 
   public async getAllAddresses(): Promise<string[]> {
-    return [await othentKMS.getActiveAddress()]
+    return [await othentKMS.getActiveAddress()];
   }
 
   public async getWalletNames(): Promise<string> {
-    return await othentKMS.getWalletNames()
+    return await othentKMS.getWalletNames();
   }
 
   public async sign(
     transaction: Transaction,
     options?: SignatureOptions,
-    analyticsTags?: { name: string; value: string; }[] | undefined
+    analyticsTags?: { name: string; value: string }[] | undefined
   ): Promise<any> {
-
     if (options) {
       console.log("options, are not implemented in Othent");
     }
@@ -76,7 +70,7 @@ implements Strategy
       console.log("algorithm, is not implemented in Othent");
     }
 
-    return await othentKMS.encrypt(data)
+    return await othentKMS.encrypt(data);
   }
 
   public async decrypt(
@@ -86,7 +80,7 @@ implements Strategy
     if (algorithm) {
       console.log("algorithm, is not implemented in Othent");
     }
-    return await othentKMS.decrypt(data)
+    return await othentKMS.decrypt(data);
   }
 
   public async getArweaveConfig(): Promise<any> {
@@ -100,19 +94,19 @@ implements Strategy
     if (algorithm) {
       console.log("algorithm, is not implemented in Othent");
     }
-    return await othentKMS.signature(data)
+    return await othentKMS.signature(data);
   }
 
   public async getActivePublicKey(): Promise<string> {
-    return await othentKMS.getActivePublicKey()
+    return await othentKMS.getActivePublicKey();
   }
 
   public async addToken(id: string): Promise<void> {
     console.log("addToken, is not implemented in Othent");
   }
 
-  public async dispatch(transaction: Transaction): Promise<{ id: string; }> {
-    return await othentKMS.dispatch(transaction)
+  public async dispatch(transaction: Transaction): Promise<{ id: string }> {
+    return await othentKMS.dispatch(transaction);
   }
 
   public addAddressEvent(listener: (address: string) => void) {
@@ -124,5 +118,4 @@ implements Strategy
   ) {
     console.log("removeAddressEvent, is not implemented in Othent");
   }
-
 }
