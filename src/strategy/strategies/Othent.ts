@@ -7,8 +7,10 @@ import type {
   AppInfo,
   GatewayConfig,
 } from "arconnect";
+import type Strategy from "../Strategy";
 
 export default class OthentStrategy
+implements Strategy
 {
   public id: "othent" = "othent";
   public name = "Google";
