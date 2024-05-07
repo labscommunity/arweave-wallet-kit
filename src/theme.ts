@@ -65,6 +65,7 @@ export interface Font {
   fontFamily: string;
 }
 
+// @ts-ignore
 const theming: ThemingType<DefaultTheme> & {
   ThemeProvider: React.ComponentType<
     React.PropsWithChildren<{ theme?: DefaultTheme }>

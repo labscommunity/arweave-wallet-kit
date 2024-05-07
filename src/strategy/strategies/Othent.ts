@@ -1,5 +1,4 @@
 import * as othentKMS from "@othent/kms";
-import type { ConnectReturnType } from "@othent/kms";
 import type Transaction from "arweave/web/lib/transaction";
 import type { SignatureOptions } from "arweave/web/lib/crypto/crypto-interface";
 import type { PermissionType, AppInfo, GatewayConfig } from "arconnect";
@@ -8,7 +7,7 @@ import type Strategy from "../Strategy";
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
   public name = "Google";
-  public description = "Sign in with Google through Othent 2.0";
+  public description = "Sign in with Google using Othent 2.0";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
@@ -30,6 +29,10 @@ export default class OthentStrategy implements Strategy {
       console.log("permissions/appInfo/gateway, are not implemented in Othent");
     }
     await othentKMS.connect();
+  }
+
+  public async disconnect(): Promise<void> {
+    await othentKMS.disconnect();
   }
 
   public async getActiveAddress(): Promise<string> {
@@ -154,5 +157,24 @@ export default class OthentStrategy implements Strategy {
     listener: (e: CustomEvent<{ address: string }>) => void
   ) {
     console.log("removeAddressEvent, is not implemented in Othent");
+  }
+
+  public async getPermissions() {
+
+    try {
+      return [
+        "ACCESS_ADDRESS",
+        "ACCESS_PUBLIC_KEY",
+        "ACCESS_ALL_ADDRESSES",
+        "SIGN_TRANSACTION",
+        "ENCRYPT",
+        "DECRYPT",
+        "SIGNATURE",
+        "ACCESS_ARWEAVE_CONFIG",
+        "DISPATCH"
+      ] as PermissionType[];
+    } catch {
+      return [];
+    }
   }
 }

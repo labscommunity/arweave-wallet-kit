@@ -155,8 +155,8 @@ export function ConnectModal() {
 
   useEffect(() => {
     (async () => {
-      // @ts-expect-error
       const brave: boolean =
+            // @ts-expect-error
         navigator.brave && (await navigator.brave.isBrave());
 
       setIsBrave(brave);
@@ -205,12 +205,6 @@ export function ConnectModal() {
                 <Paragraph>
                   Confirm connection request in the wallet popup window
                 </Paragraph>
-                {strategyData?.id === "othent" && isBrave && (
-                  <BraveParagraph>
-                    You might need to <b>disable Brave shields</b> for this to
-                    work properly.
-                  </BraveParagraph>
-                )}
                 {retry && strategyData && (
                   <Button
                     onClick={() => tryConnecting(strategyData as Strategy)}

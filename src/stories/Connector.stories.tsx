@@ -65,10 +65,6 @@ const Button = () => {
 
   useEffect(() => {
     if (!api) return;
-    if (api.id === "othent") {
-      console.log("f");
-      api.userDetails().then((res) => console.log(res));
-    }
     console.log(api.sign);
   }, [api]);
 
