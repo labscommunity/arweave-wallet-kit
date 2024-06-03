@@ -4,9 +4,12 @@
   "workspaces": [
     "core",
     "styles",
-    "strategies/*",
+    "strategies/browser-wallet",
+    "strategies/arconnect",
+    "strategies/webwallet",
+    "strategies/othent",
     "frameworks/*",
-    "examples/*"
+    "examples/react"
   ],
   "scripts": {
     "build-pkgs": "yarn workspaces run --no-private build",
