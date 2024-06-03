@@ -8,7 +8,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@arweave-wallet-kit/arconnect-strategy": "*",
@@ -18,17 +20,22 @@
     "@arweave-wallet-kit/react": "*",
     "@arweave-wallet-kit/styles": "*",
     "@arweave-wallet-kit/webwallet-strategy": "*",
-    "arweave": "^1.12.2",
+    "@othent/kms": "^1.0.12",
+    "arweave": "^1.15.1",
     "arweave-wallet-connector": "^1.0.2",
-    "othent": "^1.0.645",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "@vitejs/plugin-react": "^4.0.1",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.0"
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
   }
 }
