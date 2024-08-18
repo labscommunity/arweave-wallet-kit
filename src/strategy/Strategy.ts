@@ -4,7 +4,8 @@ import type {
   PermissionType,
   AppInfo,
   GatewayConfig,
-  DispatchResult
+  DispatchResult,
+  DataItem
 } from "arconnect";
 
 export default abstract class Strategy {
@@ -64,4 +65,5 @@ export default abstract class Strategy {
   public abstract removeAddressEvent?(
     listener: (e: CustomEvent<{ address: string }>) => void
   ): void;
+  public abstract signDataItem(p: DataItem): Promise<ArrayBuffer>;
 }
