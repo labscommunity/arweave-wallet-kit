@@ -3,7 +3,7 @@ import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { Othent, OthentOptions } from "@othent/kms";
+import { Othent, OthentOptions, AppInfo as OthentAppInfo } from "@othent/kms";
 
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
@@ -52,7 +52,13 @@ export default class OthentStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ) {
-    return this.#othentInstance().connect(permissions, appInfo, gateway);
+    const othent = this.#othentInstance();
+
+    return othent.connect(
+      permissions,
+      appInfo ? { ...othent.appInfo, ...appInfo } as OthentAppInfo : undefined,
+      gateway,
+    ).then(() => undefined)
   }
 
   public async disconnect() {
