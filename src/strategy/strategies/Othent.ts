@@ -59,29 +59,30 @@ export default class OthentStrategy implements Strategy {
     return this.#othentInstance().disconnect();
   }
 
-  public async getPermissions() {
-    return this.#othentInstance().getPermissions();
-  }
-
-  public async getActiveAddress(): Promise<string> {
+  public async getActiveAddress() {
     return this.#othentInstance().getActiveAddress();
   }
 
-  public async getAllAddresses(): Promise<string[]> {
+  public async getActivePublicKey() {
+    return this.#othentInstance().getActivePublicKey();
+  }
+
+  public async getAllAddresses() {
     return this.#othentInstance().getAllAddresses();
+  }
+
+  public async getWalletNames() {
+    return this.#othentInstance().getWalletNames();
+  }
+
+  public async userDetails() {    
+    return this.#othentInstance().getUserDetails();
   }
 
   public async sign(transaction: Transaction, options?: SignatureOptions) {
     if (options) {
       console.warn(
-        "[Arweave Wallet Kit] Othent does not support transaction signature options"
-      );
-    }
-
-    if (transaction.quantity !== "0" && transaction.target !== "") {
-      // TODO: Is this still the case?
-      throw new Error(
-        "[Arweave Wallet Kit] Signing with Othent only supports data type transactions"
+        "[Arweave Wallet Kit] Othent does not support `sign()` options"
       );
     }
 
@@ -92,7 +93,53 @@ export default class OthentStrategy implements Strategy {
     return this.#othentInstance().dispatch(transaction);
   }
 
-  public async userDetails() {    
-    return this.#othentInstance().getUserDetails();
+  public encrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `encrypt()` options"
+      );
+    }
+
+    return this.#othentInstance().encrypt(data);
+  }
+
+  public decrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `decrypt()` options"
+      );
+    }
+
+    return this.#othentInstance().decrypt(data);
+  }
+
+  public signature(data: Uint8Array, options: AlgorithmIdentifier | RsaPssParams | EcdsaParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `signature()` options"
+      );
+    }
+
+    return this.#othentInstance().signature(data);
+  }
+
+  public getArweaveConfig(): Promise<GatewayConfig> {
+    return this.#othentInstance().getArweaveConfig();
+  }
+
+  public async getPermissions() {
+    return this.#othentInstance().getPermissions();
+  }
+
+  public async addToken(id: string): Promise<void> {
+    throw new Error("Not implemented");
+  }
+
+  public addAddressEvent(listener: (address: string) => void): (e: CustomEvent<{ address: string; }>) => void {
+    throw new Error("Not implemented");
+  }
+
+  public removeAddressEvent(listener: (e: CustomEvent<{ address: string; }>) => void): void {
+    throw new Error("Not implemented");
   }
 }
