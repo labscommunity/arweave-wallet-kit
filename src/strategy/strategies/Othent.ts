@@ -16,6 +16,7 @@ export default class OthentStrategy implements Strategy {
 
   #othent: Othent | null = null;
   #othentOptions: OthentOptions | null = null;
+  #othentCleanupFn = () => {};
 
   constructor() {}
 
@@ -32,6 +33,10 @@ export default class OthentStrategy implements Strategy {
 
     try {
       this.#othent = new Othent(this.#othentOptions);
+
+      if (this.#othentOptions.persistLocalStorage) {
+        this.#othentCleanupFn = this.#othent.startTabSynching();
+      }
     } catch (err) {
       throw new Error(`[Arweave Wallet Kit] ${ (err instanceof Error && err.message) || err}`);
     }
