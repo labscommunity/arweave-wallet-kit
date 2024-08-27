@@ -59,8 +59,14 @@ export default class OthentStrategy implements Strategy {
   ) {
     const othent = this.#othentInstance();
 
+    if (permissions) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent implicitly requires all permissions. Your `permissions` parameter will be ignored."
+      );
+    }
+
     return othent.connect(
-      permissions,
+      undefined,
       appInfo ? { ...othent.appInfo, ...appInfo } as OthentAppInfo : undefined,
       gateway,
     ).then(() => undefined)
