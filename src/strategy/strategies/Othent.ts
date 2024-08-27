@@ -9,7 +9,7 @@ export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
   public name = "Othent";
   public description =
-    "Othent JS SDK to manage Arweave wallets backend by Auth0 and Google Key Management Service.";
+    "Othent JS SDK to manage Arweave wallets backed by Auth0 and Google Key Management Service.";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
