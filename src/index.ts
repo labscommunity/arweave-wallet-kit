@@ -9,6 +9,3 @@ export {
   default as useActiveAddress,
   usePublicKey
 } from "./hooks/active_address";
-
-
-console.log("TEST")
