@@ -70,10 +70,8 @@ export function usePublicKey() {
 
   useEffect(() => {
     (async () => {
-      // @ts-expect-error
       if (!strategy || !strategy.getActivePublicKey) return;
 
-      // @ts-expect-error
       setPublicKey(await strategy.getActivePublicKey());
     })();
   }, [address, strategy]);

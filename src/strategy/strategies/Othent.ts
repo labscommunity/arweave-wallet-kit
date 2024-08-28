@@ -30,21 +30,22 @@ export default class OthentStrategy implements Strategy {
     if (this.#othent) return this.#othent;
 
     try {
-      const defaultName = typeof location === "undefined" ? "UNKNOWN" : location.hostname;
+      const appInfo: OthentAppInfo = {
+        name: typeof location === "undefined" ? "UNKNOWN" : location.hostname,
+        version: "ArweaveWalletKit",
+        env: "",
+      };
 
       this.#othent = new Othent({
+        appInfo,
+        persistLocalStorage: true,
         ...this.#othentOptions,
-        appInfo: {
-          name: this.#othentOptions?.appInfo.name || defaultName,
-          version: this.#othentOptions?.appInfo.version || "ArweaveWalletKit",
-          env: "",
-        },
       });
 
       // Note the cleanup function is not used here, which could cause issues with Othent is re-instantiated on the same tab.
       this.#othent.addEventListener("auth", (userDetails) => {
         for (const listener of this.#addressListeners) {
-          listener(userDetails?.walletAddress as any);
+          listener((userDetails?.walletAddress || undefined) as unknown as string);
         }
       });
 
@@ -160,7 +161,9 @@ export default class OthentStrategy implements Strategy {
   }
 
   public async getPermissions() {
-    return this.#othentInstance().getPermissions();
+    const othent = this.#othentInstance();
+
+    return othent.getSyncUserDetails() ? othent.getPermissions() : Promise.resolve([]);
   }
 
   public async addToken(id: string): Promise<void> {

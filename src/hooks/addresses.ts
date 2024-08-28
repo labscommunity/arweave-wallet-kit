@@ -53,13 +53,11 @@ export function useWalletNames() {
 
   useEffect(() => {
     (async () => {
-      // @ts-expect-error
       if (!strategy || !strategy.getWalletNames) {
         return setNames({});
       }
 
       try {
-        // @ts-expect-error
         const names = await strategy.getWalletNames();
 
         setNames(names);
