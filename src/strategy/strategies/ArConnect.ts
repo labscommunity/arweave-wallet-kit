@@ -16,8 +16,6 @@ export default class ArConnectStrategy
 
   constructor() {
     super();
-    
-    console.log("ArConnectStrategy")
   }
 
   public async isAvailable() {
