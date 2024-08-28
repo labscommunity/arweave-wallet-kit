@@ -5,6 +5,8 @@ import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
 import { Othent, OthentOptions, AppInfo as OthentAppInfo } from "@othent/kms";
 
+type ListenerFunction = (address: string) => void;
+
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
   public name = "Othent";
@@ -16,6 +18,7 @@ export default class OthentStrategy implements Strategy {
 
   #othent: Othent | null = null;
   #othentOptions: OthentOptions | null = null;
+  #addressListeners: ListenerFunction[] = [];
 
   constructor() {}
 
@@ -36,6 +39,13 @@ export default class OthentStrategy implements Strategy {
           version: this.#othentOptions?.appInfo.version || "ArweaveWalletKit",
           env: "",
         },
+      });
+
+      // Note the cleanup function is not used here, which could cause issues with Othent is re-instantiated on the same tab.
+      this.#othent.addEventListener("auth", (userDetails) => {
+        for (const listener of this.#addressListeners) {
+          listener(userDetails?.walletAddress as any);
+        }
       });
 
       if (this.#othentOptions?.persistLocalStorage) {
@@ -74,7 +84,7 @@ export default class OthentStrategy implements Strategy {
       undefined,
       appInfo ? { ...othent.appInfo, ...appInfo } as OthentAppInfo : undefined,
       gateway,
-    ).then(() => undefined)
+    ).then(() => undefined);
   }
 
   public async disconnect() {
@@ -157,11 +167,19 @@ export default class OthentStrategy implements Strategy {
     throw new Error("Not implemented");
   }
 
-  public addAddressEvent(listener: (address: string) => void): (e: CustomEvent<{ address: string; }>) => void {
-    throw new Error("Not implemented");
+  public addAddressEvent(listener: ListenerFunction) {
+    this.#addressListeners.push(listener);
+
+    // placeholder function
+    return listener as any;
   }
 
-  public removeAddressEvent(listener: (e: CustomEvent<{ address: string; }>) => void): void {
-    throw new Error("Not implemented");
+  public removeAddressEvent(
+    listener: (e: CustomEvent<{ address: string }>) => void
+  ) {
+    this.#addressListeners.splice(
+      this.#addressListeners.indexOf(listener as any),
+      1
+    );
   }
 }
