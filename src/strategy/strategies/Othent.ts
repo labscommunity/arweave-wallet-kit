@@ -26,14 +26,19 @@ export default class OthentStrategy implements Strategy {
   #othentInstance() {
     if (this.#othent) return this.#othent;
 
-    if (!this.#othentOptions) {
-      throw new Error("[Arweave Wallet Kit] `OthentOptions` not provided.");
-    }
-
     try {
-      this.#othent = new Othent(this.#othentOptions);
+      const defaultName = typeof location === "undefined" ? "UNKNOWN" : location.hostname;
 
-      if (this.#othentOptions.persistLocalStorage) {
+      this.#othent = new Othent({
+        ...this.#othentOptions,
+        appInfo: {
+          name: this.#othentOptions?.appInfo.name || defaultName,
+          version: this.#othentOptions?.appInfo.version || "ArweaveWalletKit",
+          env: "",
+        },
+      });
+
+      if (this.#othentOptions?.persistLocalStorage) {
         // Note the cleanup function is not used here, which could cause issues with Othent is re-instantiated on the same tab.
         this.#othent.startTabSynching();
       }
