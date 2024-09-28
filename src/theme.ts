@@ -65,11 +65,7 @@ export interface Font {
   fontFamily: string;
 }
 
-const theming: ThemingType<DefaultTheme> & {
-  ThemeProvider: React.ComponentType<
-    React.PropsWithChildren<{ theme?: DefaultTheme }>
-  >;
-} = createTheming<DefaultTheme>({
+const theming: ThemingType<DefaultTheme> = createTheming<DefaultTheme>({
   displayTheme: "light",
   theme: "0, 0, 0",
   themeConfig: defaultThemeConfig,

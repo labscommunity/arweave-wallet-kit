@@ -1,69 +1,60 @@
 import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
-import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
+import type { DataItem, DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { decodeTags } from "../../utils";
-import {
-  Othent,
-  queryWalletAddressTxnsProps,
-  readCustomContractProps,
-  SendTransactionArweaveProps,
-  SendTransactionBundlrProps,
-  SendTransactionWarpProps,
-  SignTransactionBundlrProps,
-  SignTransactionWarpProps,
-  useOthentReturnProps,
-  verifyArweaveDataProps,
-  verifyBundlrDataProps
-} from "othent";
+import { Othent, OthentOptions, AppInfo as OthentAppInfo } from "@othent/kms";
+
+type ListenerFunction = (address: string) => void;
 
 export default class OthentStrategy implements Strategy {
   public id: "othent" = "othent";
-  public name = "Google";
+  public name = "Othent";
   public description =
-    "Sign in with Google through Othent Smart Contract Wallets";
+    "Othent JS SDK to manage Arweave wallets backed by Auth0 and Google Key Management Service.";
   public theme = "35, 117, 239";
   public logo = "33nBIUNlGK4MnWtJZQy9EzkVJaAd7WoydIKfkJoMvDs";
   public url = "https://othent.io";
 
-  #apiID = "e923634af8cc8b63bc8c74735d177aae";
+  #othent: Othent | null = null;
+  #othentOptions: OthentOptions | null = null;
   #addressListeners: ListenerFunction[] = [];
-  #othent: useOthentReturnProps | undefined;
-  #currentAddress: string = "";
 
   constructor() {}
 
-  /**
-   * Advanced function to override the default API ID
-   * Othent uses.
-   */
-  public __overrideApiID(othentApiID: string) {
-    this.#apiID = othentApiID;
+  public __overrideOthentOptions(othentOptions: OthentOptions) {
+    this.#othentOptions = othentOptions;
   }
 
-  async #othentInstance(ensureConnection = true) {
-    if (this.#othent && !ensureConnection) {
-      return this.#othent;
-    }
+  #othentInstance() {
+    if (this.#othent) return this.#othent;
 
-    if (!this.#othent) {
-      try {
-        // init othent
-        this.#othent = await Othent({
-          API_ID: this.#apiID
-        });
-      } catch (error: any) {
-        throw new Error(`[Arweave Wallet Kit] ${error.message ?? error}`);
+    try {
+      const appInfo: OthentAppInfo = {
+        name: typeof location === "undefined" ? "UNKNOWN" : location.hostname,
+        version: "ArweaveWalletKit",
+        env: "",
+      };
+
+      this.#othent = new Othent({
+        appInfo,
+        persistLocalStorage: true,
+        ...this.#othentOptions,
+      });
+
+      // Note the cleanup function is not used here, which could cause issues with Othent is re-instantiated on the same tab.
+      this.#othent.addEventListener("auth", (userDetails) => {
+        for (const listener of this.#addressListeners) {
+          listener((userDetails?.walletAddress || undefined) as unknown as string);
+        }
+      });
+
+      if (this.#othentOptions?.persistLocalStorage) {
+        // Note the cleanup function is not used here, which could cause issues with Othent is re-instantiated on the same tab.
+        this.#othent.startTabSynching();
       }
-    }
-
-    if (ensureConnection) {
-      const permissions = await this.getPermissions();
-
-      if (permissions.length === 0) {
-        throw new Error("[Arweave Wallet Kit] You are not connected to Othent");
-      }
+    } catch (err) {
+      throw new Error(`[Arweave Wallet Kit] ${ (err instanceof Error && err.message) || err}`);
     }
 
     return this.#othent;
@@ -71,19 +62,10 @@ export default class OthentStrategy implements Strategy {
 
   public async isAvailable() {
     try {
-      // ensure instance
-      await this.#othentInstance(false);
-
-      return true;
+      return !!this.#othentInstance();
     } catch {
       return false;
     }
-  }
-
-  public async ping() {
-    const othent = await this.#othentInstance(false);
-
-    return await othent.ping();
   }
 
   public async connect(
@@ -91,207 +73,106 @@ export default class OthentStrategy implements Strategy {
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ) {
-    const othent = await this.#othentInstance(false);
-    const res = await othent.logIn({ testNet: false });
+    const othent = this.#othentInstance();
 
-    for (const listener of this.#addressListeners) {
-      listener(res.contract_id);
+    if (permissions) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent implicitly requires all permissions. Your `permissions` parameter will be ignored."
+      );
     }
 
-    this.#currentAddress = res.contract_id;
+    return othent.connect(
+      undefined,
+      appInfo ? { ...othent.appInfo, ...appInfo } as OthentAppInfo : undefined,
+      gateway,
+    ).then(() => undefined);
   }
 
   public async disconnect() {
-    const othent = await this.#othentInstance();
-
-    await othent.logOut();
-
-    for (const listener of this.#addressListeners) {
-      listener(undefined as any);
-    }
-
-    this.#currentAddress = "";
+    return this.#othentInstance().disconnect();
   }
 
-  public async getPermissions() {
-    const othent = await this.#othentInstance(false);
-
-    try {
-      const res = await othent.userDetails();
-
-      if (res.contract_id !== this.#currentAddress) {
-        this.#currentAddress = res.contract_id;
-        for (const listener of this.#addressListeners) {
-          listener(res.contract_id);
-        }
-      }
-
-      return [
-        "ACCESS_ADDRESS",
-        "ACCESS_PUBLIC_KEY",
-        "ACCESS_ALL_ADDRESSES",
-        "SIGN_TRANSACTION",
-        "ENCRYPT",
-        "DECRYPT",
-        "SIGNATURE",
-        "ACCESS_ARWEAVE_CONFIG",
-        "DISPATCH"
-      ] as PermissionType[];
-    } catch {
-      return [];
-    }
+  public async getActiveAddress() {
+    return this.#othentInstance().getActiveAddress();
   }
 
-  public async getActiveAddress(): Promise<string> {
-    const othent = await this.#othentInstance(false);
-    const res = await othent.userDetails();
-
-    return res.contract_id;
+  public async getActivePublicKey() {
+    return this.#othentInstance().getActivePublicKey();
   }
 
-  public async getAllAddresses(): Promise<string[]> {
-    const addr = await this.getActiveAddress();
-
-    return [addr];
+  public async getAllAddresses() {
+    return this.#othentInstance().getAllAddresses();
   }
 
-  /**
-   * Same as "sendTransactionArweave()" of the Othent SDK
-   */
-  // @ts-expect-error - Return type is different for Othent transaction signing
+  public async getWalletNames() {
+    return this.#othentInstance().getWalletNames();
+  }
+
+  public async userDetails() {    
+    return this.#othentInstance().getUserDetails();
+  }
+
   public async sign(transaction: Transaction, options?: SignatureOptions) {
     if (options) {
       console.warn(
-        "[Arweave Wallet Kit] Othent does not support transaction signature options"
+        "[Arweave Wallet Kit] Othent does not support `sign()` options"
       );
     }
 
-    if (transaction.quantity !== "0" && transaction.target !== "") {
-      throw new Error(
-        "[Arweave Wallet Kit] Signing with Othent only supports data type transactions"
-      );
-    }
-    const othent = await this.#othentInstance(false);
-
-    const signedTransaction = await othent.signTransactionArweave({
-      othentFunction: "uploadData",
-      data: transaction.data,
-      tags: decodeTags(transaction.tags)
-    });
-
-    return signedTransaction;
-  }
-
-  public async signTransactionBundlr(params: SignTransactionBundlrProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.signTransactionBundlr(params);
-  }
-
-  public async signTransactionWarp(params: SignTransactionWarpProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.signTransactionWarp(params);
-  }
-
-  public async sendTransactionArweave(params: SendTransactionArweaveProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.sendTransactionArweave(params);
-  }
-
-  public async sendTransactionBundlr(params: SendTransactionBundlrProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.sendTransactionBundlr(params);
-  }
-
-  public async sendTransactionWarp(params: SendTransactionWarpProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.sendTransactionWarp(params);
-  }
-
-  public async verifyArweaveData(params: verifyArweaveDataProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.verifyArweaveData(params);
-  }
-
-  public async verifyBundlrData(params: verifyBundlrDataProps) {
-    const othent = await this.#othentInstance();
-
-    return await othent.verifyBundlrData(params);
+    return this.#othentInstance().sign(transaction);
   }
 
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
-    try {
-      const othent = await this.#othentInstance(false);
+    return this.#othentInstance().dispatch(transaction);
+  }
 
-      const tags = decodeTags(transaction.tags);
+  public signDataItem(p: DataItem): Promise<ArrayBuffer> {
+    return this.#othentInstance().signDataItem(p)
+  }
 
-      const signedTransaction = await othent.signTransactionBundlr({
-        othentFunction: "uploadData",
-        data: transaction.data,
-        tags
-      });
-
-      const res = await othent.sendTransactionBundlr(signedTransaction);
-
-      if (res.success === true) {
-        return { id: res.transactionId, type: "BUNDLED" };
-      } else {
-        try {
-          const othent = await this.#othentInstance(false);
-
-          const signedTransaction = await othent.signTransactionArweave({
-            othentFunction: "uploadData",
-            data: transaction.data,
-            tags
-          });
-
-          const res = await othent.sendTransactionArweave(signedTransaction);
-
-          if (res.success === true) {
-            return { id: res.transactionId, type: "BASE" };
-          } else {
-            throw new Error(
-              `Failed to dispatch layer transaction. Please recheck request.`
-            );
-          }
-        } catch (error) {
-          throw new Error(
-            `Unable to dispatch Base layer transaction: ${error}`
-          );
-        }
-      }
-    } catch (error) {
-      throw new Error(`Unable to dispatch Bundled transaction: ${error}`);
+  public encrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `encrypt()` options"
+      );
     }
+
+    return this.#othentInstance().encrypt(data);
   }
 
-  public async queryWalletAddressTxns(params: queryWalletAddressTxnsProps) {
-    const othent = await this.#othentInstance();
+  public decrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `decrypt()` options"
+      );
+    }
 
-    return await othent.queryWalletAddressTxns(params);
+    return this.#othentInstance().decrypt(data);
   }
 
-  public async userDetails() {
-    const othent = await this.#othentInstance();
+  public signature(data: Uint8Array, options: AlgorithmIdentifier | RsaPssParams | EcdsaParams): Promise<Uint8Array> {
+    if (options) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent does not support `signature()` options"
+      );
+    }
 
-    return await othent.userDetails();
+    return this.#othentInstance().signature(data);
   }
 
-  public async readContract() {
-    const othent = await this.#othentInstance();
-
-    return await othent.readContract({});
+  public getArweaveConfig(): Promise<GatewayConfig> {
+    return this.#othentInstance().getArweaveConfig();
   }
 
-  public async readCustomContract(params: readCustomContractProps) {
-    const othent = await this.#othentInstance();
+  public async getPermissions() {
+    const othent = this.#othentInstance();
 
-    return await othent.readCustomContract(params);
+    return othent.getSyncUserDetails() ? othent.getPermissions() : Promise.resolve([]);
+
+  }
+
+  public async addToken(id: string): Promise<void> {
+    throw new Error("Not implemented");
   }
 
   public addAddressEvent(listener: ListenerFunction) {
@@ -310,5 +191,3 @@ export default class OthentStrategy implements Strategy {
     );
   }
 }
-
-type ListenerFunction = (address: string) => void;

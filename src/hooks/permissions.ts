@@ -3,11 +3,12 @@ import { STRATEGY_STORE } from "../strategy";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
 import { useEffect } from "react";
+import type { PermissionType } from "arconnect";
 
 /**
  * Given permissions hook
  */
-export default function usePermissions() {
+export default function usePermissions(): PermissionType[] {
   const { state, dispatch } = useGlobalState();
   const strategy = useActiveStrategy();
 
