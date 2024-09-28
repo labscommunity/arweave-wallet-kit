@@ -164,6 +164,7 @@ export default class OthentStrategy implements Strategy {
     const othent = this.#othentInstance();
 
     return othent.getSyncUserDetails() ? othent.getPermissions() : Promise.resolve([]);
+
   }
 
   public async addToken(id: string): Promise<void> {

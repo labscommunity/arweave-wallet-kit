@@ -1,4 +1,9 @@
-import type { AppInfo, GatewayConfig, PermissionType } from "arconnect";
+import type {
+  AppInfo,
+  DataItem,
+  GatewayConfig,
+  PermissionType
+} from "arconnect";
 import { ArweaveWebWallet } from "arweave-wallet-connector";
 import BrowserWalletStrategy from "./BrowserWallet";
 import type Strategy from "../Strategy";
@@ -54,5 +59,10 @@ export default class ArweaveWebWalletStrategy
 
   public removeAddressEvent(listener: any) {
     this.#instance.off("connect", listener);
+  }
+  public async signDataItem(p: DataItem): Promise<ArrayBuffer> {
+    return await this.#instance.signDataItem(
+      p as Omit<DataItem, "signature"> & { data: string }
+    );
   }
 }
