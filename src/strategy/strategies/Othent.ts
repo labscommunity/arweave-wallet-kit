@@ -1,5 +1,5 @@
 import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
-import type { DispatchResult, GatewayConfig, PermissionType } from "arconnect";
+import type { DataItem, DispatchResult, GatewayConfig, PermissionType } from "arconnect";
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
@@ -124,6 +124,10 @@ export default class OthentStrategy implements Strategy {
 
   public async dispatch(transaction: Transaction): Promise<DispatchResult> {
     return this.#othentInstance().dispatch(transaction);
+  }
+
+  public signDataItem(p: DataItem): Promise<ArrayBuffer> {
+    return this.#othentInstance().signDataItem(p)
   }
 
   public encrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {
