@@ -285,7 +285,7 @@ export default class OthentStrategy implements Strategy {
   public async readContract() {
     const othent = await this.#othentInstance();
 
-    return await othent.readContract();
+    return await othent.readContract({});
   }
 
   public async readCustomContract(params: readCustomContractProps) {

@@ -33,9 +33,9 @@
     "@linaria/core": "^4.2.10",
     "@linaria/react": "^4.3.8",
     "arweave": "^1.12.2",
-    "arweave-wallet-connector": "^0.0.31",
+    "arweave-wallet-connector": "^1.0.2",
     "framer-motion": "^8.1.9",
-    "othent": "^1.0.645",
+    "othent": "^1.0.646",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react": "^3.0.0",
-    "arconnect": "^0.4.2",
+    "arconnect": "^1.0.3",
     "babel-loader": "^8.3.0",
     "prettier": "^2.8.2",
     "react": "^18.2.0",

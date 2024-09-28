@@ -6,7 +6,8 @@ import type {
   PermissionType,
   AppInfo,
   GatewayConfig,
-  DispatchResult
+  DispatchResult,
+  DataItem
 } from "arconnect";
 
 /**
@@ -102,6 +103,9 @@ export default class BrowserWalletStrategy implements Strategy {
     });
 
     return transaction;
+  }
+  public async signDataItem(p: DataItem): Promise<ArrayBuffer> {
+    return await callWindowApi("signDataItem", [p]);
   }
 
   public async encrypt(
