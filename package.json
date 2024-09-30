@@ -11,6 +11,9 @@
     "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "clean": "rm -rf dist",
+    "nuke": "pnpm clean && rm -rf node_modules pnpm-lock.yaml",
+    "test": "echo \"Warning: no test specified\"",
     "fmt": "prettier . --write"
   },
   "files": [
