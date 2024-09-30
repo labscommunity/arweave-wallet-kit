@@ -1,0 +1,62 @@
+name: 🧞‍♂️ CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: 🧱 Build (tsup)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Environment and Dependencies
+        uses: ./.github/actions/setup-environment-n-deps
+
+      - name: 🧱 Build (tsup)
+        run: pnpm build
+
+        # Most likely not needed until monorepo:
+        # env:
+        #   NODE_OPTIONS: --max-old-space-size=32768
+
+  # TODO: Enable later once I add the linter.
+  # lint:
+  #   name: 🕵️ Lint (eslint)
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+
+  #     - name: 📚 Checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: ⚙️ Setup Environment and Dependencies
+  #       uses: ./.github/actions/setup-environment-n-deps
+
+  #     - name: 🕵️ Lint (eslint)
+  #       run: pnpm lint
+
+  test:
+    name: 🧪 Test (Jest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Environment and Dependencies
+        uses: ./.github/actions/setup-environment-n-deps
+
+      - name: 🧪 Test (Jest)
+        run: pnpm test

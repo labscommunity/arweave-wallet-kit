@@ -11,6 +11,9 @@
     "build": "tsc && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "clean": "rm -rf dist",
+    "nuke": "pnpm clean && rm -rf node_modules pnpm-lock.yaml",
+    "test": "echo \"Warning: no test specified\"",
     "fmt": "prettier . --write"
   },
   "files": [
@@ -32,7 +35,7 @@
     "@linaria/babel-preset": "^4.4.5",
     "@linaria/core": "^4.2.10",
     "@linaria/react": "^4.3.8",
-    "@othent/kms": "2.0.0",
+    "@othent/kms": "2.1.1",
     "arweave": "^1.12.2",
     "arweave-wallet-connector": "^1.0.2",
     "framer-motion": "^8.1.9",

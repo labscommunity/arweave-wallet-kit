@@ -1,0 +1,36 @@
+name: ⚙️ Setup Environment and Dependencies
+description: Checkout code, setup Node.js, setup PNPM, and install/restore dependencies.
+runs:
+  # See https://docs.github.com/en/actions/sharing-automations/avoiding-duplication
+  using: composite
+
+  steps:
+    - name: ⚙️ Install PNPM
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        run_install: false
+
+    - name: ⚙️ Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: "pnpm"
+
+    - name: ⚙️ Get PNPM store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: ⚙️ Restore PNPM cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: 📦 Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile=false
