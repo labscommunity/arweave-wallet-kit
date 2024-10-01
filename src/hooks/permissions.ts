@@ -2,7 +2,8 @@ import type { ConnectMsg } from "./connection/connect";
 import { STRATEGY_STORE } from "../strategy";
 import useActiveStrategy from "./strategy";
 import useGlobalState from "./global";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { comparePermissions } from "../utils";
 import type { PermissionType } from "arconnect";
 
 /**
@@ -39,8 +40,10 @@ export default function usePermissions(): PermissionType[] {
 
 // sync permissions in global state
 export function useSyncPermissions() {
+  const isReconnecting = useRef(false);
   const { state, dispatch } = useGlobalState();
   const strategy = useActiveStrategy();
+  const { permissions: requiredPermissions, ensurePermissions } = state.config;
 
   useEffect(() => {
     // sync permissions
@@ -55,11 +58,29 @@ export function useSyncPermissions() {
 
       try {
         const permissions = await strategy.getPermissions();
+        const hasPermissions = comparePermissions(
+          requiredPermissions,
+          permissions
+        );
 
         dispatch({
           type: "UPDATE_PERMISSIONS",
           payload: permissions
         });
+
+        if (requiredPermissions.length === 0 && ensurePermissions) {
+          fixupDisconnection();
+          return;
+        }
+
+        if (!hasPermissions && ensurePermissions && !isReconnecting.current) {
+          isReconnecting.current = true;
+          await strategy.connect(
+            requiredPermissions,
+            state.config.appInfo,
+            state.config.gatewayConfig
+          );
+        }
 
         if (permissions.length === 0) {
           fixupDisconnection();
@@ -130,5 +151,5 @@ export function useSyncPermissions() {
         strategy.removeAddressEvent(addressChangeSync);
       }
     };
-  }, [strategy, dispatch]);
+  }, [strategy, requiredPermissions, dispatch]);
 }
