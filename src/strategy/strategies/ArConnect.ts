@@ -1,6 +1,7 @@
 import BrowserWalletStrategy from "./BrowserWallet";
 import { callWindowApi } from "../../utils";
 import type Strategy from "../Strategy";
+import type { DataItem } from "arconnect";
 
 export default class ArConnectStrategy
   extends BrowserWalletStrategy
@@ -30,5 +31,9 @@ export default class ArConnectStrategy
 
   public async addToken(id: string): Promise<void> {
     return await callWindowApi("addToken", [id]);
+  }
+
+  public async batchSignDataItem(dataItems: DataItem[]): Promise<ArrayBufferLike[]> {
+    return await callWindowApi("batchSignDataItem", [dataItems]);
   }
 }
