@@ -58,7 +58,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-helmet": "^6.1.6",
     "@vitejs/plugin-react": "^3.0.0",
-    "arconnect": "^1.0.3",
+    "arconnect": "^1.0.4",
     "babel-loader": "^8.3.0",
     "prettier": "^2.8.2",
     "react": "^18.2.0",
