@@ -88,8 +88,8 @@ importers:
         specifier: ^3.0.0
         version: 3.1.0(vite@4.5.5(@types/node@18.19.54)(terser@5.34.1))
       arconnect:
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       babel-loader:
         specifier: ^8.3.0
         version: 8.4.1(@babel/core@7.25.2)(webpack@5.95.0(esbuild@0.18.20))
@@ -2231,8 +2231,8 @@ packages:
   arconnect@0.4.2:
     resolution: {integrity: sha512-Jkpd4QL3TVqnd3U683gzXmZUVqBUy17DdJDuL/3D9rkysLgX6ymJ2e+sR+xyZF5Rh42CBqDXWNMmCjBXeP7Gbw==}
 
-  arconnect@1.0.3:
-    resolution: {integrity: sha512-A4BTa1hl8SIbAMVUOsIiLwavmCvIMpbEFSem64klDBuBOMoIuEMUPxP5AoUfUxJZwUdL3NhNj584lCWUSGtdyA==}
+  arconnect@1.0.4:
+    resolution: {integrity: sha512-oEJRl2Cci2dSH+IEpdS1XEBqiZ+3OgPRSYWRx6MxDJU3I+NORrfrrjeZLcuruj6YNId5dpr0ROQuVnUrNkpfRg==}
 
   argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
@@ -7845,7 +7845,7 @@ snapshots:
     dependencies:
       arweave: 1.15.5
 
-  arconnect@1.0.3: {}
+  arconnect@1.0.4: {}
 
   argparse@1.0.10:
     dependencies:
