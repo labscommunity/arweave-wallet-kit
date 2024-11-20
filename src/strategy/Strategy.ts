@@ -1,5 +1,4 @@
-import type { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
-import type Transaction from "arweave/node/lib/transaction";
+import type Transaction from "arweave/web/lib/transaction";
 import type {
   PermissionType,
   AppInfo,
@@ -34,7 +33,7 @@ export default abstract class Strategy {
   public abstract getAllAddresses?(): Promise<string[]>;
   public abstract sign(
     transaction: Transaction,
-    options?: SignatureOptions
+    options?: any
   ): Promise<Transaction>;
   public abstract getPermissions(): Promise<PermissionType[]>;
   public abstract getWalletNames?(): Promise<{ [addr: string]: string }>;

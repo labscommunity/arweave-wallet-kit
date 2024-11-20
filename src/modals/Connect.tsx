@@ -104,7 +104,7 @@ export function ConnectModal() {
       );
 
       // send success message
-      postMessage({
+      window.postMessage({
         type: "connect_result",
         res: true
       });
@@ -132,7 +132,7 @@ export function ConnectModal() {
 
   // on connect modal close
   function onClose() {
-    postMessage({
+    window.postMessage({
       type: "connect_result",
       res: false
     });
