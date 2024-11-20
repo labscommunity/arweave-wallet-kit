@@ -1,4 +1,4 @@
-import { createTheming, ThemingType } from "@callstack/react-theme-provider";
+import { createTheming, type ThemingType } from "@callstack/react-theme-provider";
 
 export const lightTheme: DisplayTheme = {
   primaryText: "0, 0, 0",
