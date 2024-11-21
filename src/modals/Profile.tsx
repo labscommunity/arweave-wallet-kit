@@ -1,7 +1,7 @@
 import { CopyIcon, LogOutIcon, UserIcon } from "@iconicicons/react";
 import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
-import { type DefaultTheme, withTheme } from "../theme";
+import { DefaultTheme, withTheme } from "../theme";
 import useActiveStrategy from "../hooks/strategy";
 import { Modal } from "../components/Modal/Modal";
 import useConnection from "../hooks/connection";

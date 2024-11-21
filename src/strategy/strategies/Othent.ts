@@ -3,7 +3,7 @@ import type { DataItem, DispatchResult, GatewayConfig, PermissionType } from "ar
 import type Transaction from "arweave/web/lib/transaction";
 import type { AppInfo } from "arweave-wallet-connector";
 import type Strategy from "../Strategy";
-import { Othent, type OthentOptions, type AppInfo as OthentAppInfo } from "@othent/kms";
+import { Othent, OthentOptions, AppInfo as OthentAppInfo } from "@othent/kms";
 
 type ListenerFunction = (address: string) => void;
 

@@ -1,5 +1,5 @@
 import type { Actions, GlobalState } from "./faces";
-import { type Dispatch, createContext } from "react";
+import { Dispatch, createContext } from "react";
 
 export const defaultState: GlobalState = {
   activeModal: false,
