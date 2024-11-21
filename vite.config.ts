@@ -13,14 +13,14 @@ export default defineConfig({
     linaria({
       include: ["**/*.{ts,tsx}"],
       babelOptions: {
-        presets: ["@babel/preset-typescript", "@babel/preset-react"]
+        presets: [
+          ["@babel/preset-env", { targets: { node: "current" } }],
+          "@babel/preset-typescript",
+          "@babel/preset-react"
+        ]
       }
     }),
-    cssInjectedByJsPlugin(),
-    banner({
-      content: '"use client";',
-      verify: false
-    })
+    cssInjectedByJsPlugin()
   ],
   build: {
     lib: {
@@ -30,7 +30,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "arweave", "@othent/kms"],
       output: {
         globals: {
           react: "React",

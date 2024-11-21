@@ -6,7 +6,7 @@ import { ChevronLeftIcon } from "@iconicicons/react";
 import type { Radius } from "../components/Provider";
 import { Paragraph } from "../components/Paragraph";
 import { Footer } from "../components/Modal/Footer";
-import { DefaultTheme, withTheme } from "../theme";
+import { type DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
 import { Loading } from "../components/Loading";
@@ -104,7 +104,7 @@ export function ConnectModal() {
       );
 
       // send success message
-      postMessage({
+      window.postMessage({
         type: "connect_result",
         res: true
       });
@@ -132,7 +132,7 @@ export function ConnectModal() {
 
   // on connect modal close
   function onClose() {
-    postMessage({
+    window.postMessage({
       type: "connect_result",
       res: false
     });

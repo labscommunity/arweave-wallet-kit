@@ -1,5 +1,5 @@
 import { ChevronDownIcon, UserIcon } from "@iconicicons/react";
-import { DefaultTheme, withTheme } from "../theme";
+import { type DefaultTheme, withTheme } from "../theme";
 import useAddress from "../hooks/active_address";
 import useConnection from "../hooks/connection";
 import useProfileModal from "../hooks/profile";

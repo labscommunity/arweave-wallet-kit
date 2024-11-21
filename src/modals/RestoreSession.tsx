@@ -1,6 +1,6 @@
 import { STRATEGY_STORE, syncStrategies } from "../strategy";
 import type { Radius } from "../components/Provider";
-import { DefaultTheme, withTheme } from "../theme";
+import { type DefaultTheme, withTheme } from "../theme";
 import { Modal } from "../components/Modal/Modal";
 import type Strategy from "../strategy/Strategy";
 import type { Variants } from "framer-motion";

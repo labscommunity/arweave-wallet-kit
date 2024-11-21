@@ -1,4 +1,4 @@
-import { DefaultTheme, withTheme } from "../../theme";
+import { type DefaultTheme, withTheme } from "../../theme";
 import type { PropsWithChildren } from "react";
 import { styled } from "@linaria/react";
 

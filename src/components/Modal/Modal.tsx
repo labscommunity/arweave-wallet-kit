@@ -1,15 +1,15 @@
-import { DefaultTheme, Radius, withTheme } from "../../theme";
+import { type DefaultTheme, type Radius, withTheme } from "../../theme";
 import { version } from "../../../package.json";
 import type { PropsWithChildren } from "react";
 import useMobile from "../../hooks/mobile";
 import { styled } from "@linaria/react";
 import {
   AnimatePresence,
-  ForwardRefComponent,
-  HTMLMotionProps,
+  type ForwardRefComponent,
+  type HTMLMotionProps,
   motion,
-  MotionProps,
-  Variants
+  type MotionProps,
+  type Variants
 } from "framer-motion";
 
 export function Modal({
