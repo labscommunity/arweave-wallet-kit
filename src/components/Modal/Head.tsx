@@ -1,4 +1,4 @@
-import { type DefaultTheme, withTheme } from "../../theme";
+import { DefaultTheme, withTheme } from "../../theme";
 import type { PropsWithChildren } from "react";
 import { CloseIcon } from "@iconicicons/react";
 import { styled } from "@linaria/react";

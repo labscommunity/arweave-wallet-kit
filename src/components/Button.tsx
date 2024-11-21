@@ -1,4 +1,4 @@
-import { type DefaultTheme, withTheme } from "../theme";
+import { DefaultTheme, withTheme } from "../theme";
 import type { Radius } from "./Provider";
 import { styled } from "@linaria/react";
 

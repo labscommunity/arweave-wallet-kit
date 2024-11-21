@@ -1,7 +1,7 @@
 "use client";
 
-import { type PropsWithChildren, useEffect, useMemo, useReducer } from "react";
-import { darkTheme, type Font, lightTheme, ThemeProvider } from "../theme";
+import { PropsWithChildren, useEffect, useMemo, useReducer } from "react";
+import { darkTheme, Font, lightTheme, ThemeProvider } from "../theme";
 import { useSyncPermissions } from "../hooks/permissions";
 import { useSyncAddress } from "../hooks/active_address";
 import RestoreSession from "../modals/RestoreSession";
