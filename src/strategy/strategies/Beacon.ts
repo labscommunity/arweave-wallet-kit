@@ -1,5 +1,3 @@
-import BrowserWalletStrategy from "./BrowserWallet";
-import { callWindowApi } from "../../utils";
 import type Strategy from "../Strategy";
 import type {
   AppInfo,
@@ -12,22 +10,19 @@ import WalletClient from "@vela-ventures/ao-sync-sdk";
 import Transaction from "arweave/web/lib/transaction";
 import { SignatureOptions } from "arweave/web/lib/crypto/crypto-interface";
 
-export default class BeaconWallet
-  extends BrowserWalletStrategy
-  implements Strategy
-{
-  // @ts-expect-error
+export default class BeaconWallet implements Strategy {
   public id: "beacon" = "beacon";
   public name = "Beacon";
   public description = "iOS based agent first wallet for AO";
   public theme = "171, 154, 255";
   public logo = "JUMbtBcIzDDI5976teuv3UN4Ln6CHLFFbY8Yp7gRw1M";
-  public url = "https://beaconwallet.com";
+  public url = "https://beaconwallet.app";
   private walletRef: any;
+  private addressListeners: ((address: string) => void)[] = [];
 
   constructor() {
-    super();
     this.walletRef = new WalletClient();
+    this.walletRef.reconnect();
   }
 
   public async connect(
@@ -35,7 +30,13 @@ export default class BeaconWallet
     appInfo?: AppInfo,
     gateway?: GatewayConfig
   ): Promise<void> {
-    return await this.walletRef.connect();
+    if (permissions) {
+      console.warn(
+        "[Arweave Wallet Kit] Othent implicitly requires all permissions. Your `permissions` parameter will be ignored."
+      );
+    }
+
+    return await this.walletRef.connect({ permissions, appInfo, gateway });
   }
 
   public async disconnect() {
@@ -72,26 +73,14 @@ export default class BeaconWallet
     data: BufferSource,
     options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array> {
-    if (options) {
-      console.warn(
-        "[Arweave Wallet Kit] Beacon does not support `encrypt()` options"
-      );
-    }
-
-    return this.walletRef.encrypt(data, options);
+    throw new Error("Encrypt is not implemented in Beacon wallet");
   }
 
   public decrypt(
     data: BufferSource,
     options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
   ): Promise<Uint8Array> {
-    if (options) {
-      console.warn(
-        "[Arweave Wallet Kit] Beacon does not support `decrypt()` options"
-      );
-    }
-
-    return this.walletRef.decrypt(data, options);
+    throw new Error("Decrypt is not implemented in Beacon wallet");
   }
 
   public getArweaveConfig(): Promise<GatewayConfig> {
@@ -108,7 +97,7 @@ export default class BeaconWallet
       );
     }
 
-    return this.walletRef.signature(data, options);
+    return this.walletRef.signature(data);
   }
 
   public async getActivePublicKey() {
@@ -124,10 +113,27 @@ export default class BeaconWallet
   }
 
   public async isAvailable() {
-    return true
+    return true;
   }
 
   public signDataItem(p: DataItem): Promise<ArrayBuffer> {
-    return this.walletRef.signDataItem(p)
+    return this.walletRef.signDataItem(p);
+  }
+
+  public addAddressEvent(
+    listener: (address: string) => void
+  ): (e: CustomEvent<{ address: string }>) => void {
+    this.addressListeners.push(listener);
+
+    return listener as any;
+  }
+
+  public removeAddressEvent(
+    listener: (e: CustomEvent<{ address: string }>) => void
+  ) {
+    this.addressListeners.splice(
+        this.addressListeners.indexOf(listener as any),
+        1
+      );
   }
 }
