@@ -40,6 +40,9 @@
     "framer-motion": "^8.1.9",
     "react-helmet": "^6.1.0"
   },
+  "peerDependencies": {
+    "@permaweb/aoconnect": "^0.0.65"
+  },
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.26.0",

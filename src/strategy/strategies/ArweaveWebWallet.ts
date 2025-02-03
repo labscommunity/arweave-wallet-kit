@@ -61,8 +61,8 @@ export default class ArweaveWebWalletStrategy
     this.#instance.off("connect", listener);
   }
   public async signDataItem(p: DataItem): Promise<ArrayBuffer> {
-    return await this.#instance.signDataItem(
+    return this.#instance.signDataItem(
       p as Omit<DataItem, "signature"> & { data: string }
-    );
+    ) as Promise<ArrayBuffer>;
   }
 }
