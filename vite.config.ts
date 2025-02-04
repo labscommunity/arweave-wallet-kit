@@ -30,7 +30,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ["react", "react-dom", "arweave", "@othent/kms"],
+      external: ["react", "react-dom", "arweave", "@othent/kms", "@permaweb/aoconnect"],
       output: {
         globals: {
           react: "React",

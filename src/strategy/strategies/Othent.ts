@@ -127,7 +127,7 @@ export default class OthentStrategy implements Strategy {
   }
 
   public signDataItem(p: DataItem): Promise<ArrayBuffer> {
-    return this.#othentInstance().signDataItem(p)
+    return this.#othentInstance().signDataItem(p) as Promise<ArrayBuffer>
   }
 
   public encrypt(data: BufferSource, options: RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams): Promise<Uint8Array> {

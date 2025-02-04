@@ -14,7 +14,7 @@ import useBalance from "../hooks/balance";
 import { formatAddress } from "../utils";
 import { styled } from "@linaria/react";
 import useModal from "../hooks/modal";
-import useAns from "../hooks/useAns";
+import useNameService from "../hooks/useNameService";
 import { useEffect } from "react";
 
 export function ProfileModal() {
@@ -38,8 +38,8 @@ export function ProfileModal() {
   // load balance
   const balance = useBalance();
 
-  // load ans profile
-  const ans = useAns();
+  // load name service profile
+  const nameServiceProfile = useNameService({ useAns: true, useArNS: true });
 
   // configured gateway
   const gateway = useGatewayURL();
@@ -56,8 +56,8 @@ export function ProfileModal() {
         <Title>Profile</Title>
       </Head>
       <ProfileData>
-        <ProfilePicture profilePicture={ans?.avatar}>
-          {!ans?.avatar && <ProfileIcon />}
+        <ProfilePicture profilePicture={nameServiceProfile?.logo}>
+          {!nameServiceProfile?.logo && <ProfileIcon />}
           <ActiveStrategy strategyTheme={strategy?.theme}>
             <img
               src={strategy?.logo ? `${gateway}/${strategy.logo}` : ""}
@@ -67,7 +67,8 @@ export function ProfileModal() {
           </ActiveStrategy>
         </ProfilePicture>
         <Title>
-          {ans?.currentLabel || formatAddress(state?.activeAddress || "", 8)}
+          {nameServiceProfile?.name ||
+            formatAddress(state?.activeAddress || "", 8)}
           <CopyIcon
             onClick={() =>
               navigator.clipboard.writeText(state.activeAddress || "")
@@ -147,11 +148,10 @@ const ProfilePicture = withTheme(styled.div<{
   margin-bottom: 0.475rem;
   background-color: rgb(${(props) => props.theme.theme});
   background-size: cover;
+  background-position: center;
   z-index: 1;
-  ${(props) =>
-    props.profilePicture
-      ? `background-image: url(${props.profilePicture});`
-      : ""}
+  background-image: ${(props) =>
+    props.profilePicture ? `url("${props.profilePicture}")` : "unset"};
 `);
 
 const ActiveStrategy = withTheme(styled.div<{

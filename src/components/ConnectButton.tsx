@@ -8,7 +8,7 @@ import { formatAddress } from "../utils";
 import type { Radius } from "./Provider";
 import { styled } from "@linaria/react";
 import type { HTMLProps } from "react";
-import useAns from "../hooks/useAns";
+import useNameService from "../hooks/useNameService";
 import { Button } from "./Button";
 
 export default function ConnectButton({
@@ -17,6 +17,7 @@ export default function ConnectButton({
   showProfilePicture = true,
   onClick,
   useAns: ansOption = true,
+  useArNS: arnsOption = true,
   profileModal: showProfileModal = true,
   ...props
 }: HTMLProps<HTMLButtonElement> & Props) {
@@ -29,8 +30,11 @@ export default function ConnectButton({
   // balance
   const balance = useBalance();
 
-  // ans profile
-  const ans = useAns();
+  // name service profile
+  const nameServiceProfile = useNameService({
+    useArNS: arnsOption,
+    useAns: ansOption
+  });
 
   // profile modal
   const profileModal = useProfileModal();
@@ -58,8 +62,8 @@ export default function ConnectButton({
           <ProfileSection showBalance={showBalance}>
             {showProfilePicture && (
               <>
-                {(ans?.avatar && ansOption && (
-                  <Avatar src={ans?.avatar} draggable={false} />
+                {(nameServiceProfile?.logo && ansOption && (
+                  <Avatar src={nameServiceProfile?.logo} draggable={false} />
                 )) || (
                   <AvatarPlaceholder>
                     <AvatarIcon />
@@ -67,7 +71,7 @@ export default function ConnectButton({
                 )}
               </>
             )}
-            {(ansOption && ans?.currentLabel) ||
+            {(ansOption && nameServiceProfile?.name) ||
               formatAddress(address || "", 5)}
             <ExpandIcon />
           </ProfileSection>
@@ -164,6 +168,7 @@ interface Props {
   accent?: string;
   showBalance?: boolean;
   showProfilePicture?: boolean;
+  useArNS?: boolean;
   useAns?: boolean;
   profileModal?: boolean;
 }
