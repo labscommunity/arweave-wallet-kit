@@ -1,13 +1,13 @@
 import ArweaveWebWalletStrategy from "./strategies/ArweaveWebWallet";
 import BrowserWalletStrategy from "./strategies/BrowserWallet";
-import ArConnectStrategy from "./strategies/ArConnect";
+import WanderStrategy from "./strategies/Wander";
 import OthentStrategy from "./strategies/Othent";
 
 import type { PermissionType } from "arconnect";
 import { comparePermissions } from "../utils";
 
 const strategies = [
-  new ArConnectStrategy(),
+  new WanderStrategy(),
   new ArweaveWebWalletStrategy(),
   new OthentStrategy(),
   new BrowserWalletStrategy()
