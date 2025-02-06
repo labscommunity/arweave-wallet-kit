@@ -6,9 +6,9 @@ React Hooks and Components for better interaction with Arweave wallets. Modular,
 
 ## Supported wallets
 
-- [ArConnect](https://arconnect.io)
+- [Wander](https://wander.app)
 - [Arweave.app](https://arweave.app)
-- Any extension-based Arweave wallet, that injects it's ArConnect-like API into `window.arweaveWallet`
+- Any extension-based Arweave wallet, that injects it's Wander-like API into `window.arweaveWallet`
 
 ## Installation
 
@@ -66,9 +66,9 @@ Using the `config` field of the `<ArweaveWalletKit>` provider component, you can
 
 | Prop                | Type                                                                                  | Default             |                                                                                                            |
 | ------------------- | ------------------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `permissions`       | [`PermissionType[]`](https://docs.arconnect.io/api/connect#permissions)               | `[]`                | Permissions to connect with.                                                                               |
+| `permissions`       | [`PermissionType[]`](https://docs.wander.app/api/connect#permissions)               | `[]`                | Permissions to connect with.                                                                               |
 | `ensurePermissions` | `boolean`                                                                             |  `false`            | Ensure that all required permissions are present. If false, it only checks if the app has any permissions. |
-| `appInfo`           | [`AppInfo`](https://docs.arconnect.io/api/connect#additional-application-information) | `{}`                | Information about your app (name/logo).                                                                    |
+| `appInfo`           | [`AppInfo`](https://docs.wander.app/api/connect#additional-application-information) | `{}`                | Information about your app (name/logo).                                                                    |
 | `gatewayConfig`     | `GatewayConfig`                                                                       | arweave.net gateway | Configuration for the Arweave gateway to use.                                                              |
 
 ### Custom theme
