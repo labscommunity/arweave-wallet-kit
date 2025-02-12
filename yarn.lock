@@ -3090,10 +3090,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vela-ventures/ao-sync-sdk@^1.1.11":
-  version "1.1.11"
-  resolved "https://registry.npmjs.org/@vela-ventures/ao-sync-sdk/-/ao-sync-sdk-1.1.11.tgz"
-  integrity sha512-RmhFJqK0u5Q6mIymbwlakzW/Yli5C3QozpU5wycB0zlb6ifViw+G6MFR4n5YDPvxsQYTv/IBaukI5l1uDB+QYw==
+"@vela-ventures/ao-sync-sdk@^1.1.12":
+  version "1.1.12"
+  resolved "https://registry.npmjs.org/@vela-ventures/ao-sync-sdk/-/ao-sync-sdk-1.1.12.tgz"
+  integrity sha512-bHTofirMD3HqHLWEcwXhrwv7fia3l6dOpme9LI85UUm058L/k7Ln2wTo1+GSRL4snFi4084IKgGg2pqVo7UvJg==
   dependencies:
     arconnect "^1.0.4"
     arweave "^1.15.5"

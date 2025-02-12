@@ -36,7 +36,7 @@
     "@linaria/core": "^4.2.10",
     "@linaria/react": "^4.3.8",
     "@othent/kms": "2.1.1",
-    "@vela-ventures/ao-sync-sdk": "^1.1.11",
+    "@vela-ventures/ao-sync-sdk": "^1.1.12",
     "arweave-wallet-connector": "^1.0.2",
     "framer-motion": "^8.1.9",
     "react-helmet": "^6.1.0"
