@@ -14,8 +14,8 @@ export default class BeaconWallet implements Strategy {
   public id: "beacon" = "beacon";
   public name = "Beacon";
   public description = "iOS based agent first wallet for AO";
-  public theme = "171, 154, 255";
-  public logo = "JUMbtBcIzDDI5976teuv3UN4Ln6CHLFFbY8Yp7gRw1M";
+  public theme = "29, 43, 194";
+  public logo = "iXL24MHFs5MRS0uwAHLQgxEluwolVc9VKYVou7ngM6o";
   public url = "https://beaconwallet.app";
   private walletRef: any;
   private addressListeners: ((address: string) => void)[] = [];
@@ -32,7 +32,7 @@ export default class BeaconWallet implements Strategy {
   ): Promise<void> {
     if (permissions) {
       console.warn(
-        "[Arweave Wallet Kit] Othent implicitly requires all permissions. Your `permissions` parameter will be ignored."
+        "[Arweave Wallet Kit] Beacon implicitly requires all permissions. Your `permissions` parameter will be ignored."
       );
     }
 
